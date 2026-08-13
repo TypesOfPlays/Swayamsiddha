@@ -7,6 +7,7 @@ import { Equipment } from "@/components/sections/equipment";
 import { TestDirectory } from "@/components/sections/test-directory";
 import { HowItWorks } from "@/components/sections/how-it-works";
 import { HomeCollection } from "@/components/sections/home-collection";
+import { Corporate } from "@/components/sections/corporate";
 import { Visit } from "@/components/sections/visit";
 import { Faq } from "@/components/sections/faq";
 import { FinalCta } from "@/components/sections/final-cta";
@@ -27,6 +28,8 @@ export default function Home() {
         <TestDirectory />
         <HowItWorks />
         <HomeCollection />
+        {/* Sits beside home collection: both are arrangements, not walk-ins */}
+        <Corporate />
         {/* The one echo of the boot screen's heartbeat, at the quietest
             seam on the page — both neighbours sit on the same canvas. */}
         <EcgRule />

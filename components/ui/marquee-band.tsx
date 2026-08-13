@@ -18,6 +18,7 @@ const ITEMS = [
   "ECG on the spot",
   "73 tests",
   "Same-day reports",
+  "Corporate & group bookings",
   "Open 6 AM – 9 PM, all days",
   "Walk in, no appointment",
 ];

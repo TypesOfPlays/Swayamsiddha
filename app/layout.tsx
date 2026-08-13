@@ -44,6 +44,9 @@ export const metadata: Metadata = {
     "ECG Kendrapara",
     "Swayamsiddha Diagnostics",
     "lab test Shamagudia",
+    "corporate health checkup Kendrapara",
+    "group health checkup Odisha",
+    "pre-policy medical test Kendrapara",
     "ସ୍ୱୟଂସିଦ୍ଧା ଡାଇଗ୍ନୋଷ୍ଟିକ୍ସ",
   ],
   /* Absolute, not "/" — metadataBase resolution treats a root-relative path
