@@ -1,0 +1,1022 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+/* ==========================================================================
+   Swayamsiddha Diagnostics — design tokens
+   Palette is derived from the brand mark (leaf green) and the installed
+   signboard (amber "LAB & X-RAY" badge). Warm cream canvas rather than
+   clinical white-blue: this is a family-facing local institution.
+
+   shadcn's semantic tokens are mapped onto this palette further down, so
+   Radix primitives inherit the brand instead of shipping default gray.
+   ========================================================================== */
+
+@theme {
+  /* Surfaces — warm, paper-like, never pure #fff on the page body */
+  --color-canvas: #faf8f3;
+  --color-canvas-sunk: #f2efe6;
+  --color-surface: #ffffff;
+
+  /* Ink — green-black, so text sits in the same hue family as the brand */
+  --color-ink: #0c1f13;
+  --color-ink-soft: #3a4f41;
+  --color-ink-muted: #66776c;
+
+  /* Hairlines — warm, never neutral gray */
+  --color-line: #e4dfd2;
+  --color-line-strong: #d3ccb9;
+
+  /* Brand greens, pulled from assets/logo/logo.jpg */
+  --color-brand: #1d6b24;
+  --color-brand-hover: #185a1e;
+  --color-brand-deep: #0f3d18;
+  --color-brand-ink: #08240f;
+  --color-brand-soft: #e9f0e4;
+  --color-brand-tint: #f3f7f0;
+
+  /* Amber from the signboard badge, darkened for AA on cream.
+     Named `gold` rather than `accent` to avoid colliding with shadcn's
+     own semantic --color-accent. */
+  --color-gold: #b8791a;
+  --color-gold-bright: #e8b44a;
+  --color-gold-soft: #f9efd9;
+
+  /* Semantic */
+  --color-urgent: #a33417;
+
+  /* Type */
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-instrument), Georgia, serif;
+  --font-odia: var(--font-odia), var(--font-jakarta), sans-serif;
+
+  /* Motion — one fluid curve, used everywhere. No ease-in-out anywhere. */
+  --ease-fluid: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Shadows — layered contact + ambient, tinted with the ink colour.
+     Never a flat black shadow-md. */
+  --shadow-hair: 0 1px 2px rgba(12, 31, 19, 0.05);
+  --shadow-card: 0 1px 2px rgba(12, 31, 19, 0.04),
+    0 8px 20px -12px rgba(12, 31, 19, 0.12),
+    0 22px 44px -28px rgba(12, 31, 19, 0.14);
+  --shadow-lift: 0 1px 2px rgba(12, 31, 19, 0.05),
+    0 14px 30px -14px rgba(12, 31, 19, 0.16),
+    0 38px 70px -36px rgba(12, 31, 19, 0.2);
+  --shadow-float: 0 2px 4px rgba(12, 31, 19, 0.06),
+    0 20px 40px -16px rgba(12, 31, 19, 0.18),
+    0 56px 90px -48px rgba(12, 31, 19, 0.26);
+  --shadow-brand: 0 1px 2px rgba(8, 36, 15, 0.2),
+    0 10px 24px -10px rgba(8, 36, 15, 0.36);
+}
+
+/* shadcn/ui semantic layer, re-pointed at the brand palette above. */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+}
+
+:root {
+  --background: var(--color-canvas);
+  --foreground: var(--color-ink);
+  --card: var(--color-surface);
+  --card-foreground: var(--color-ink);
+  --popover: var(--color-surface);
+  --popover-foreground: var(--color-ink);
+  --primary: var(--color-brand);
+  --primary-foreground: #ffffff;
+  --secondary: var(--color-brand-soft);
+  --secondary-foreground: var(--color-brand-deep);
+  --muted: var(--color-canvas-sunk);
+  --muted-foreground: var(--color-ink-muted);
+  --accent: var(--color-brand-soft);
+  --accent-foreground: var(--color-brand-deep);
+  --destructive: var(--color-urgent);
+  --border: var(--color-line);
+  --input: var(--color-line-strong);
+  --ring: var(--color-brand);
+  --radius: 0.875rem;
+}
+
+@layer base {
+  :root {
+    color-scheme: light;
+    scroll-behavior: smooth;
+    /* Scrollbar is part of the page, not the browser's to decide */
+    scrollbar-color: var(--color-line-strong) transparent;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--color-line-strong);
+    border: 3px solid var(--color-canvas);
+    border-radius: 999px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: var(--color-ink-muted);
+  }
+
+  input,
+  textarea {
+    caret-color: var(--color-brand);
+  }
+
+  /* We render our own Clear control — suppress the native duplicate */
+  input[type="search"]::-webkit-search-cancel-button,
+  input[type="search"]::-webkit-search-decoration {
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :root {
+      scroll-behavior: auto;
+    }
+  }
+
+  html {
+    /* Sticky call-bar clearance for in-page anchors */
+    scroll-padding-top: 6.5rem;
+  }
+
+  body {
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Keyboard focus: visible on every surface, brand-tinted, never removed */
+  :focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background-color: var(--color-brand);
+    color: #fff;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+@layer utilities {
+  /* Odia script — Noto Sans Oriya, optically reduced so it sits level with
+     the Latin cap-height instead of towering over it. */
+  .font-odia {
+    font-family: var(--font-odia);
+    font-size: 0.92em;
+    line-height: 1.75;
+  }
+
+  .text-display {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.015em;
+  }
+
+  /* Eyebrow tag above section headings */
+  .eyebrow {
+    font-size: 0.6875rem;
+    line-height: 1;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  /* Paper grain — fixed, pointer-events-none, never on a scrolling layer */
+  .grain::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Scroll reveal. Elements start displaced; .is-in is added by
+     IntersectionObserver. Transform + opacity only — no layout thrash. */
+  .reveal {
+    opacity: 0;
+    transform: translate3d(0, 1.75rem, 0);
+    transition:
+      opacity 0.9s var(--ease-soft),
+      transform 0.9s var(--ease-soft);
+    will-change: transform, opacity;
+  }
+
+  .reveal.is-in {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    will-change: auto;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+
+  /* ======================================================================
+     Boot screen
+
+     A heartbeat trace: this is a diagnostics lab, so the one authored
+     motion moment on the page is the thing the lab actually measures.
+
+     Built to fail safe. The veil dismisses itself on a pure CSS timeline,
+     so if JavaScript never runs the visitor is never trapped behind it.
+     JS only decides whether to show it at all (once per session).
+     ====================================================================== */
+
+  .boot {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: grid;
+    place-items: center;
+    background-color: var(--color-canvas);
+    animation: boot-veil 4.4s var(--ease-fluid) forwards;
+  }
+
+  /* Hold the page still underneath while the veil is up */
+  :root.ss-booting {
+    overflow: hidden;
+  }
+
+  /* The whole composition settles into place — a slow unwind under the
+     petal bloom. This is what makes the sequence read as ceremony rather
+     than as a progress indicator. */
+  .boot__mark {
+    animation: mark-settle 2.2s var(--ease-fluid) both;
+  }
+
+  /* Petals bloom outward one after another, going round the ring.
+     `--i` is set per petal in the markup, so the whole sequence is driven
+     by one rule instead of eighteen. transform-box: view-box makes the
+     origin resolve to the centre of the mark, not each petal's own box —
+     so they scale out from the middle rather than in place. */
+  .boot__petal {
+    transform-box: view-box;
+    transform-origin: 50% 50%;
+    animation: petal-bloom 0.72s var(--ease-soft) both;
+    animation-delay: calc(var(--i) * 52ms);
+  }
+
+  /* The crown opens as a circular iris once the ring is complete */
+  .boot__crown {
+    transform-box: view-box;
+    transform-origin: 50% 50%;
+    animation: crown-iris 0.95s var(--ease-fluid) 1.6s both;
+  }
+
+  .boot__word {
+    animation: boot-word 0.85s var(--ease-soft) 2.25s both;
+  }
+
+  .boot__trace {
+    /* pathLength="100" on the SVG normalises this regardless of geometry */
+    stroke-dasharray: 100;
+    animation: boot-trace 0.9s var(--ease-fluid) 2.55s both;
+  }
+
+  .boot__tag {
+    animation: boot-word 0.65s var(--ease-soft) 2.95s both;
+  }
+
+  /* The lockup drifts forward as the veil dissolves, so the page arrives
+     from behind it instead of the veil simply switching off. */
+  .boot__stage {
+    animation: stage-exit 0.8s var(--ease-fluid) 3.6s both;
+  }
+
+  @keyframes boot-veil {
+    0%,
+    82% {
+      opacity: 1;
+      visibility: visible;
+    }
+    100% {
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
+
+  @keyframes mark-settle {
+    from {
+      transform: rotate(-11deg) scale(0.9);
+    }
+    to {
+      transform: rotate(0deg) scale(1);
+    }
+  }
+
+  @keyframes petal-bloom {
+    from {
+      opacity: 0;
+      transform: scale(0.24) rotate(-14deg);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) rotate(0deg);
+    }
+  }
+
+  @keyframes stage-exit {
+    from {
+      opacity: 1;
+      transform: scale(1);
+    }
+    to {
+      opacity: 0;
+      transform: scale(1.06);
+    }
+  }
+
+  @keyframes crown-iris {
+    from {
+      opacity: 0;
+      clip-path: circle(0% at 50% 50%);
+      transform: scale(0.8);
+    }
+    to {
+      opacity: 1;
+      clip-path: circle(75% at 50% 50%);
+      transform: scale(1);
+    }
+  }
+
+  @keyframes boot-word {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 7px, 0);
+      clip-path: inset(0 100% 0 0);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+      clip-path: inset(0 0 0 0);
+    }
+  }
+
+  @keyframes boot-trace {
+    from {
+      stroke-dashoffset: 100;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @keyframes boot-rule {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  /* ---- The same trace, echoed once mid-page as a section breath ----
+     :not(.ecg-pulse) matters — without it these rules out-specify the
+     travelling beat below and it inherits the draw instead of its own dash. */
+  .ecg-rule path:not(.ecg-pulse) {
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+  }
+
+  .reveal.is-in .ecg-rule path:not(.ecg-pulse) {
+    animation: boot-trace 1.5s var(--ease-fluid) 0.15s forwards;
+  }
+
+  /* ---- Reading progress. Pure CSS where supported, invisible where not.
+     No scroll listener, so nothing runs on the main thread. ---- */
+  .scroll-progress {
+    position: fixed;
+    inset: 0 0 auto 0;
+    height: 2px;
+    z-index: 60;
+    transform: scaleX(0);
+    transform-origin: 0 50%;
+    background: linear-gradient(
+      90deg,
+      var(--color-brand),
+      var(--color-gold)
+    );
+    pointer-events: none;
+  }
+
+  @supports (animation-timeline: scroll()) {
+    .scroll-progress {
+      animation: boot-rule linear both;
+      animation-timeline: scroll(root block);
+      transform-origin: 0 50%;
+    }
+  }
+
+  /* ---- Playful details ------------------------------------------------ */
+
+  /* The ECG icon redraws its own trace when its card is hovered */
+  .icon-trace path {
+    stroke-dasharray: 100;
+  }
+
+  .group:hover .icon-trace path {
+    animation: boot-trace 0.75s var(--ease-fluid);
+  }
+
+  /* Test categories deal in like cards whenever the filter changes */
+  .stagger-in {
+    animation: card-deal 0.5s var(--ease-soft) both;
+    animation-delay: calc(var(--i) * 42ms);
+  }
+
+  @keyframes card-deal {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 12px, 0) scale(0.985);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+  }
+
+  /* Three beats run along the heartbeat rule after it draws, then it rests.
+     Finite by design — an infinite loop would repaint for as long as the
+     section stayed on screen. */
+  .ecg-pulse {
+    stroke-dasharray: 7 93;
+    stroke-dashoffset: 100;
+    opacity: 0;
+  }
+
+  .reveal.is-in .ecg-pulse {
+    animation: ecg-beat 2.1s linear 1.5s 3 both;
+  }
+
+  @keyframes ecg-beat {
+    0% {
+      stroke-dashoffset: 100;
+      opacity: 0;
+    }
+    10%,
+    86% {
+      opacity: 1;
+    }
+    100% {
+      stroke-dashoffset: 0;
+      opacity: 0;
+    }
+  }
+
+  /* ---- The journey line in "how it works" ---- */
+  .journey__line {
+    stroke-dasharray: 7 11;
+  }
+
+  /* Revealed by a left-to-right wipe over the whole group, so the dashes
+     stay put instead of marching, and the station rings appear as the wipe
+     passes them — one animation doing the work of five. */
+  .journey {
+    clip-path: inset(0 100% 0 0);
+  }
+
+  .reveal.is-in .journey {
+    animation: journey-draw 1.7s var(--ease-fluid) 0.1s forwards;
+  }
+
+  @keyframes journey-draw {
+    to {
+      clip-path: inset(0 0 0 0);
+    }
+  }
+
+  .journey__dot {
+    opacity: 0;
+  }
+
+  /* Beads run the route only where the line exists (lg and up) and only
+     where the browser can follow a motion path. offset-distance is not a
+     compositor property, so this stays two small elements on desktop. */
+  @supports (offset-path: path("M0 0")) {
+    @media (min-width: 1024px) {
+      .reveal.is-in .journey__dot {
+        offset-path: var(--wave);
+        offset-rotate: 0deg;
+        animation: journey-travel 5.5s cubic-bezier(0.45, 0.05, 0.55, 0.95)
+          1.2s infinite;
+      }
+
+      .reveal.is-in .journey__dot--b {
+        animation-delay: -1.6s;
+      }
+    }
+  }
+
+  @keyframes journey-travel {
+    0% {
+      offset-distance: 0%;
+      opacity: 0;
+    }
+    8%,
+    92% {
+      opacity: 1;
+    }
+    100% {
+      offset-distance: 100%;
+      opacity: 0;
+    }
+  }
+
+  /* ---- Light rays ------------------------------------------------------
+     Only opacity and rotation animate, both of which the compositor can
+     handle. The blur is static, so each ray rasterises once and is then
+     just moved — which is what keeps this affordable. */
+  .rays {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    isolation: isolate;
+    pointer-events: none;
+    border-radius: inherit;
+  }
+
+  .ray {
+    position: absolute;
+    top: -12%;
+    left: var(--ray-left);
+    width: var(--ray-width);
+    height: var(--rays-length);
+    translate: -50% 0;
+    transform-origin: top center;
+    border-radius: 999px;
+    background: linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--rays-color) 70%, transparent),
+      transparent
+    );
+    filter: blur(var(--rays-blur));
+    rotate: var(--ray-rot);
+    opacity: 0;
+    animation: ray-sway var(--ray-dur) ease-in-out var(--ray-delay) infinite;
+  }
+
+  @keyframes ray-sway {
+    0%,
+    100% {
+      opacity: 0;
+      rotate: calc(var(--ray-rot) - var(--ray-swing));
+    }
+    50% {
+      opacity: var(--ray-intensity);
+      rotate: calc(var(--ray-rot) + var(--ray-swing));
+    }
+  }
+
+  /* Phones get a smaller blur radius and a thinner field. The blur is the
+     expensive part, and this page's traffic is mostly mid-range Android.
+     Applied to .ray, not .rays — the wrapper's blur is an inline style and
+     a media query could not win against it. */
+  @media (max-width: 767px) {
+    .ray {
+      filter: blur(calc(var(--rays-blur) * 0.55));
+    }
+
+    .ray:nth-child(n + 5) {
+      display: none;
+    }
+  }
+
+  /* ---- Pill navigation ------------------------------------------------
+     Transparent at rest, so the glass island reads exactly as it did
+     before. Only the hover behaviour is new. */
+  .pill {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 2.5rem;
+    padding: 0 1rem;
+    border-radius: 9999px;
+    overflow: hidden;
+    background: transparent;
+    color: var(--color-ink-soft);
+    font-size: 0.875rem;
+    font-weight: 600;
+    white-space: nowrap;
+    text-decoration: none;
+  }
+
+  /* Sweeps up from below to fill the pill. Sized as a percentage of its own
+     pill, so wide and narrow pills both curve correctly — the original had
+     to measure every pill and recompute a radius on each resize. */
+  .pill__circle {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 150%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: var(--color-brand);
+    translate: -50% 45%;
+    scale: 0;
+    transform-origin: 50% 50%;
+    transition: scale 0.6s var(--ease-fluid);
+    pointer-events: none;
+  }
+
+  .pill:hover .pill__circle,
+  .pill:focus-visible .pill__circle {
+    scale: 1;
+  }
+
+  /* Both labels share one grid cell; one leaves as the other arrives. */
+  .pill__stack {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    overflow: hidden;
+    line-height: 1.35;
+  }
+
+  .pill__label {
+    grid-area: 1 / 1;
+    transition:
+      transform 0.5s var(--ease-fluid),
+      opacity 0.35s var(--ease-fluid);
+  }
+
+  .pill__label--hover {
+    color: #fff;
+    transform: translateY(115%);
+    opacity: 0;
+  }
+
+  .pill:hover .pill__label,
+  .pill:focus-visible .pill__label {
+    transform: translateY(-115%);
+    opacity: 0;
+  }
+
+  .pill:hover .pill__label--hover,
+  .pill:focus-visible .pill__label--hover {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  /* ---- Accordion gallery ---------------------------------------------- */
+  .ag {
+    display: flex;
+    gap: var(--ag-gap);
+    width: 100%;
+    height: 30rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .ag__item {
+    display: flex;
+    min-width: 0;
+    flex-basis: 0;
+    /* Perspective sits here, not on the row: the transform is two levels
+       down, and a perspective on the row would never reach it. */
+    perspective: 1200px;
+    transition: flex-grow var(--ag-dur) var(--ease-fluid);
+  }
+
+  .ag__panel {
+    position: relative;
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    border-radius: var(--ag-radius);
+    background: var(--color-brand-ink);
+    box-shadow: var(--shadow-card);
+    cursor: pointer;
+    transform: rotateY(var(--ag-tilt, 0deg));
+    transition:
+      transform var(--ag-dur) var(--ease-fluid),
+      box-shadow var(--ag-dur) var(--ease-fluid);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .ag__panel.is-open {
+    box-shadow: var(--shadow-float);
+    cursor: default;
+  }
+
+  .ag__panel:focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 3px;
+  }
+
+  /* 118% wide with object-fit: cover — crops rather than squashing as the
+     panel narrows, and leaves ~9% either side for the drift to move into. */
+  .ag__media {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 118%;
+    height: 100%;
+    translate: calc(-50% + var(--ag-shift, 0%)) 0;
+    filter: grayscale(var(--ag-gray, 1));
+    transition:
+      translate var(--ag-dur) var(--ease-fluid),
+      filter var(--ag-dur) var(--ease-fluid);
+  }
+
+  .ag__veil {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(
+        180deg,
+        transparent 42%,
+        color-mix(in srgb, var(--color-brand-ink) 82%, transparent) 100%
+      ),
+      color-mix(
+        in srgb,
+        var(--color-brand-ink) calc(var(--ag-dim, 0.4) * 100%),
+        transparent
+      );
+    transition: background var(--ag-dur) var(--ease-fluid);
+  }
+
+  .ag__caption {
+    position: absolute;
+    left: 1.25rem;
+    right: 1.25rem;
+    bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    pointer-events: none;
+  }
+
+  .ag__bar,
+  .ag__text {
+    opacity: 0;
+    translate: -0.75rem 0;
+    transition:
+      opacity var(--ag-dur) var(--ease-fluid),
+      translate var(--ag-dur) var(--ease-fluid);
+  }
+
+  .ag__bar {
+    flex: 0 0 auto;
+    width: 3px;
+    height: 1.625rem;
+    border-radius: 3px;
+    background: var(--color-gold-bright);
+  }
+
+  .ag__text {
+    color: #fff;
+    font-weight: 600;
+    font-size: clamp(0.9375rem, 1.1vw, 1.1875rem);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-shadow: 0 2px 14px rgba(0, 0, 0, 0.5);
+  }
+
+  .ag__panel.is-open .ag__bar,
+  .ag__panel.is-open .ag__text {
+    opacity: 1;
+    translate: 0 0;
+  }
+
+  /* The text follows the bar in, rather than arriving with it */
+  .ag__panel.is-open .ag__text {
+    transition-delay: 70ms;
+  }
+
+  /* Stacks below sm — a row of five slivers is unusable on a phone */
+  @media (max-width: 639px) {
+    .ag {
+      flex-direction: column;
+      height: 32rem;
+    }
+
+    .ag__item {
+      perspective: none;
+    }
+
+    .ag__panel {
+      transform: none;
+    }
+
+    .ag__media {
+      left: 0;
+      width: 100%;
+      translate: 0 0;
+    }
+  }
+
+  /* ---- Capability marquee --------------------------------------------- */
+  .marquee {
+    display: flex;
+    width: 100%;
+    overflow: hidden;
+    /* Items fade in and out at the edges instead of being cut off */
+    mask-image: linear-gradient(
+      90deg,
+      transparent,
+      #000 6%,
+      #000 94%,
+      transparent
+    );
+    -webkit-mask-image: linear-gradient(
+      90deg,
+      transparent,
+      #000 6%,
+      #000 94%,
+      transparent
+    );
+  }
+
+  .marquee__track {
+    display: flex;
+    align-items: center;
+    flex: 0 0 auto;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    animation: marquee-slide 46s linear infinite;
+  }
+
+  /* Pause on hover so it can actually be read */
+  .marquee:hover .marquee__track {
+    animation-play-state: paused;
+  }
+
+  .marquee__item {
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-ink-soft);
+  }
+
+  /* A drawn diamond, not a unicode glyph standing in for one */
+  .marquee__item::after {
+    content: "";
+    display: block;
+    width: 5px;
+    height: 5px;
+    margin: 0 2.25rem;
+    rotate: 45deg;
+    background: var(--color-gold);
+    opacity: 0.75;
+  }
+
+  @keyframes marquee-slide {
+    to {
+      transform: translateX(-100%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .boot {
+      display: none;
+    }
+
+    /* Stop the scroll, drop the duplicate tracks, let it scroll by hand */
+    .marquee {
+      overflow-x: auto;
+    }
+
+    .marquee__track {
+      animation: none;
+    }
+
+    .marquee__track[aria-hidden] {
+      display: none;
+    }
+
+    .ag__item,
+    .ag__panel,
+    .ag__media,
+    .ag__bar,
+    .ag__text {
+      transition: none;
+    }
+
+    .ag__panel {
+      transform: none;
+    }
+
+    /* Pills swap colour instead of sweeping */
+    .pill__circle,
+    .pill__label--hover {
+      display: none;
+    }
+
+    .pill:hover,
+    .pill:focus-visible {
+      background: var(--color-brand);
+      color: #fff;
+    }
+
+    .pill:hover .pill__label,
+    .pill:focus-visible .pill__label {
+      transform: none;
+      opacity: 1;
+    }
+
+    /* Rays hold still at half strength rather than disappearing */
+    .ray {
+      animation: none;
+      opacity: calc(var(--ray-intensity) * 0.5);
+    }
+
+    /* Show the finished line, skip the wipe and the beads entirely */
+    .journey {
+      clip-path: none;
+    }
+
+    .reveal.is-in .journey {
+      animation: none;
+    }
+
+    .journey__dot,
+    .reveal.is-in .journey__dot {
+      animation: none;
+      opacity: 0;
+    }
+
+    .ecg-rule path:not(.ecg-pulse) {
+      stroke-dashoffset: 0;
+    }
+
+    .scroll-progress {
+      display: none;
+    }
+
+    /* Playful extras are the first thing to go */
+    .stagger-in {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+
+    .ecg-pulse,
+    .reveal.is-in .ecg-pulse {
+      animation: none;
+      opacity: 0;
+    }
+
+    .group:hover .icon-trace path {
+      animation: none;
+    }
+  }
+}

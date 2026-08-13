@@ -1,0 +1,70 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  # Lets you re-run a deploy from the Actions tab without pushing anything
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Never let two deploys race; keep the newest, cancel the one in flight
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      # The site is served from https://<owner>.github.io/<repo>, so the
+      # build needs both parts. Deriving them here rather than hard-coding
+      # means renaming the repo or transferring it does not break the build.
+      # github.io hostnames are lower-case, so the owner is folded.
+      - name: Resolve Pages URL
+        id: url
+        run: |
+          echo "base=/${{ github.event.repository.name }}" >> "$GITHUB_OUTPUT"
+          owner=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
+          echo "origin=https://$owner.github.io" >> "$GITHUB_OUTPUT"
+
+      - name: Build static site
+        env:
+          NEXT_PUBLIC_BASE_PATH: ${{ steps.url.outputs.base }}
+          NEXT_PUBLIC_SITE_URL: ${{ steps.url.outputs.origin }}
+        run: npm run build
+
+      - name: Fail if the export is missing or empty
+        run: |
+          test -f out/index.html || { echo "out/index.html was not produced"; exit 1; }
+          test -f out/.nojekyll || { echo ".nojekyll missing — Pages would drop _next/"; exit 1; }
+          echo "Exported $(find out -type f | wc -l) files"
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
