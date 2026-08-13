@@ -171,6 +171,17 @@ export function IconAnalyzer(props: IconProps) {
   );
 }
 
+export function IconBuilding(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <path d="M5 20.5V6.4a1 1 0 0 1 .7-.95l6.6-2.05a1 1 0 0 1 1.2.95V20.5" />
+      <path d="M13.5 10.5h4.8a1 1 0 0 1 1 1v9" />
+      <path d="M8 8.6h2M8 12.1h2M8 15.6h2M15.5 14h1.6M15.5 17.2h1.6" />
+      <path d="M3.5 20.5h17" />
+    </Svg>
+  );
+}
+
 export function IconChevronDown(props: IconProps) {
   return (
     <Svg {...props}>

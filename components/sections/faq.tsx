@@ -27,6 +27,10 @@ const faqs = [
     a: "Sometimes — it depends how far you are from the lab. Call and tell us your village or a nearby landmark, and we'll tell you straight away whether we can reach you.",
   },
   {
+    q: "Do you take corporate or group bookings?",
+    a: "Yes — pre-policy medicals for insurance, and health checks for offices and staff teams. Whether we can collect at your workplace depends on the distance; if we can't reach you, we'll book the whole team into the lab together instead. Call with the headcount and your location and we'll arrange it.",
+  },
+  {
     q: "Can I get my report on WhatsApp?",
     a: "Yes. Ask for it when you give the sample and we'll send a copy to your number, so you can forward it to your doctor without another trip.",
   },
