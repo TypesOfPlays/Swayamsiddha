@@ -25,7 +25,7 @@ const proof = [
 
 export function Hero() {
   return (
-    <section id="top" className="relative overflow-hidden pt-32 sm:pt-36 lg:pt-44">
+    <section id="top" className="relative overflow-hidden pt-28 sm:pt-32 lg:pt-36">
       {/* Soft brand wash behind the fold — a single large radial, no orbs */}
       <div
         aria-hidden="true"
@@ -49,7 +49,7 @@ export function Hero() {
         />
       </div>
 
-      <div className="relative mx-auto grid max-w-6xl gap-14 px-4 pb-20 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-16 lg:pb-28">
+      <div className="relative mx-auto grid max-w-6xl gap-14 px-4 pb-14 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-16 lg:pb-20">
         {/* ---------------------------------------------------------- copy */}
         <div>
           <Reveal>

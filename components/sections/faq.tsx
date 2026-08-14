@@ -56,7 +56,7 @@ export function Faq() {
   };
 
   return (
-    <section id="faq" className="bg-canvas-sunk py-24 sm:py-28 lg:py-36">
+    <section id="faq" className="bg-canvas-sunk py-16 sm:py-20 lg:py-24">
       <div className="mx-auto grid max-w-6xl gap-12 px-4 sm:px-6 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
         <Reveal>
           <p className="eyebrow text-brand">Common questions</p>

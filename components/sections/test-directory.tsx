@@ -4,6 +4,7 @@ import { useMemo, useState, useId, type CSSProperties } from "react";
 import { testGroups, totalTestCount } from "@/lib/tests";
 import { site, waLink } from "@/lib/site";
 import { Reveal } from "@/components/reveal";
+import { CountUp } from "@/components/count-up";
 import { IconSearch, IconWhatsApp } from "@/components/icons";
 
 export function TestDirectory() {
@@ -24,14 +25,15 @@ export function TestDirectory() {
   const matchCount = groups.reduce((n, g) => n + g.items.length, 0);
 
   return (
-    <section id="tests" className="py-24 sm:py-28 lg:py-36">
+    <section id="tests" className="py-16 sm:py-20 lg:py-24">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         {/* Heading and search sit on one line at desktop — the search is the
             point of this section, not an afterthought below the copy. */}
         <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           <Reveal className="max-w-xl">
             <h2 className="text-[2rem] font-extrabold leading-[1.08] tracking-[-0.03em] text-ink sm:text-[2.75rem]">
-              All {totalTestCount} tests,{" "}
+              All <CountUp value={totalTestCount} className="tabular-nums" />{" "}
+              tests,{" "}
               <em className="text-display italic">listed openly</em>.
             </h2>
             <p className="mt-5 text-[1.0625rem] leading-relaxed text-ink-soft">
@@ -85,7 +87,7 @@ export function TestDirectory() {
         {matchCount > 0 ? (
           <div
             key={q || "all"}
-            className="mt-12 gap-4 sm:gap-5 md:columns-2 lg:columns-3 [&>*]:mb-4 sm:[&>*]:mb-5"
+            className="mt-10 gap-4 sm:gap-5 md:columns-2 lg:columns-3 [&>*]:mb-4 sm:[&>*]:mb-5"
           >
             {groups.map((g, i) => (
               <article

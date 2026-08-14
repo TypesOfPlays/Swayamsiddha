@@ -6,7 +6,7 @@ import { IconPin, IconClock, IconPhone } from "@/components/icons";
 
 export function Visit() {
   return (
-    <section id="visit" className="py-24 sm:py-28 lg:py-36">
+    <section id="visit" className="py-16 sm:py-20 lg:py-24">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <Reveal className="max-w-xl">
           <h2 className="text-[2rem] font-extrabold leading-[1.08] tracking-[-0.03em] text-ink sm:text-[2.75rem]">
@@ -17,7 +17,7 @@ export function Visit() {
 
         {/* Map as a full-width band — a composition used nowhere else */}
         <Reveal delay={100}>
-          <div className="mt-12 rounded-[2rem] bg-surface/60 p-2 shadow-card ring-1 ring-line/70">
+          <div className="mt-10 rounded-[2rem] bg-surface/60 p-2 shadow-card ring-1 ring-line/70">
             <div className="overflow-hidden rounded-[1.625rem] bg-canvas-sunk">
               <iframe
                 src={mapsEmbed}

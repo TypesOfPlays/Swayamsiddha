@@ -8,6 +8,11 @@ type RevealProps = {
   delay?: number;
   className?: string;
   as?: "div" | "li" | "section" | "article" | "header";
+  /**
+   * Omit the fade-and-rise and expose only the `.is-in` hook, for callers
+   * that want to drive their own transition off "this entered the viewport".
+   */
+  bare?: boolean;
 };
 
 /**
@@ -23,6 +28,7 @@ export function Reveal({
   delay = 0,
   className = "",
   as: Tag = "div",
+  bare = false,
 }: RevealProps) {
   const ref = useRef<HTMLElement>(null);
   const [shown, setShown] = useState(false);
@@ -53,7 +59,7 @@ export function Reveal({
     <Tag
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       ref={ref as any}
-      className={`reveal ${shown ? "is-in" : ""} ${className}`}
+      className={`${bare ? "" : "reveal"} ${shown ? "is-in" : ""} ${className}`}
       style={delay ? { transitionDelay: `${delay}ms` } : undefined}
     >
       {children}

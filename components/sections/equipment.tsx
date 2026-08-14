@@ -30,7 +30,7 @@ const machines = [
 
 export function Equipment() {
   return (
-    <section className="relative bg-brand-ink py-24 text-white sm:py-28 lg:py-36">
+    <section className="relative bg-brand-ink py-16 text-white sm:py-20 lg:py-24">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="max-w-2xl">
           <Reveal>
@@ -51,7 +51,7 @@ export function Equipment() {
 
         {/* Wide image panel — a different composition from the split hero */}
         <Reveal delay={120}>
-          <div className="mt-14 rounded-[2rem] bg-white/5 p-2 ring-1 ring-white/10">
+          <div className="mt-10 rounded-[2rem] bg-white/5 p-2 ring-1 ring-white/10">
             <div className="relative overflow-hidden rounded-[1.625rem]">
               <Image
                 src={asset("/img/machines-2.webp")}

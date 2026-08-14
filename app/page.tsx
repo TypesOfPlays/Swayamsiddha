@@ -5,7 +5,7 @@ import { Hero } from "@/components/sections/hero";
 import { Services } from "@/components/sections/services";
 import { Equipment } from "@/components/sections/equipment";
 import { TestDirectory } from "@/components/sections/test-directory";
-import { HowItWorks } from "@/components/sections/how-it-works";
+import { Story } from "@/components/sections/story";
 import { HomeCollection } from "@/components/sections/home-collection";
 import { Corporate } from "@/components/sections/corporate";
 import { Visit } from "@/components/sections/visit";
@@ -23,10 +23,11 @@ export default function Home() {
         <Hero />
         {/* Fills the dead run between the hero and the first section */}
         <MarqueeBand />
+        {/* The story sits high: it is the reason someone decides to come */}
+        <Story />
         <Services />
         <Equipment />
         <TestDirectory />
-        <HowItWorks />
         <HomeCollection />
         {/* Sits beside home collection: both are arrangements, not walk-ins */}
         <Corporate />

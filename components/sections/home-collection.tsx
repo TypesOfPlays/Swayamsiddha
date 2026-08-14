@@ -13,7 +13,7 @@ import { IconHomeVisit } from "@/components/icons";
  */
 export function HomeCollection() {
   return (
-    <section id="home-collection" className="py-24 sm:py-28 lg:py-36">
+    <section id="home-collection" className="py-16 sm:py-20 lg:py-24">
       <div className="mx-auto max-w-2xl px-4 text-center sm:px-6">
         <Reveal>
           <span className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-brand-soft text-brand">

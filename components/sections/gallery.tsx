@@ -41,7 +41,7 @@ const items: GalleryItem[] = [
 
 export function Gallery() {
   return (
-    <section id="gallery" className="py-24 sm:py-28 lg:py-36">
+    <section id="gallery" className="py-16 sm:py-20 lg:py-24">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <Reveal className="max-w-xl">
           <h2 className="text-[2rem] font-extrabold leading-[1.08] tracking-[-0.03em] text-ink sm:text-[2.75rem]">
@@ -54,7 +54,7 @@ export function Gallery() {
           </p>
         </Reveal>
 
-        <Reveal delay={120} className="mt-12">
+        <Reveal delay={120} className="mt-10">
           <AccordionGallery
             items={items}
             defaultIndex={3}

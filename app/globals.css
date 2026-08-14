@@ -513,65 +513,6 @@
     }
   }
 
-  /* ---- The journey line in "how it works" ---- */
-  .journey__line {
-    stroke-dasharray: 7 11;
-  }
-
-  /* Revealed by a left-to-right wipe over the whole group, so the dashes
-     stay put instead of marching, and the station rings appear as the wipe
-     passes them — one animation doing the work of five. */
-  .journey {
-    clip-path: inset(0 100% 0 0);
-  }
-
-  .reveal.is-in .journey {
-    animation: journey-draw 1.7s var(--ease-fluid) 0.1s forwards;
-  }
-
-  @keyframes journey-draw {
-    to {
-      clip-path: inset(0 0 0 0);
-    }
-  }
-
-  .journey__dot {
-    opacity: 0;
-  }
-
-  /* Beads run the route only where the line exists (lg and up) and only
-     where the browser can follow a motion path. offset-distance is not a
-     compositor property, so this stays two small elements on desktop. */
-  @supports (offset-path: path("M0 0")) {
-    @media (min-width: 1024px) {
-      .reveal.is-in .journey__dot {
-        offset-path: var(--wave);
-        offset-rotate: 0deg;
-        animation: journey-travel 5.5s cubic-bezier(0.45, 0.05, 0.55, 0.95)
-          1.2s infinite;
-      }
-
-      .reveal.is-in .journey__dot--b {
-        animation-delay: -1.6s;
-      }
-    }
-  }
-
-  @keyframes journey-travel {
-    0% {
-      offset-distance: 0%;
-      opacity: 0;
-    }
-    8%,
-    92% {
-      opacity: 1;
-    }
-    100% {
-      offset-distance: 100%;
-      opacity: 0;
-    }
-  }
-
   /* ---- Light rays ------------------------------------------------------
      Only opacity and rotation animate, both of which the compositor can
      handle. The blur is static, so each ray rasterises once and is then
@@ -925,9 +866,269 @@
     }
   }
 
+  /* ---- Story trail -----------------------------------------------------
+     Narrow screens get a straight rail down the left; a zigzag inside 375px
+     would read as a mistake. Wide screens get the real thread.
+
+     The zigzag SVG is stretched with preserveAspectRatio="none", so its
+     0–100 viewBox maps exactly onto 0–100% of the container in both axes.
+     That is what lets the path, the pins and the travelling balls all be
+     driven from one list of vertices in story.tsx without measuring
+     anything. vector-effect keeps the stroke an even weight despite the
+     non-uniform scaling. */
+
+  /* The thread layer, behind the steps.
+     NOTE: this deliberately does NOT use a scroll-linked timeline. An
+     anonymous view() never resolved against the SVG box, and a named
+     view-timeline on .trail did not resolve either — in both cases the
+     animation attached with a ViewTimeline whose currentTime stayed null,
+     so the line silently stayed clipped to nothing. The draw-in is driven
+     by the page's existing IntersectionObserver instead. */
+  .trail__thread {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  /* -- narrow: straight rail -- */
+  .trail__rail {
+    position: absolute;
+    left: 1.0625rem;
+    top: 0.5rem;
+    bottom: 0.5rem;
+    display: block;
+    width: 2px;
+    border-radius: 2px;
+    background: var(--color-line-strong);
+  }
+
+  .trail__fill {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(180deg, var(--color-brand), var(--color-gold));
+    transform: scaleY(0);
+    transform-origin: 50% 0;
+  }
+
+  .trail__fill {
+    transition: transform 1.8s var(--ease-fluid);
+  }
+
+  .trail__thread.is-in .trail__fill {
+    transform: scaleY(1);
+  }
+
+  .trail__runner {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    animation: trail-run 6s linear infinite;
+  }
+
+  @keyframes trail-run {
+    0% {
+      transform: translateY(0);
+      opacity: 0;
+    }
+    6%,
+    94% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+  }
+
+  .trail__step {
+    padding-left: 2.75rem;
+  }
+
+  /* Bead sits at the wrapper's origin so a translate lands it exactly */
+  .trail__bead {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0.625rem;
+    height: 0.625rem;
+    margin: -0.3125rem 0 0 -0.3125rem;
+    border-radius: 999px;
+    background: var(--color-gold-bright);
+    box-shadow:
+      0 0 0 3px rgba(232, 180, 74, 0.18),
+      0 0 14px 2px rgba(232, 180, 74, 0.55);
+  }
+
+  /* On the straight rail it needs centring across the 2px stroke */
+  .trail__runner .trail__bead {
+    left: 50%;
+  }
+
+  .trail__bead--sm {
+    width: 0.4375rem;
+    height: 0.4375rem;
+    margin: -0.21875rem 0 0 -0.21875rem;
+    background: var(--color-brand);
+    box-shadow: 0 0 10px 2px rgba(29, 107, 36, 0.45);
+  }
+
+  /* -- wide: the zigzag -- */
+  .trail__zig,
+  .trail__plot {
+    display: none;
+  }
+
+  @media (min-width: 1024px) {
+    /* Explicit, because .trail__rail's own display would otherwise out-order
+       the lg:hidden utility and leave both threads drawn at once. */
+    .trail__rail {
+      display: none;
+    }
+
+    .trail__step {
+      padding-left: 0;
+    }
+
+    .trail__zig {
+      position: absolute;
+      inset: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+      pointer-events: none;
+      fill: none;
+    }
+
+    .trail__zig-base,
+    .trail__zig-fill {
+      vector-effect: non-scaling-stroke;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .trail__zig-base {
+      stroke: var(--color-line-strong);
+      stroke-width: 2;
+    }
+
+    .trail__zig-fill {
+      stroke: url(#trailGrad);
+      stroke-width: 2.5;
+    }
+
+    /* Revealed by a clip wipe rather than a dash offset: with
+       vector-effect:non-scaling-stroke the dash lengths become pixel based,
+       which defeats pathLength normalisation and paints the line as
+       repeating bands instead of one growing stroke. */
+    .trail__zig--fill {
+      clip-path: inset(0 0 100% 0);
+      transition: clip-path 1.8s var(--ease-fluid);
+    }
+
+    .trail__thread.is-in .trail__zig--fill {
+      clip-path: inset(0 0 0 0);
+    }
+
+    .trail__plot {
+      position: absolute;
+      inset: 0;
+      display: block;
+      pointer-events: none;
+    }
+
+    .trail__pin,
+    .trail__orbit {
+      position: absolute;
+      inset: 0;
+    }
+
+    .trail__pin::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0.875rem;
+      height: 0.875rem;
+      margin: -0.4375rem 0 0 -0.4375rem;
+      border-radius: 999px;
+      border: 2px solid var(--color-brand);
+      background: var(--color-canvas);
+    }
+
+    .trail__orbit {
+      animation: trail-zig 9s linear infinite;
+    }
+
+    .trail__orbit--b {
+      animation-duration: 13s;
+      animation-delay: -5s;
+    }
+  }
+
+
+  /* Same vertices as VERTICES in story.tsx — 20/80 across, 10→90 down */
+  @keyframes trail-zig {
+    0% {
+      transform: translate(20%, 10%);
+      opacity: 0;
+    }
+    6%,
+    94% {
+      opacity: 1;
+    }
+    25% {
+      transform: translate(80%, 30%);
+    }
+    50% {
+      transform: translate(20%, 50%);
+    }
+    75% {
+      transform: translate(80%, 70%);
+    }
+    100% {
+      transform: translate(20%, 90%);
+      opacity: 0;
+    }
+  }
+
+  /* Photographs settle rather than snap — the one cinematic liberty here */
+  .trail__img {
+    transform: scale(1.07);
+    transition: transform 1.8s var(--ease-soft);
+  }
+
+  .reveal.is-in .trail__img {
+    transform: scale(1);
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .boot {
       display: none;
+    }
+
+    .trail__fill {
+      transition: none;
+      transform: scaleY(1);
+    }
+
+    .trail__runner,
+    .trail__orbit {
+      animation: none;
+      opacity: 0;
+    }
+
+    .trail__zig--fill {
+      transition: none;
+      clip-path: none;
+    }
+
+    .trail__img,
+    .reveal.is-in .trail__img {
+      transform: none;
+      transition: none;
     }
 
     /* Stop the scroll, drop the duplicate tracks, let it scroll by hand */
@@ -977,21 +1178,6 @@
     .ray {
       animation: none;
       opacity: calc(var(--ray-intensity) * 0.5);
-    }
-
-    /* Show the finished line, skip the wipe and the beads entirely */
-    .journey {
-      clip-path: none;
-    }
-
-    .reveal.is-in .journey {
-      animation: none;
-    }
-
-    .journey__dot,
-    .reveal.is-in .journey__dot {
-      animation: none;
-      opacity: 0;
     }
 
     .ecg-rule path:not(.ecg-pulse) {

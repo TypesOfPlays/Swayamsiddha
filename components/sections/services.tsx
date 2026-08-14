@@ -21,7 +21,7 @@ const popular = [
 
 export function Services() {
   return (
-    <section id="services" className="relative py-24 sm:py-28 lg:py-36">
+    <section id="services" className="relative py-16 sm:py-20 lg:py-24">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <Reveal>
           <h2 className="max-w-2xl text-[2rem] font-extrabold leading-[1.08] tracking-[-0.03em] text-ink sm:text-[2.75rem]">
@@ -34,7 +34,7 @@ export function Services() {
           </p>
         </Reveal>
 
-        <div className="mt-14 grid grid-cols-12 gap-4 sm:gap-5">
+        <div className="mt-10 grid grid-cols-12 gap-4 sm:gap-5">
           {/* ---- Pathology: the anchor card, double-bezelled and tall ---- */}
           <Reveal className="col-span-12 md:col-span-7 md:row-span-2">
             <article className="group h-full rounded-[2rem] bg-surface/60 p-1.5 shadow-card ring-1 ring-line/70">

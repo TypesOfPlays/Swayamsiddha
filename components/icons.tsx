@@ -142,35 +142,6 @@ export function IconReport(props: IconProps) {
   );
 }
 
-export function IconDoor(props: IconProps) {
-  return (
-    <Svg {...props}>
-      <path d="M13.5 3.5h4a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1h-4" />
-      <path d="M10.5 12h-6M7.5 9l-3 3 3 3" />
-    </Svg>
-  );
-}
-
-export function IconTube(props: IconProps) {
-  return (
-    <Svg {...props}>
-      <path d="M9.2 3.5h5.6v2.4H9.2z" />
-      <path d="M10 5.9v11.6a2 2 0 0 0 4 0V5.9" />
-      <path d="M10 13.4h4" />
-    </Svg>
-  );
-}
-
-export function IconAnalyzer(props: IconProps) {
-  return (
-    <Svg {...props}>
-      <rect x="3.5" y="4.5" width="17" height="15" rx="2" />
-      <rect x="6.2" y="7.6" width="7" height="5" rx="1" />
-      <path d="M15.8 9h2.6M15.8 11.6h2.6M7 16.4h10" />
-    </Svg>
-  );
-}
-
 export function IconBuilding(props: IconProps) {
   return (
     <Svg {...props}>
