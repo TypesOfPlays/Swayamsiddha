@@ -1104,6 +1104,68 @@
     transform: scale(1);
   }
 
+  /* Frames answer the pointer like something physical rather than printed */
+  .trail__frame {
+    transition:
+      transform 0.7s var(--ease-fluid),
+      box-shadow 0.7s var(--ease-fluid);
+  }
+
+  @media (hover: hover) {
+    .trail__frame:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-float);
+    }
+  }
+
+  /* Wax seal carrying the step number. The number used to be printed three
+     times per step — ghost numeral, eyebrow and nothing tactile. Now once,
+     on something that looks pressed into the frame. */
+  .trail__seal {
+    position: absolute;
+    top: -0.875rem;
+    left: -0.875rem;
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 999px;
+    background: var(--color-canvas);
+    font-family: var(--font-display);
+    font-size: 1.375rem;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    color: var(--color-brand);
+    box-shadow:
+      0 0 0 4px var(--color-canvas),
+      var(--shadow-card);
+    transition: transform 0.7s var(--ease-fluid);
+  }
+
+  /* The dashed inner ring is what makes it read as a seal, not a badge */
+  .trail__seal::after {
+    content: "";
+    position: absolute;
+    inset: 0.3125rem;
+    border-radius: 999px;
+    border: 1px dashed color-mix(in srgb, var(--color-gold) 60%, transparent);
+  }
+
+  @media (hover: hover) {
+    .trail__frame:hover .trail__seal {
+      transform: rotate(-9deg) scale(1.06);
+    }
+  }
+
+  /* Stacked, the left edge belongs to the rail — put the seal on the right */
+  @media (max-width: 1023px) {
+    .trail__seal {
+      left: auto;
+      right: -0.75rem;
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .boot {
       display: none;
@@ -1129,6 +1191,16 @@
     .reveal.is-in .trail__img {
       transform: none;
       transition: none;
+    }
+
+    .trail__frame,
+    .trail__seal {
+      transition: none;
+    }
+
+    .trail__frame:hover,
+    .trail__frame:hover .trail__seal {
+      transform: none;
     }
 
     /* Stop the scroll, drop the duplicate tracks, let it scroll by hand */

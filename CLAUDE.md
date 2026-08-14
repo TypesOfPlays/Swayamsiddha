@@ -89,6 +89,39 @@ decide. Don't do it silently.
 - **Playwright / Browser** — for loading the site, screenshotting, checking
   console errors. Available on request, not automatic.
 
+## MCPmarket plugin (`mcpmarket-me`)
+
+Installed and enabled at **user level**, so it affects every project, not just
+this one. It links sessions to an MCPmarket toolkit and ships one skill,
+`mcpmarket-me:intent-engine`.
+
+**What it is for:** describe a workflow in plain language and have it generate
+the matching Claude Code extension — a hook, skill, subagent, slash command,
+settings change or plugin.
+
+**It cannot do that yet.** Do not treat `intent-engine` as an available tool
+until the gaps below are closed:
+
+- It is marked `user-invocable: false`. It is only Layer 1 of a multi-skill
+  system and hands off to `extension-guide`, `smart-scaffold` and an
+  `extension-concierge` — none of which are installed.
+- It declares six dependency skills (`cc-ref-hooks`, `cc-ref-skills`,
+  `cc-ref-settings`, `cc-ref-subagents`, `cc-ref-plugins`,
+  `cc-ref-permissions`). None are present.
+- The toolkit reported **0 skills synced** at session start, so the MCP side is
+  empty. Add skills at mcpmarket.com, then restart Claude Code so the MCP
+  server connects.
+
+**Hooks it installs**, worth knowing because they run in this repo too:
+
+- `SessionStart` → `hook-shim.sh`, syncs toolkit skills
+- `PostToolUse` and `PostToolUseFailure` matching `Skill` →
+  `shared/skill-invocation.sh`, which reports every skill call to MCPmarket
+
+**Credential:** the plugin keeps an API token in plaintext in its `.mcp.json`
+under `~/.claude/plugins/`. That is outside this repo so it will not be
+committed, but rotate it at mcpmarket.com if it is ever exposed.
+
 ## Conventions
 
 - Match the surrounding code's naming, comment density, and idiom

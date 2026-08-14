@@ -255,8 +255,15 @@ export function Story() {
                 >
                   {/* ---- frame ---- */}
                   <div
-                    className={`rounded-[2rem] bg-surface/60 p-2 shadow-float ring-1 ring-line/80 transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] ${SCATTER[i % SCATTER.length]}`}
+                    className={`trail__frame relative rounded-[2rem] bg-surface/60 p-2 shadow-lift ring-1 ring-line/80 ${SCATTER[i % SCATTER.length]}`}
                   >
+                    {/* Wax seal. The step number lives here rather than being
+                        printed three times over — it was previously a ghost
+                        numeral, an eyebrow and this. */}
+                    <span className="trail__seal" aria-hidden="true">
+                      {step.n}
+                    </span>
+
                     <div className="relative aspect-[16/10] overflow-hidden rounded-[1.625rem] bg-canvas-sunk">
                       {step.image ? (
                         <Image
@@ -274,16 +281,8 @@ export function Story() {
 
                   {/* ---- words ---- */}
                   <div className="relative">
-                    <span
-                      aria-hidden="true"
-                      className="text-display absolute -top-14 left-0 text-[5.5rem] leading-none text-brand/[0.07] tabular-nums sm:-top-16 sm:text-[7rem]"
-                    >
-                      {step.n}
-                    </span>
-
                     <div className="relative">
-                      <p className="eyebrow text-brand">Step {step.n}</p>
-                      <h3 className="mt-4 text-[1.625rem] font-bold leading-[1.15] tracking-[-0.025em] text-ink sm:text-[2rem]">
+                      <h3 className="text-display text-[1.875rem] leading-[1.12] text-ink sm:text-[2.375rem]">
                         {step.title}
                       </h3>
 
