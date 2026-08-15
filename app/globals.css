@@ -165,6 +165,26 @@
     }
   }
 
+  /* ---- Hero light, by hour ----------------------------------------------
+     `data-tod` is stamped on <html> by components/time-of-day.tsx. Bare
+     :root carries the daytime value, so with no attribute — no JavaScript,
+     or the moment before hydration — the hero looks exactly as it always
+     did. The shift is a few percent on one colour and is meant to be felt
+     rather than seen. ---- */
+  :root {
+    --hero-glow: var(--color-brand-tint);
+  }
+
+  :root[data-tod="dawn"] {
+    /* Six in the morning: the light has not warmed up yet */
+    --hero-glow: color-mix(in oklab, var(--color-brand-tint) 80%, #cadff5);
+  }
+
+  :root[data-tod="dusk"] {
+    /* Toward closing: lamps on, sun low */
+    --hero-glow: color-mix(in oklab, var(--color-brand-tint) 74%, #f2d5a1);
+  }
+
   html {
     /* Sticky call-bar clearance for in-page anchors */
     scroll-padding-top: 6.5rem;
@@ -452,6 +472,68 @@
   /* Nothing to report while the veil is still up */
   :root.ss-booting .scroll-progress {
     opacity: 0;
+  }
+
+  /* ---- Live open/closed pill -------------------------------------------
+     The dot breathes only while the lab is actually open. A pulsing dot on
+     a closed sign would be saying two things at once. ---- */
+  .open-status__dot {
+    width: 0.4375rem;
+    height: 0.4375rem;
+    border-radius: 999px;
+    background: currentColor;
+    flex: none;
+  }
+
+  .open-status[data-open] .open-status__dot {
+    animation: status-breathe 2.6s var(--ease-soft) infinite;
+  }
+
+  @keyframes status-breathe {
+    0%,
+    100% {
+      box-shadow: 0 0 0 0 color-mix(in srgb, currentColor 45%, transparent);
+    }
+    60% {
+      box-shadow: 0 0 0 0.3125rem transparent;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .open-status[data-open] .open-status__dot {
+      animation: none;
+    }
+  }
+
+  /* The header instance sits between the brand and the nav island. At exactly
+     1024px those three leave 21px of slack with the clock detail shown and
+     ~90px without it, so the tail waits for a wider screen. "Open now" alone
+     still carries the point. */
+  .open-status--tight .open-status__detail {
+    display: none;
+  }
+
+  @media (min-width: 80rem) {
+    .open-status--tight .open-status__detail {
+      display: inline;
+    }
+  }
+
+  /* ---- Photograph drift -------------------------------------------------
+     `--drift` is written by components/drift.tsx. The scale covers the
+     distance travelled — without it the frame shows a bare edge at one end
+     of the range. ---- */
+  .drift > * {
+    scale: 1.06;
+    translate: 0 var(--drift, 0px);
+    will-change: translate;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .drift > * {
+      scale: 1;
+      translate: none;
+    }
   }
 
   /* ---- Playful details ------------------------------------------------ */

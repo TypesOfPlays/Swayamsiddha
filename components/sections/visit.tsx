@@ -11,6 +11,7 @@ import {
 } from "@/lib/site";
 import { Reveal } from "@/components/reveal";
 import { GhostLink } from "@/components/cta";
+import { OpenStatus } from "@/components/open-status";
 import { IconPin, IconClock, IconPhone, IconCheck } from "@/components/icons";
 
 /**
@@ -126,6 +127,10 @@ export function Visit() {
                   <p className="mt-1 text-[0.875rem] text-ink-soft">
                     Both branches, all seven days.
                   </p>
+                  {/* The published hours above stay in the markup for
+                      crawlers; this only tells the reader where the clock
+                      is right now. */}
+                  <OpenStatus className="mt-3 text-[0.8125rem]" />
                 </div>
               </div>
             </Reveal>

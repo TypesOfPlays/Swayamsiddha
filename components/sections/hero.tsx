@@ -26,10 +26,11 @@ const proof = [
 export function Hero() {
   return (
     <section id="top" className="relative overflow-hidden pt-28 sm:pt-32 lg:pt-36">
-      {/* Soft brand wash behind the fold — a single large radial, no orbs */}
+      {/* Soft brand wash behind the fold — a single large radial, no orbs.
+          --hero-glow follows the hour of day; see globals.css. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 -top-40 h-[38rem] bg-[radial-gradient(60%_55%_at_50%_0%,var(--color-brand-tint)_0%,transparent_70%)]"
+        className="pointer-events-none absolute inset-x-0 -top-40 h-[38rem] bg-[radial-gradient(60%_55%_at_50%_0%,var(--hero-glow)_0%,transparent_70%)]"
       />
 
       {/* Light falling through the top of the fold.

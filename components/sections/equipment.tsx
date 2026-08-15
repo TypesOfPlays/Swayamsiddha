@@ -2,6 +2,7 @@ import Image from "next/image";
 import { asset } from "@/lib/site";
 import { Reveal } from "@/components/reveal";
 import { LightRays } from "@/components/ui/light-rays";
+import { Drift } from "@/components/drift";
 
 /**
  * Every machine named here is visible and legible in the owner's own
@@ -77,7 +78,10 @@ export function Equipment() {
         {/* Wide image panel — a different composition from the split hero */}
         <Reveal delay={120}>
           <div className="mt-10 rounded-[2rem] bg-white/5 p-2 ring-1 ring-white/10">
-            <div className="relative overflow-hidden rounded-[1.625rem]">
+            {/* The frame stays still and the photograph moves inside it, so
+                the bench reads as something seen through an opening rather
+                than a picture pasted onto the page. */}
+            <Drift className="relative overflow-hidden rounded-[1.625rem]">
               <Image
                 src={asset("/img/machines-2.webp")}
                 alt="The Carestream DryView 5850 laser imager beside the H 560 haematology analyser and EM 200 NEO on the laboratory bench"
@@ -87,7 +91,7 @@ export function Equipment() {
                 className="w-full object-cover"
                 style={{ aspectRatio: "16 / 9", objectPosition: "50% 70%" }}
               />
-            </div>
+            </Drift>
           </div>
         </Reveal>
 

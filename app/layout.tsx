@@ -7,6 +7,7 @@ import {
 import { site, SITE_URL, absUrl, geoFor, labLocation } from "@/lib/site";
 import { BootScreen } from "@/components/boot-screen";
 import { ScrollProgress } from "@/components/scroll-progress";
+import { TimeOfDay } from "@/components/time-of-day";
 import "./globals.css";
 
 const jakarta = Plus_Jakarta_Sans({
@@ -199,6 +200,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <script dangerouslySetInnerHTML={{ __html: bootScript }} />
         <BootScreen />
         <ScrollProgress />
+        <TimeOfDay />
         {/* Tailwind's own sr-only / focus:not-sr-only pair, rather than a
             bespoke rule that can go missing in a stylesheet refactor. */}
         <a

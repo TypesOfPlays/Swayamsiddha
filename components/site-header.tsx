@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { BrandLockup } from "@/components/brand";
 import { site } from "@/lib/site";
 import { IconPhone } from "@/components/icons";
+import { OpenStatus } from "@/components/open-status";
 
 const links = [
   { href: "#services", label: "What we do" },
@@ -54,6 +55,16 @@ export function SiteHeader() {
         >
           <BrandLockup />
         </a>
+
+        {/* Live status, in the gap the layout already leaves between the
+            brand and the island. Wrapped rather than given `hidden` directly,
+            because the component sets its own display and the two classes
+            would collide. Shown from lg only: below that the island is the
+            tighter constraint, and the Timings card carries the same status
+            for phones. */}
+        <div className="pointer-events-auto hidden lg:block">
+          <OpenStatus className="open-status--tight rounded-full bg-canvas/85 px-4 py-2.5 text-[0.8125rem] shadow-card ring-1 ring-line/70 backdrop-blur-xl" />
+        </div>
 
         {/* Desktop island */}
         <nav
