@@ -12,6 +12,7 @@ import { Visit } from "@/components/sections/visit";
 import { Faq } from "@/components/sections/faq";
 import { FinalCta } from "@/components/sections/final-cta";
 import { EcgRule } from "@/components/ecg-rule";
+import { PetalRule } from "@/components/petal-rule";
 import { Gallery } from "@/components/sections/gallery";
 import { MarqueeBand } from "@/components/ui/marquee-band";
 
@@ -38,6 +39,10 @@ export default function Home() {
         <Gallery />
         <Visit />
         <Faq />
+        {/* The second and last ornament, from the logo's petal ring. It
+            closes the reading: the questions are answered above it, the
+            invitation to call sits below. */}
+        <PetalRule />
         <FinalCta />
       </main>
       <SiteFooter />

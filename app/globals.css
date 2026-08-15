@@ -536,6 +536,46 @@
     }
   }
 
+  /* ---- Letterhead rule --------------------------------------------------
+     The hairlines grow outward from the mark, so the gesture reads as a rule
+     being drawn onto the page rather than one more thing fading in. Each
+     line fades toward its outer end, which keeps the ornament from looking
+     like a border. ---- */
+  .petal-rule__line {
+    height: 1px;
+    flex: 1 1 auto;
+    max-width: 13rem;
+    transform: scaleX(0);
+    transition: transform 1.1s var(--ease-fluid);
+  }
+
+  .petal-rule__line--l {
+    transform-origin: 100% 50%;
+    background: linear-gradient(90deg, transparent, var(--color-line-strong));
+  }
+
+  .petal-rule__line--r {
+    transform-origin: 0 50%;
+    background: linear-gradient(90deg, var(--color-line-strong), transparent);
+  }
+
+  .petal-rule.is-in .petal-rule__line {
+    transform: scaleX(1);
+  }
+
+  .petal-rule__mark {
+    opacity: 0;
+    scale: 0.8;
+    transition:
+      opacity 0.7s var(--ease-soft) 0.3s,
+      scale 0.7s var(--ease-fluid) 0.3s;
+  }
+
+  .petal-rule.is-in .petal-rule__mark {
+    opacity: 1;
+    scale: 1;
+  }
+
   /* ---- Playful details ------------------------------------------------ */
 
   /* The ECG icon redraws its own trace when its card is hovered */
@@ -1007,18 +1047,45 @@
     }
   }
 
-  /* The map iframe is remounted when you switch branch; fade it so the
-     swap reads as a move rather than a flicker. */
-  .map-fade {
-    animation: map-in 0.6s var(--ease-fluid) both;
+  /* ---- Map, and the veil in front of it --------------------------------
+     Both sides are driven by `data-ready`, which components/map-frame.tsx
+     sets from the iframe's own load event. A timer cannot do this job: the
+     embed paints its grey panel immediately, so any fixed duration just
+     reveals the grey on schedule. Switching branch remounts the iframe, so
+     the veil returns for the new one on its own. ---- */
+  .map-frame__map {
+    opacity: 0;
+    transition: opacity 0.8s var(--ease-fluid);
   }
 
-  @keyframes map-in {
-    from {
-      opacity: 0;
+  .map-frame__map[data-ready] {
+    opacity: 1;
+  }
+
+  .map-frame__veil {
+    transition: opacity 0.8s var(--ease-fluid);
+  }
+
+  .map-frame__veil[data-ready] {
+    opacity: 0;
+    /* Transparent is not absent — without this it keeps eating the drag
+       gestures that pan the map underneath. */
+    pointer-events: none;
+  }
+
+  .map-frame__mark {
+    animation: veil-breathe 3.2s var(--ease-soft) infinite;
+  }
+
+  @keyframes veil-breathe {
+    0%,
+    100% {
+      opacity: 0.5;
+      scale: 0.97;
     }
-    to {
+    50% {
       opacity: 1;
+      scale: 1.03;
     }
   }
 
@@ -1349,9 +1416,25 @@
       transition: none;
     }
 
-    .map-fade,
+    .map-frame__mark,
     .branch__live::before {
       animation: none;
+    }
+
+    .map-frame__map,
+    .map-frame__veil,
+    .petal-rule__line,
+    .petal-rule__mark {
+      transition: none;
+    }
+
+    .petal-rule__line {
+      transform: scaleX(1);
+    }
+
+    .petal-rule__mark {
+      opacity: 1;
+      scale: 1;
     }
 
     .branch__name::after {

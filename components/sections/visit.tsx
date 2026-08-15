@@ -12,6 +12,7 @@ import {
 import { Reveal } from "@/components/reveal";
 import { GhostLink } from "@/components/cta";
 import { OpenStatus } from "@/components/open-status";
+import { MapFrame } from "@/components/map-frame";
 import { IconPin, IconClock, IconPhone, IconCheck } from "@/components/icons";
 
 /**
@@ -68,14 +69,12 @@ export function Visit() {
           <Reveal>
             <div className="h-full rounded-[2rem] bg-surface/60 p-2 shadow-card ring-1 ring-line/70">
               <div className="overflow-hidden rounded-[1.625rem] bg-canvas-sunk">
-                {/* keyed so switching branches remounts and fades cleanly */}
-                <iframe
+                {/* keyed so switching branches remounts — which also brings
+                    the veil back while the new map loads */}
+                <MapFrame
                   key={active.id}
                   src={mapEmbedFor(active)}
                   title={`Map showing ${active.name} in ${active.city}`}
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  className="map-fade block h-[19rem] w-full border-0 sm:h-[23rem] lg:h-full lg:min-h-[26rem]"
                 />
               </div>
             </div>
