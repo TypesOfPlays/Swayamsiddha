@@ -1,8 +1,7 @@
-import Image from "next/image";
-import { site, asset } from "@/lib/site";
+import { site } from "@/lib/site";
 import { CallButton, WhatsAppButton } from "@/components/cta";
 import { Reveal } from "@/components/reveal";
-import { CountUp } from "@/components/count-up";
+import { HeroVisual } from "@/components/hero-visual";
 import { Magnetic } from "@/components/magnetic";
 import { LightRays } from "@/components/ui/light-rays";
 import {
@@ -118,50 +117,9 @@ export function Hero() {
           </Reveal>
         </div>
 
-        {/* --------------------------------------------------------- image */}
+        {/* -------------------------------------------------------- visual */}
         <Reveal delay={220} className="relative">
-          {/* Double bezel: outer tray, inner plate, concentric radii */}
-          <div className="rounded-[2rem] bg-surface/70 p-2 shadow-float ring-1 ring-line/80 backdrop-blur-sm">
-            <div className="relative overflow-hidden rounded-[1.625rem] bg-canvas-sunk shadow-[inset_0_1px_2px_rgba(12,31,19,0.08)]">
-              <Image
-                src={asset("/img/machines.webp")}
-                alt="Automated biochemistry and haematology analysers in the Swayamsiddha Diagnostics laboratory"
-                width={1600}
-                height={1200}
-                priority
-                sizes="(max-width: 1024px) 100vw, 45vw"
-                className="h-full w-full object-cover"
-                style={{ aspectRatio: "4 / 5", objectPosition: "56% 66%" }}
-              />
-              {/* Grounding gradient so the floating chip stays legible */}
-              <div
-                aria-hidden="true"
-                className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-brand-ink/70 to-transparent"
-              />
-              <div className="absolute inset-x-3 bottom-3 rounded-[1.125rem] bg-brand-ink/65 p-3 ring-1 ring-white/10 backdrop-blur-md">
-                <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.16em] text-white/70">
-                  In our lab
-                </p>
-                <p className="mt-1.5 text-[0.9375rem] font-semibold leading-snug text-white">
-                  Erba EM 200 NEO biochemistry &amp; H 560 haematology
-                  analysers
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Same-day card, overlapping the frame. Removed below md so it
-              never fights the image for touch targets. */}
-          <div className="absolute -left-4 top-8 hidden rounded-[1.5rem] bg-surface p-1.5 shadow-lift ring-1 ring-line/80 lg:block">
-            <div className="rounded-[1.125rem] bg-gold-soft px-4 py-3">
-              <p className="text-[1.75rem] font-extrabold leading-none tracking-[-0.03em] text-ink tabular-nums">
-                <CountUp value={site.testCount} />
-              </p>
-              <p className="mt-1.5 text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-gold">
-                Tests available
-              </p>
-            </div>
-          </div>
+          <HeroVisual />
         </Reveal>
       </div>
     </section>

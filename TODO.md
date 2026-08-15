@@ -226,6 +226,34 @@ Watch it in Search Console: Performance → Queries tells you what people
 actually typed. That is a better guide to the next page to write than any
 keyword tool.
 
+## 6b. The 3D entrance in the hero
+
+The building in the hero is a **generated model, not a photograph**, and the
+owner has said it is not an exact likeness of the premises. It is labelled
+`Illustration` on the page for that reason, and the caption points at the
+address and the green signboard rather than claiming to show the building.
+If the model is ever replaced with one that *is* accurate, that label should
+come off deliberately rather than by accident.
+
+Source was a 94 MB `.blend` from Meshy, re-exported by the owner as a 33.7 MB
+`.glb` carrying 1.97 million triangles, no materials, no UVs and no normals.
+Shipped form is 314 KB: welded, simplified to 98,304 triangles, quantized and
+meshopt-compressed. Normals are computed at load and colour comes from a
+vertical ramp written into vertex colours, brand green at the plinth to warm
+stone at the roofline.
+
+If it ever needs regenerating from a new export, the pipeline is:
+
+```
+npx @gltf-transform/cli weld in.glb w.glb
+npx @gltf-transform/cli simplify w.glb s.glb --ratio 0.05 --error 0.005
+npx @gltf-transform/cli meshopt s.glb public/models/entrance.glb --level high
+```
+
+The photograph underneath it is not decorative fallback — it is what the hero
+shows on any device that declines the model: no WebGL, a lost context, a
+failed fetch, Data Saver on, a 2G connection, or under 2 GB of device memory.
+
 ## 7. Closed by the owner — do not re-ask
 
 - **Sample report on the page** — declined. Off the list permanently.
