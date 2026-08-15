@@ -1,10 +1,11 @@
-import Image from "next/image";
-import { site, asset } from "@/lib/site";
+import { site } from "@/lib/site";
+import { Photo } from "@/components/photo";
 import { CallButton, WhatsAppButton } from "@/components/cta";
 import { Reveal } from "@/components/reveal";
 import { CountUp } from "@/components/count-up";
 import { Magnetic } from "@/components/magnetic";
 import { LightRays } from "@/components/ui/light-rays";
+import { Motes } from "@/components/ui/motes";
 import {
   IconCheck,
   IconPulse,
@@ -48,6 +49,9 @@ export function Hero() {
           blend="normal"
           seed={11}
         />
+        {/* Dust in the shafts. Light with nothing in it is a gradient; this
+            is what makes it read as a room with a window. */}
+        <Motes count={16} color="rgba(186, 138, 58, 0.5)" seed={31} />
       </div>
 
       <div className="relative mx-auto grid max-w-6xl gap-14 px-4 pb-14 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-16 lg:pb-20">
@@ -123,8 +127,8 @@ export function Hero() {
           {/* Double bezel: outer tray, inner plate, concentric radii */}
           <div className="rounded-[2rem] bg-surface/70 p-2 shadow-float ring-1 ring-line/80 backdrop-blur-sm">
             <div className="relative overflow-hidden rounded-[1.625rem] bg-canvas-sunk shadow-[inset_0_1px_2px_rgba(12,31,19,0.08)]">
-              <Image
-                src={asset("/img/machines.webp")}
+              <Photo
+                src="/img/machines.webp"
                 alt="Automated biochemistry and haematology analysers in the Swayamsiddha Diagnostics laboratory"
                 width={1600}
                 height={1200}

@@ -1,4 +1,3 @@
-import { asset } from "@/lib/site";
 import { Reveal } from "@/components/reveal";
 import {
   AccordionGallery,
@@ -10,30 +9,31 @@ import {
  * imaging. `reception.webp` is deliberately left out — it is an empty desk
  * with packing boxes still in shot and carries no story next to these.
  */
-/* asset() carries the deploy base path — see lib/site.ts */
+/* Plain public paths — <Photo> applies the deploy base path and the
+   blur preview; see components/photo.tsx. */
 const items: GalleryItem[] = [
   {
-    src: asset("/img/front.webp"),
+    src: "/img/front.webp",
     label: "Main Chhagharia Road",
     alt: "The green Swayamsiddha Diagnostics signboard above the entrance on Main Chhagharia Road",
   },
   {
-    src: asset("/img/side1.webp"),
+    src: "/img/side1.webp",
     label: "Reception & waiting",
     alt: "The entrance and waiting area, with the reception counter and seating",
   },
   {
-    src: asset("/img/side2.webp"),
+    src: "/img/side2.webp",
     label: "The laboratory",
     alt: "The laboratory seen through its glass front, analysers lined up on the bench",
   },
   {
-    src: asset("/img/machines.webp"),
+    src: "/img/machines.webp",
     label: "Automated analysers",
     alt: "The Erba EM 200 NEO biochemistry analyser and H 560 haematology analyser",
   },
   {
-    src: asset("/img/machines-2.webp"),
+    src: "/img/machines-2.webp",
     label: "X-ray film imaging",
     alt: "The Carestream DryView 5850 laser imager on the laboratory bench",
   },
@@ -54,7 +54,7 @@ export function Gallery() {
           </p>
         </Reveal>
 
-        <Reveal delay={120} className="mt-10">
+        <Reveal variant="settle" delay={120} className="mt-10">
           <AccordionGallery
             items={items}
             defaultIndex={3}
@@ -66,7 +66,7 @@ export function Gallery() {
           />
         </Reveal>
 
-        <Reveal delay={180}>
+        <Reveal variant="settle" delay={180}>
           <p className="mt-5 text-[0.8125rem] text-ink-muted">
             Hover or tap a panel to open it. Arrow keys move between them.
           </p>

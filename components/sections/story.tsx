@@ -1,5 +1,4 @@
-import Image from "next/image";
-import { asset } from "@/lib/site";
+import { Photo } from "@/components/photo";
 import { Reveal } from "@/components/reveal";
 import { CallButton, WhatsAppButton } from "@/components/cta";
 import { Magnetic } from "@/components/magnetic";
@@ -94,7 +93,7 @@ const steps: Step[] = [
     /* "The same day's report — into your hands." */
     odia: "ସେହି ଦିନର ରିପୋର୍ଟ, ଆପଣଙ୍କ ହାତରେ।",
     /* PHOTO WANTED: a printed report being handed across the counter.
-       Add: image: asset("/img/step-report.webp") */
+       Add: image: "/img/step-report.webp" — and regenerate lib/blur.ts. */
   },
 ];
 
@@ -267,8 +266,8 @@ export function Story() {
 
                     <div className="relative aspect-[16/10] overflow-hidden rounded-[1.625rem] bg-canvas-sunk">
                       {step.image ? (
-                        <Image
-                          src={asset(step.image)}
+                        <Photo
+                          src={step.image}
                           alt={step.alt ?? ""}
                           fill
                           sizes="(max-width: 1024px) 100vw, 45vw"

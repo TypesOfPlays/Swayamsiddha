@@ -36,7 +36,7 @@ export function Services() {
 
         <div className="mt-10 grid grid-cols-12 gap-4 sm:gap-5">
           {/* ---- Pathology: the anchor card, double-bezelled and tall ---- */}
-          <Reveal className="col-span-12 md:col-span-7 md:row-span-2">
+          <Reveal variant="settle" className="col-span-12 md:col-span-7 md:row-span-2">
             <article className="group h-full rounded-[2rem] bg-surface/60 p-1.5 shadow-card ring-1 ring-line/70">
               <div className="flex h-full flex-col rounded-[1.625rem] bg-surface p-7 shadow-[inset_0_1px_0_rgba(255,255,255,0.9)] sm:p-9">
                 <span className="grid h-12 w-12 place-items-center rounded-2xl bg-brand-soft text-brand transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:-rotate-6 group-hover:scale-110">
@@ -74,7 +74,7 @@ export function Services() {
           </Reveal>
 
           {/* ---- X-ray ---- */}
-          <Reveal delay={80} className="col-span-12 md:col-span-5">
+          <Reveal variant="settle" delay={80} className="col-span-12 md:col-span-5">
             <article className="group h-full rounded-[1.75rem] bg-surface p-7 shadow-card ring-1 ring-line/70 transition-[box-shadow,transform] duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:-translate-y-1 hover:shadow-lift sm:p-8">
               <span className="grid h-12 w-12 place-items-center rounded-2xl bg-gold-soft text-gold transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:rotate-3 group-hover:scale-110">
                 <IconXray className="h-6 w-6" />
@@ -91,7 +91,7 @@ export function Services() {
           </Reveal>
 
           {/* ---- ECG ---- */}
-          <Reveal delay={140} className="col-span-12 md:col-span-5">
+          <Reveal variant="settle" delay={140} className="col-span-12 md:col-span-5">
             <article className="group h-full rounded-[1.75rem] bg-surface p-7 shadow-card ring-1 ring-line/70 transition-[box-shadow,transform] duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:-translate-y-1 hover:shadow-lift sm:p-8">
               {/* icon-trace makes the pulse redraw itself on hover */}
               <span className="icon-trace grid h-12 w-12 place-items-center rounded-2xl bg-brand-soft text-brand transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-110">
@@ -109,7 +109,7 @@ export function Services() {
           </Reveal>
 
           {/* ---- Home collection strip: inverted, full width ---- */}
-          <Reveal delay={80} className="col-span-12">
+          <Reveal variant="settle" delay={80} className="col-span-12">
             <a
               href="#home-collection"
               /* The card wraps a heading and a paragraph, so without this the

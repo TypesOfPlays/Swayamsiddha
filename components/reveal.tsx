@@ -13,6 +13,19 @@ type RevealProps = {
    * that want to drive their own transition off "this entered the viewport".
    */
   bare?: boolean;
+  /**
+   * How the element arrives. Three movements, not fifteen — the point is a
+   * system the page repeats with intent, rather than every section entering
+   * identically or every section entering differently.
+   *
+   * - `rise`   text-led blocks. The default, and still most of the page.
+   * - `settle` panels and cards: eases down from slightly larger, so it
+   *            reads as arriving into place rather than sliding up into it.
+   * - `wipe`   text blocks on full-bleed bands, uncovered from the bottom.
+   *            Never put this on anything with an outer shadow — clip-path
+   *            cuts the shadow off with the box.
+   */
+  variant?: "rise" | "settle" | "wipe";
 };
 
 /**
@@ -29,6 +42,7 @@ export function Reveal({
   className = "",
   as: Tag = "div",
   bare = false,
+  variant = "rise",
 }: RevealProps) {
   const ref = useRef<HTMLElement>(null);
   const [shown, setShown] = useState(false);
@@ -59,7 +73,9 @@ export function Reveal({
     <Tag
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       ref={ref as any}
-      className={`${bare ? "" : "reveal"} ${shown ? "is-in" : ""} ${className}`}
+      className={`${bare ? "" : `reveal reveal--${variant}`} ${
+        shown ? "is-in" : ""
+      } ${className}`}
       style={delay ? { transitionDelay: `${delay}ms` } : undefined}
     >
       {children}

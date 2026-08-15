@@ -8,7 +8,7 @@ export function FinalCta() {
   return (
     <section className="px-4 pb-24 sm:px-6 sm:pb-28 lg:pb-36">
       <div className="mx-auto max-w-6xl">
-        <Reveal>
+        <Reveal variant="settle">
           <div className="relative overflow-hidden rounded-[2.5rem] bg-brand-ink px-6 py-16 text-center shadow-float sm:px-12 sm:py-20">
             {/* Single soft light source, top-centre — no orbs, no mesh */}
             <div

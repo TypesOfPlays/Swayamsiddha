@@ -1,5 +1,4 @@
-import Image from "next/image";
-import { asset } from "@/lib/site";
+import { Photo } from "@/components/photo";
 import { Reveal } from "@/components/reveal";
 import { LightRays } from "@/components/ui/light-rays";
 import { Drift } from "@/components/drift";
@@ -51,7 +50,7 @@ export function Equipment() {
 
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
         <div className="max-w-2xl">
-          <Reveal>
+          <Reveal variant="wipe">
             <p className="eyebrow text-gold-bright">Inside the lab</p>
             <h2 className="mt-5 text-[2rem] font-extrabold leading-[1.08] tracking-[-0.03em] sm:text-[2.75rem]">
               Machines do the measuring.{" "}
@@ -76,14 +75,14 @@ export function Equipment() {
         </div>
 
         {/* Wide image panel — a different composition from the split hero */}
-        <Reveal delay={120}>
+        <Reveal delay={120} variant="settle">
           <div className="mt-10 rounded-[2rem] bg-white/5 p-2 ring-1 ring-white/10">
             {/* The frame stays still and the photograph moves inside it, so
                 the bench reads as something seen through an opening rather
                 than a picture pasted onto the page. */}
             <Drift className="relative overflow-hidden rounded-[1.625rem]">
-              <Image
-                src={asset("/img/machines-2.webp")}
+              <Photo
+                src="/img/machines-2.webp"
                 alt="The Carestream DryView 5850 laser imager beside the H 560 haematology analyser and EM 200 NEO on the laboratory bench"
                 width={2000}
                 height={1125}
@@ -98,7 +97,7 @@ export function Equipment() {
         {/* Equipment cards */}
         <ul className="mt-5 grid gap-4 sm:gap-5 md:grid-cols-3">
           {machines.map((m, i) => (
-            <Reveal as="li" key={m.name} delay={i * 90}>
+            <Reveal as="li" key={m.name} delay={i * 90} variant="settle">
               <article className="flex h-full flex-col rounded-[1.75rem] bg-white/[0.055] p-7 ring-1 ring-white/10 transition-[background-color,transform] duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:-translate-y-1 hover:bg-white/[0.085]">
                 <p className="eyebrow text-gold-bright">{m.role}</p>
                 <h3 className="mt-4 text-[1.25rem] font-bold tracking-[-0.02em] text-white">

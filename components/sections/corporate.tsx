@@ -32,7 +32,7 @@ export function Corporate() {
   return (
     <section id="corporate" className="py-16 sm:py-20 lg:py-24">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <Reveal>
+        <Reveal variant="settle">
           {/* Double bezel, used here to set the section apart as a distinct
               offer rather than another item in the patient journey. */}
           <div className="rounded-[2rem] bg-surface/60 p-1.5 shadow-card ring-1 ring-line/70">

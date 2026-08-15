@@ -31,7 +31,7 @@ export function HomeCollection() {
           </p>
         </Reveal>
 
-        <Reveal delay={120}>
+        <Reveal variant="settle" delay={120}>
           {/* The honest caveat is given its own frame rather than buried in
               small print — it is the part people most need to read. */}
           <div className="mt-10 rounded-[2rem] bg-gold-soft/70 p-1.5 ring-1 ring-gold/15">
@@ -48,7 +48,7 @@ export function HomeCollection() {
           </div>
         </Reveal>
 
-        <Reveal delay={180}>
+        <Reveal variant="settle" delay={180}>
           <div className="mt-9 flex justify-center">
             <Magnetic>
               <CallButton label="Check if we cover your area" />

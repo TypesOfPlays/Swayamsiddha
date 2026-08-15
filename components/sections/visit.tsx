@@ -1,10 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import { useState } from "react";
+import { Photo } from "@/components/photo";
 import {
   site,
-  asset,
   mapLinkFor,
   mapEmbedFor,
   type SiteLocation,
@@ -54,7 +53,7 @@ export function Visit() {
         {/* ---- branch picker ---- */}
         <ul className="mt-10 grid gap-4 sm:gap-5 lg:grid-cols-2">
           {site.locations.map((l, i) => (
-            <Reveal as="li" key={l.id} delay={i * 90}>
+            <Reveal as="li" key={l.id} delay={i * 90} variant="settle">
               <BranchCard
                 location={l}
                 selected={l.id === activeId}
@@ -160,8 +159,8 @@ export function Visit() {
         {active.id === "lab" && (
           <Reveal delay={80}>
             <figure className="mt-5 overflow-hidden rounded-[1.75rem] bg-surface shadow-card ring-1 ring-line/70 lg:flex lg:items-center">
-              <Image
-                src={asset("/img/front.webp")}
+              <Photo
+                src="/img/front.webp"
                 alt={`The green signboard of ${site.name} on Main Chhagharia Road`}
                 width={1200}
                 height={750}

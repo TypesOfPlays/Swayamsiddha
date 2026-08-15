@@ -273,10 +273,47 @@
     will-change: auto;
   }
 
+  /* ---- Entrances -------------------------------------------------------
+     Three movements, assigned by what a block *is* rather than where it
+     happens to sit. Fifteen screens all rising identically reads as one
+     template repeated; fifteen different movements reads as a showreel.
+     Three, used consistently, reads as a system. ---- */
+
+  /* Panels and cards ease down from slightly larger, so they arrive into
+     place rather than travel into it. Scaling *down* to 1 rather than up
+     from it, because a full-width block starting above 1 overflows the
+     viewport and can hand the page a horizontal scrollbar mid-animation. */
+  .reveal--settle {
+    transform: translate3d(0, 0.75rem, 0) scale(0.975);
+    transition:
+      opacity 0.8s var(--ease-soft),
+      transform 1s var(--ease-fluid);
+  }
+
+  .reveal--settle.is-in {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  /* Uncovered from the bottom, for text on full-bleed bands. Opacity stays
+     at 1 — the clip is the reveal, and fading as well would only mud it. */
+  .reveal--wipe {
+    opacity: 1;
+    transform: none;
+    clip-path: inset(0 0 100% 0);
+    transition: clip-path 1.05s var(--ease-fluid);
+  }
+
+  .reveal--wipe.is-in {
+    clip-path: inset(0 0 0 0);
+  }
+
   @media (prefers-reduced-motion: reduce) {
-    .reveal {
+    .reveal,
+    .reveal--settle,
+    .reveal--wipe {
       opacity: 1;
       transform: none;
+      clip-path: none;
       transition: none;
     }
   }
@@ -472,6 +509,54 @@
   /* Nothing to report while the veil is still up */
   :root.ss-booting .scroll-progress {
     opacity: 0;
+  }
+
+  /* ---- Dust in the light ------------------------------------------------
+     Each mote rises its own distance over its own duration, fading in and
+     out at the ends so nothing ever visibly appears or vanishes. Only
+     translate and opacity move, so the whole field stays on the compositor
+     and never touches layout. ---- */
+  .motes {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .mote {
+    position: absolute;
+    left: var(--mote-left);
+    top: var(--mote-top);
+    width: var(--mote-size);
+    height: var(--mote-size);
+    border-radius: 999px;
+    background: var(--mote-color);
+    opacity: 0;
+    will-change: transform, opacity;
+    animation: mote-drift var(--mote-dur) linear infinite;
+    animation-delay: var(--mote-delay);
+  }
+
+  @keyframes mote-drift {
+    0% {
+      opacity: 0;
+      transform: translate3d(0, 0, 0);
+    }
+    18%,
+    82% {
+      opacity: var(--mote-opacity);
+    }
+    100% {
+      opacity: 0;
+      transform: translate3d(var(--mote-drift), -7rem, 0);
+    }
+  }
+
+  /* Dust is atmosphere, not information. It is the first thing to go. */
+  @media (prefers-reduced-motion: reduce) {
+    .motes {
+      display: none;
+    }
   }
 
   /* ---- Live open/closed pill -------------------------------------------

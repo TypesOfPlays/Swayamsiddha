@@ -1,7 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import { useState, type CSSProperties, type KeyboardEvent } from "react";
+import { Photo } from "@/components/photo";
 
 /**
  * Accordion gallery, in the React Bits shape but rebuilt for this project.
@@ -117,7 +117,7 @@ export function AccordionGallery({
               }
             >
               <span className="ag__media">
-                <Image
+                <Photo
                   src={item.src}
                   alt={item.alt}
                   fill
