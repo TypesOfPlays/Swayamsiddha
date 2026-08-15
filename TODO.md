@@ -3,6 +3,26 @@
 Everything below is unconfirmed. Nothing here was invented — where a fact was
 missing, the page either omits the claim or routes the visitor to a phone call.
 
+## 0. Open
+
+**The collection centre's printed address is a stand-in.** The map pin is
+exact — it comes from the owner's own Google Maps listing at
+`20.5024353, 86.4247906` — but the address *text* on the card is a guess:
+
+```
+Near Old Medical
+Kendrapara town
+Kendrapara, Odisha 754211
+```
+
+Replace `line1`, `line2` and `postalCode` for the `collection` entry in
+`lib/site.ts` with the address as it would be written on a signboard.
+
+**The laboratory has no Google Maps listing yet.** Its map is a name-and-
+address search rather than an exact pin. Once it is listed, add `coords` and
+`mapsUrl` to the `lab` entry in `lib/site.ts` — `mapEmbedFor` and
+`mapLinkFor` already branch on whether those exist.
+
 ## 1. Blocking — none left
 
 Every factual question has been answered by the owner:
