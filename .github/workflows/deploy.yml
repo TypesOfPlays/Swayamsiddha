@@ -30,16 +30,15 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # The site is served from https://<owner>.github.io/<repo>, so the
-      # build needs both parts. Deriving them here rather than hard-coding
-      # means renaming the repo or transferring it does not break the build.
-      # github.io hostnames are lower-case, so the owner is folded.
-      - name: Resolve Pages URL
+      # The site is served from its own domain (see public/CNAME), so it sits
+      # at the root and the base path must be EMPTY. On the old
+      # <owner>.github.io/<repo> URL this was "/<repo>" — leaving that in
+      # would prefix every asset with a folder that no longer exists.
+      - name: Resolve site URL
         id: url
         run: |
-          echo "base=/${{ github.event.repository.name }}" >> "$GITHUB_OUTPUT"
-          owner=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
-          echo "origin=https://$owner.github.io" >> "$GITHUB_OUTPUT"
+          echo "base=" >> "$GITHUB_OUTPUT"
+          echo "origin=https://swayamsiddhadiagnostics.in" >> "$GITHUB_OUTPUT"
 
       - name: Build static site
         env:

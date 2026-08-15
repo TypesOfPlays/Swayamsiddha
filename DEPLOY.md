@@ -27,41 +27,47 @@ built site.
 That's it. Every push to `main` rebuilds and redeploys, and you can also trigger
 one by hand from the **Actions** tab.
 
-Your site will be at:
+## The domain
 
-```
-https://<your-username>.github.io/<your-repo>/
-```
+The site is served from **https://swayamsiddhadiagnostics.in** (registered at
+BigRock). Three things make that work, and all three must agree:
 
-## Why nothing is hard-coded
-
-The build needs to know that URL, because a project site is served from a
-subfolder and every asset path has to carry it. Rather than hard-coding it, the
-workflow derives both halves from the repository itself:
-
-| Value | Comes from |
+| Where | What |
 |---|---|
-| `NEXT_PUBLIC_BASE_PATH` | `/<repository name>` |
-| `NEXT_PUBLIC_SITE_URL` | `https://<owner>.github.io` (lower-cased) |
+| `public/CNAME` | the bare domain, no protocol — GitHub reads this on every deploy, so the setting survives redeploys |
+| `.github/workflows/deploy.yml` | `base=` **empty**, `origin=https://swayamsiddhadiagnostics.in` |
+| Registrar DNS | four `A` records at the apex, plus a `www` `CNAME` |
 
-So renaming the repository, transferring it, or forking it all keep working
-with no edits. Locally both are empty, which is why `npm run dev` still serves
-from `http://localhost:3000/`.
+The empty base path is the part that bites. On the old
+`<owner>.github.io/<repo>` URL the build prefixed every asset with `/<repo>`;
+a custom domain serves from the root, so leaving that in would point every
+image and stylesheet at a folder that no longer exists.
 
-## Moving to a real domain later
+Locally both values are empty, which is why `npm run dev` still serves from
+`http://localhost:3000/`.
 
-A project-site URL is long and ranks worse than a domain for local searches like
-"blood test near Ichhapur". When you're ready:
+### DNS records
 
-1. Buy the domain and point a `CNAME` record at `<your-username>.github.io`.
-2. Put the bare domain in **Settings → Pages → Custom domain**.
-3. Add a file `public/CNAME` containing just the domain, so the setting survives
-   each redeploy.
-4. In `.github/workflows/deploy.yml`, set `base` to an empty string and `origin`
-   to `https://your-domain.in`.
+Apex (`@`) `A` records:
 
-Step 4 matters: with a custom domain the site sits at the root, so the base path
-must be removed or every asset URL will gain a folder that doesn't exist.
+```
+185.199.108.153
+185.199.109.153
+185.199.110.153
+185.199.111.153
+```
+
+`www` `CNAME` → `typesofplays.github.io`
+
+GitHub redirects `www` to the apex once the custom domain is set, which is why
+the canonical tag points at the bare domain.
+
+### If the domain ever changes
+
+Edit `public/CNAME` and the `origin` line in the workflow, then update the
+custom domain in **Settings → Pages**. Everything else — canonical tags, the
+sitemap, `robots.txt`, Open Graph images and the structured data — is built
+from `SITE_URL` in `lib/site.ts` and follows automatically.
 
 ## Things that are easy to get wrong
 
