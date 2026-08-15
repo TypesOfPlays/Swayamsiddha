@@ -33,7 +33,11 @@ export function BrandLockup({
           }`}
         />
       </span>
-      <span className="flex flex-col leading-none">
+      {/* The visible wordmark is split across two lines for layout. Hidden
+          from assistive tech so the link's accessible name is the single
+          clean one below, not "Swayamsiddha Diagnostics Swayamsiddha
+          Diagnostics — …" read twice. */}
+      <span className="flex flex-col leading-none" aria-hidden="true">
         <span
           className={`text-[0.9375rem] font-bold tracking-[-0.01em] ${
             isLight ? "text-white" : "text-ink"

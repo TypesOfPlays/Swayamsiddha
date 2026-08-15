@@ -112,6 +112,9 @@ export function Services() {
           <Reveal delay={80} className="col-span-12">
             <a
               href="#home-collection"
+              /* The card wraps a heading and a paragraph, so without this the
+                 link's text is a whole sentence. */
+              aria-label="Home sample collection"
               className="group flex flex-col gap-6 rounded-[1.75rem] bg-brand-ink p-7 shadow-lift ring-1 ring-brand-deep transition-shadow duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:shadow-float sm:flex-row sm:items-center sm:justify-between sm:p-9"
             >
               <div className="flex items-start gap-5">

@@ -76,7 +76,8 @@ export function Hero() {
             <p className="mt-6 max-w-xl text-[1.0625rem] leading-relaxed text-ink-soft sm:text-lg">
               A fully automated pathology laboratory with digital X-ray and ECG
               on Main Chhagharia Road. {site.testCount} tests on the menu, run
-              on calibrated analysers — with most reports ready the same day.
+              on calibrated analysers for accurate, repeatable results — and
+              most reports ready the same day, close to home.
             </p>
           </Reveal>
 

@@ -32,7 +32,9 @@ const notoOriya = Noto_Sans_Oriya({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `${site.name} — Pathology Lab & Digital X-Ray in Kendrapara`,
+    /* Kept under ~580px as Google renders it. The old version was 70
+       characters / ~676px and was being truncated in results. */
+    default: `${site.name} — Lab & X-Ray in Kendrapara`,
     template: `%s · ${site.name}`,
   },
   description: `Fully automated pathology lab, digital X-ray and ECG at ${site.address.line2}, Kendrapara. ${site.testCount} tests, most reports the same day. Call ${site.phone.display}.`,

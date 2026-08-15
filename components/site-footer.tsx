@@ -30,7 +30,7 @@ export function SiteFooter() {
           </div>
 
           <nav aria-label="Footer" className="md:pt-1">
-            <h2 className="eyebrow text-ink-muted">Sections</h2>
+            <p className="eyebrow text-ink-muted">Sections</p>
             {/* py-3 on the anchors, not margin on the list items: the tap
                 area has to be the link itself to count as a target. */}
             <ul className="mt-2.5 space-y-0">
@@ -48,7 +48,7 @@ export function SiteFooter() {
           </nav>
 
           <div className="md:pt-1">
-            <h2 className="eyebrow text-ink-muted">Get in touch</h2>
+            <p className="eyebrow text-ink-muted">Get in touch</p>
             <ul className="mt-2.5 space-y-0">
               <li>
                 <a

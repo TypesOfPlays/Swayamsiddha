@@ -59,7 +59,8 @@ export function Visit() {
                   <IconPin className="h-5 w-5" />
                 </span>
                 <div>
-                  <h3 className="text-[0.9375rem] font-bold text-ink">Address</h3>
+                  {/* A field label, not a document heading */}
+                  <p className="text-[0.9375rem] font-bold text-ink">Address</p>
                   <address className="mt-2 not-italic text-[0.9375rem] leading-relaxed text-ink-soft">
                     {site.address.line1}
                     <br />
@@ -85,9 +86,9 @@ export function Visit() {
                   <IconClock className="h-5 w-5" />
                 </span>
                 <div>
-                  <h3 className="text-[0.9375rem] font-bold text-ink">
+                  <p className="text-[0.9375rem] font-bold text-ink">
                     Timings
-                  </h3>
+                  </p>
                   {/* Hours are only rendered once verified. Until then the
                       page says so plainly instead of guessing and sending
                       someone to a closed lab. */}
@@ -133,9 +134,9 @@ export function Visit() {
                   <IconPhone className="h-5 w-5" />
                 </span>
                 <div>
-                  <h3 className="text-[0.9375rem] font-bold text-white">
+                  <p className="text-[0.9375rem] font-bold text-white">
                     Call the lab
-                  </h3>
+                  </p>
                   <p className="mt-2 text-[1.375rem] font-extrabold tracking-[-0.02em] text-white tabular-nums">
                     {site.phone.display}
                   </p>
