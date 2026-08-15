@@ -2,6 +2,7 @@ import { site } from "@/lib/site";
 import { CallButton, WhatsAppButton } from "@/components/cta";
 import { Reveal } from "@/components/reveal";
 import { Magnetic } from "@/components/magnetic";
+import { LightRays } from "@/components/ui/light-rays";
 
 export function FinalCta() {
   return (
@@ -13,6 +14,20 @@ export function FinalCta() {
             <div
               aria-hidden="true"
               className="pointer-events-none absolute inset-x-0 -top-32 h-72 bg-[radial-gradient(55%_60%_at_50%_50%,rgba(232,180,74,0.16)_0%,transparent_72%)]"
+            />
+
+            {/* Deliberately weaker and slower than the Equipment band. The
+                radial above is already lighting this panel; the rays only
+                have to give that glow a direction. Turned up to match, the
+                two would fight. */}
+            <LightRays
+              count={5}
+              color="rgba(232, 180, 74, 0.13)"
+              blur={48}
+              speed={26}
+              length="20rem"
+              blend="screen"
+              seed={41}
             />
 
             <div className="relative">

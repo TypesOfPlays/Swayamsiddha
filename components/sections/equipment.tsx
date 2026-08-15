@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { asset } from "@/lib/site";
 import { Reveal } from "@/components/reveal";
+import { LightRays } from "@/components/ui/light-rays";
 
 /**
  * Every machine named here is visible and legible in the owner's own
@@ -31,7 +32,23 @@ const machines = [
 export function Equipment() {
   return (
     <section className="relative bg-brand-ink py-16 text-white sm:py-20 lg:py-24">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+      {/* Screen blend does here what it was designed to do — a dark surface
+          with headroom to brighten. The hero runs the same component on
+          `normal` because cream has nothing left to lift, which is why the
+          two calls look nothing alike. */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-[34rem]">
+        <LightRays
+          count={6}
+          color="rgba(232, 180, 74, 0.22)"
+          blur={54}
+          speed={21}
+          length="34rem"
+          blend="screen"
+          seed={23}
+        />
+      </div>
+
+      <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
         <div className="max-w-2xl">
           <Reveal>
             <p className="eyebrow text-gold-bright">Inside the lab</p>

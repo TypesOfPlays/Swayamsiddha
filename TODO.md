@@ -92,22 +92,24 @@ Worth reshooting when convenient, and these three would earn their place:
 2. The reception desk in use — a real person behind it, film off the panels.
 3. The X-ray room with the machine visible.
 
-## 5. Deferred — Light Rays in the hero
+## 5. Light Rays — done
 
-You looked at Magic UI's Light Rays component and chose to hold off, with the
-hero as the intended location. Nothing was added to the codebase. Two notes for
-whenever you pick this up:
+Running in three places: the hero, the Equipment band and the final call to
+action. The component was rebuilt from Magic UI's without `motion/react`
+(~50KB gzipped, and not in this stack) — everything it animates is opacity
+and rotation, which CSS keyframes do natively, so it costs no JavaScript at
+all on a page whose traffic is mostly mid-range Android over rural data.
 
-- **The stock component needs `motion/react`** (~50KB gzipped), which is not in
-  the stack. Everything it animates is opacity and rotation, so it can be
-  rebuilt in pure CSS with the same props and no dependency. That is the
-  better route for an audience on mid-range Android over rural data.
-- **The hero needs the blend mode changed.** The rays use `mix-blend-screen`,
-  which brightens what is underneath. On the cream `#faf8f3` hero there is
-  almost nothing left to brighten, so they render as invisible or muddy. It
-  would need `multiply` or `soft-light` with a hand-tuned colour. The effect
-  works as designed on the two dark `#08240f` surfaces (Equipment band, final
-  CTA) if you ever want it somewhere it fights the design less.
+The three calls are tuned differently on purpose:
+
+- **Hero** uses `normal` blend with a warm low-alpha gold. The stock
+  `screen` brightens whatever is beneath it, and cream `#faf8f3` has nothing
+  left to brighten.
+- **Equipment band** uses `screen` as designed — deep green `#08240f` has all
+  the headroom it needs.
+- **Final CTA** uses `screen` too, but weaker and slower. That panel already
+  has a radial glow; the rays only give it a direction, and at matching
+  strength the two would fight.
 
 ## 6. Ranking plan
 

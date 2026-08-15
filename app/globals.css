@@ -432,29 +432,26 @@
     animation: boot-trace 1.5s var(--ease-fluid) 0.15s forwards;
   }
 
-  /* ---- Reading progress. Pure CSS where supported, invisible where not.
-     No scroll listener, so nothing runs on the main thread. ---- */
+  /* ---- Reading progress -------------------------------------------------
+     `--progress` is written by components/scroll-progress.tsx. Clipping the
+     bar rather than scaling it keeps the gradient at full page width, so the
+     colour genuinely travels from brand green toward gold as you read — a
+     scaleX would squash the whole ramp into the filled portion and show
+     nothing but green until the very end. ---- */
   .scroll-progress {
+    --progress: 0;
     position: fixed;
     inset: 0 0 auto 0;
     height: 2px;
     z-index: 60;
-    transform: scaleX(0);
-    transform-origin: 0 50%;
-    background: linear-gradient(
-      90deg,
-      var(--color-brand),
-      var(--color-gold)
-    );
+    background: linear-gradient(90deg, var(--color-brand), var(--color-gold));
+    clip-path: inset(0 calc(100% - var(--progress) * 100%) 0 0);
     pointer-events: none;
   }
 
-  @supports (animation-timeline: scroll()) {
-    .scroll-progress {
-      animation: boot-rule linear both;
-      animation-timeline: scroll(root block);
-      transform-origin: 0 50%;
-    }
+  /* Nothing to report while the veil is still up */
+  :root.ss-booting .scroll-progress {
+    opacity: 0;
   }
 
   /* ---- Playful details ------------------------------------------------ */

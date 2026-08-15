@@ -6,6 +6,7 @@ import {
 } from "next/font/google";
 import { site, SITE_URL, absUrl } from "@/lib/site";
 import { BootScreen } from "@/components/boot-screen";
+import { ScrollProgress } from "@/components/scroll-progress";
 import "./globals.css";
 
 const jakarta = Plus_Jakarta_Sans({
@@ -194,7 +195,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="grain min-h-full flex flex-col bg-canvas">
         <script dangerouslySetInnerHTML={{ __html: bootScript }} />
         <BootScreen />
-        <div className="scroll-progress" aria-hidden="true" />
+        <ScrollProgress />
         {/* Tailwind's own sr-only / focus:not-sr-only pair, rather than a
             bespoke rule that can go missing in a stylesheet refactor. */}
         <a
