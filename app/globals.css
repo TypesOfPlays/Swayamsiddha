@@ -257,8 +257,23 @@
   }
 
   /* Scroll reveal. Elements start displaced; .is-in is added by
-     IntersectionObserver. Transform + opacity only — no layout thrash. */
-  .reveal {
+     IntersectionObserver. Transform + opacity only — no layout thrash.
+     =====================================================================
+     Every hiding rule below is scoped to :root.ss-js, which the inline boot
+     script stamps on before first paint. This is not decoration.
+
+     An unscoped `.reveal { opacity: 0 }` means the page is blank until
+     JavaScript runs *and* the observer fires. There is no floor under it:
+     a failed bundle, a stalled observer, a browser extension, a bad network
+     moment — any of them leave a visitor looking at empty colour, which is
+     exactly what was reported on the Equipment band. Gating on a class that
+     only exists when script is running means the failure mode is "no
+     animation" rather than "no content".
+
+     Prefix every rule in this group or none: mixing scoped and unscoped
+     selectors changes their relative specificity, and the hiding rule would
+     start beating .is-in. ===================================================== */
+  :root.ss-js .reveal {
     opacity: 0;
     transform: translate3d(0, 1.75rem, 0);
     transition:
@@ -267,7 +282,7 @@
     will-change: transform, opacity;
   }
 
-  .reveal.is-in {
+  :root.ss-js .reveal.is-in {
     opacity: 1;
     transform: translate3d(0, 0, 0);
     will-change: auto;
@@ -283,34 +298,34 @@
      place rather than travel into it. Scaling *down* to 1 rather than up
      from it, because a full-width block starting above 1 overflows the
      viewport and can hand the page a horizontal scrollbar mid-animation. */
-  .reveal--settle {
+  :root.ss-js .reveal--settle {
     transform: translate3d(0, 0.75rem, 0) scale(0.975);
     transition:
       opacity 0.8s var(--ease-soft),
       transform 1s var(--ease-fluid);
   }
 
-  .reveal--settle.is-in {
+  :root.ss-js .reveal--settle.is-in {
     transform: translate3d(0, 0, 0) scale(1);
   }
 
   /* Uncovered from the bottom, for text on full-bleed bands. Opacity stays
      at 1 — the clip is the reveal, and fading as well would only mud it. */
-  .reveal--wipe {
+  :root.ss-js .reveal--wipe {
     opacity: 1;
     transform: none;
     clip-path: inset(0 0 100% 0);
     transition: clip-path 1.05s var(--ease-fluid);
   }
 
-  .reveal--wipe.is-in {
+  :root.ss-js .reveal--wipe.is-in {
     clip-path: inset(0 0 0 0);
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .reveal,
-    .reveal--settle,
-    .reveal--wipe {
+    :root.ss-js .reveal,
+    :root.ss-js .reveal--settle,
+    :root.ss-js .reveal--wipe {
       opacity: 1;
       transform: none;
       clip-path: none;

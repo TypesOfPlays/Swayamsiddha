@@ -184,7 +184,7 @@ const jsonLd = {
  * its own timeline, so a blocked or failed script can't trap a visitor.
  * The timeout only has to outlast the veil animation in globals.css.
  */
-const bootScript = `try{var d=document.documentElement;d.classList.add('ss-booting');setTimeout(function(){d.classList.remove('ss-booting')},4400)}catch(e){}`;
+const bootScript = `try{var d=document.documentElement;d.classList.add('ss-js','ss-booting');setTimeout(function(){d.classList.remove('ss-booting')},4400)}catch(e){}`;
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
