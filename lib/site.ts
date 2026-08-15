@@ -54,13 +54,12 @@ export const site = {
       line2: "Shamagudia, Ichhapur",
       city: "Kendrapara",
       postalCode: "754212",
-      /* The listing exists — Knowledge Graph id /g/11nr14147m — so a search
-         by name and address now resolves to the business itself rather than
-         dropping a pin at whatever the geocoder makes of the street. Exact
-         coordinates would still be better; they need a share link from the
-         Maps app, not from Google Search. */
-      coords: null as string | null,
-      mapsUrl: null as string | null,
+      /* Exact pin, from the owner's own listing (Knowledge Graph id
+         /g/11nr14147m). Taken from the `!3d…!4d…` pair in the resolved Maps
+         URL, which is the place itself — the `/@…` pair in the same URL is
+         only where the camera happened to sit and is ~30 m off. */
+      coords: "20.4788066,86.4452888" as string | null,
+      mapsUrl: "https://maps.app.goo.gl/pCQozP99fm2FW1ot6" as string | null,
       blurb:
         "Everything happens here — samples, digital X-ray, ECG, the analysers and the reports.",
       services: ["Blood & urine samples", "Digital X-ray", "ECG", "Reports"],
@@ -180,3 +179,26 @@ export const mapLinkFor = (l: SiteLocation) =>
 /** Coordinates drop an exact pin; a text search only approximates one. */
 export const mapEmbedFor = (l: SiteLocation) =>
   `https://maps.google.com/maps?q=${mapQueryFor(l)}&z=${l.coords ? 17 : 15}&output=embed`;
+
+/**
+ * schema.org GeoCoordinates for a branch, spread into its structured data.
+ *
+ * Worth publishing rather than leaving to the address alone: a postal
+ * address in rural Odisha geocodes loosely, and "Main Chhagharia Road" is
+ * not a unique string. Coordinates tell a search engine exactly how far a
+ * searcher is from the door, and distance is most of what decides which
+ * three businesses appear on the map above the results.
+ *
+ * Returns an empty object when there is no pin, so it spreads to nothing
+ * rather than publishing a null.
+ */
+export const geoFor = (l: SiteLocation) => {
+  if (!l.coords) return {};
+  const [latitude, longitude] = l.coords.split(",").map(Number);
+  return {
+    geo: { "@type": "GeoCoordinates", latitude, longitude },
+  };
+};
+
+export const labLocation =
+  site.locations.find((l) => l.id === "lab") ?? site.locations[0];

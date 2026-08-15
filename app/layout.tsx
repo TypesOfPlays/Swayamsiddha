@@ -4,7 +4,7 @@ import {
   Instrument_Serif,
   Noto_Sans_Oriya,
 } from "next/font/google";
-import { site, SITE_URL, absUrl } from "@/lib/site";
+import { site, SITE_URL, absUrl, geoFor, labLocation } from "@/lib/site";
 import { BootScreen } from "@/components/boot-screen";
 import { ScrollProgress } from "@/components/scroll-progress";
 import "./globals.css";
@@ -139,6 +139,8 @@ const jsonLd = {
     postalCode: site.address.postalCode,
     addressCountry: site.address.country,
   },
+  /* From the owner's own Maps listing, not geocoded from the address above */
+  ...geoFor(labLocation),
   areaServed: [
     { "@type": "AdministrativeArea", name: "Kendrapara district" },
     { "@type": "Place", name: "Ichhapur" },
@@ -167,6 +169,7 @@ const jsonLd = {
         postalCode: l.postalCode,
         addressCountry: site.address.country,
       },
+      ...geoFor(l),
       ...openingHours,
     })),
   ...openingHours,

@@ -6,42 +6,35 @@ remains is listed below, in rough order of what it is worth.
 Nothing on the page was invented — where a fact was missing, the page either
 omits the claim or routes the visitor to a phone call.
 
-## 0. Open
+## 0. Locations — settled
 
-**Waiting on one thing: the laboratory's coordinates.**
+Both branches are pinned exactly and both are on Google Business.
 
-Both branches have a Google Business Profile. The lab's listing is confirmed
-live — Knowledge Graph id `/g/11nr14147m` — which already improves its map,
-because a name-and-address search now resolves to the real business instead
-of to whatever the geocoder makes of the street name.
+| | Coordinates | Listing |
+|---|---|---|
+| Laboratory | `20.4788066, 86.4452888` | `/g/11nr14147m` |
+| Collection centre | `20.5024353, 86.4247906` | linked |
 
-Coordinates would still be better, and the collection centre has them. A
-search is Google's interpretation of a string; coordinates are the pin the
-owner placed.
+They sit 3.39 km apart, which matches the story the page tells — the lab out
+at Shamagudia, the centre closer to town. Both pairs are published as
+`GeoCoordinates` in the structured data, so a search engine knows how far a
+searcher is from each door instead of having to geocode a rural postal
+address. Distance is most of what decides which businesses appear on the map
+above the results, and "Main Chhagharia Road" is not a unique string.
 
-The share link supplied came from Google **Search**, which carries no
-coordinates. The one needed comes from the **Maps app**: open the lab in
-Google Maps → Share → Copy link, which produces a `maps.app.goo.gl/...`
-address. That is the form the collection centre's pin came from and it
-resolves to exact coordinates.
+The collection centre's address text is confirmed by the owner as written.
 
-Failing that, press and hold the pin in the Maps app and the coordinates
-appear in the search box, in the form `20.5024353, 86.4247906`.
+One trap worth recording, because whoever updates a pin next will hit it: a
+resolved Google Maps URL contains **two** coordinate pairs. The `/@…` pair is
+wherever the camera happened to sit — it was 32 m off here — and the
+`!3d…!4d…` pair is the place itself. Use the second. A share link copied from
+Google *Search* rather than the Maps app carries neither.
 
-Either one goes into `coords` and `mapsUrl` on the `lab` entry in
-`lib/site.ts`. `mapEmbedFor` and `mapLinkFor` already branch on whether those
-exist, so nothing else has to change.
-
-**Nothing here should ever be guessed.** A coordinate invented for a medical
-address sends a patient to the wrong building.
-
-While the listings are open, [GOOGLE-BUSINESS.md](GOOGLE-BUSINESS.md) is worth
-a pass. It has every field written to match this site exactly, and it flags
-three fixes the collection centre's listing likely needs — its name, its
-category, and linking it to the lab so the two stop competing for the same
-searches. §6 is the wider ranking plan.
-
-**The collection centre's address is confirmed** by the owner as written.
+Still worth a pass while the listings are open:
+[GOOGLE-BUSINESS.md](GOOGLE-BUSINESS.md) has every field written to match this
+site, and flags three likely fixes on the collection centre's listing — its
+name, its category, and linking it to the lab so the two stop competing for
+the same searches. §6 is the wider ranking plan.
 
 ## 1. Blocking — none left
 
