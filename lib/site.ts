@@ -101,8 +101,8 @@ export const site = {
     sameDayReports: true,
     /* Offered, but genuinely distance-dependent — never promised outright */
     homeCollection: "conditional" as const,
-    /* Deliberately empty: owner could not confirm. A false accreditation
-       claim is a regulatory and reputational risk, so it stays off. */
+    /* Owner has confirmed the lab is not accredited. Stays null — a false
+       accreditation claim is a regulatory and reputational risk. */
     accreditation: null,
   },
 

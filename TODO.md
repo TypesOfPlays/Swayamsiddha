@@ -1,7 +1,10 @@
-# Before this page goes live
+# Open items and the ranking plan
 
-Everything below is unconfirmed. Nothing here was invented — where a fact was
-missing, the page either omits the claim or routes the visitor to a phone call.
+The page is live at `swayamsiddhadiagnostics.in` and nothing blocks it. What
+remains is listed below, in rough order of what it is worth.
+
+Nothing on the page was invented — where a fact was missing, the page either
+omits the claim or routes the visitor to a phone call.
 
 ## 0. Open
 
@@ -17,8 +20,10 @@ That block is where local searches actually get decided.
 
 Create the profile at google.com/business, verify it, then add `coords` and
 `mapsUrl` to the `lab` entry in `lib/site.ts` — `mapEmbedFor` and
-`mapLinkFor` already branch on whether those exist. See §7 for the full
-ranking plan this sits inside.
+`mapLinkFor` already branch on whether those exist.
+
+**Every field to paste in is written out in [GOOGLE-BUSINESS.md](GOOGLE-BUSINESS.md).**
+§6 is the wider ranking plan this sits inside.
 
 **The collection centre's address is confirmed** by the owner as written.
 
@@ -35,24 +40,25 @@ Every factual question has been answered by the owner:
   anywhere on the page.
 - **WhatsApp** — confirmed on the same handset as `78478 89009`.
 
-The only remaining pre-launch step is the domain (§3).
+The domain is live and verified (§3). Nothing blocks this page.
 
 ## 2. Claims deliberately left OFF the page
 
-- **NABL / ISO accreditation** — you answered "I don't know". A false accreditation
-  claim is a regulatory and reputational risk, so it is not on the page anywhere.
-  If you hold it, send the certificate number and it becomes a strong trust badge.
-- **Pathologist name, qualification and registration number** — never invented. A
-  named MD Pathology signatory is the single strongest trust element a diagnostics
-  centre can display. Worth adding if you have one.
+- **NABL / ISO accreditation** — the owner has confirmed the lab is **not
+  accredited**. It stays off the page permanently. This is ordinary for a local
+  lab and nothing on the page depends on it. If that ever changes, the
+  certificate number and issuing body turn it into a strong trust badge.
+- **Pathologist name, qualification and registration number** — confirmed: there
+  is no named pathologist, so nothing is claimed. This remains the largest gap
+  on the page, and it is a real one rather than cosmetic — see §6.4.
 - **Prices** — the FAQ says prices depend on the test and to call. No number is printed.
-- **"Daily controls run alongside it"** — step 03 of the How-it-works section
-  claims daily quality-control runs. This came from the reference design you
-  supplied, not from anything you confirmed. It is a specific QC practice
-  claim: if you don't actually run daily controls, tell me and I'll change the
-  line to "so the result doesn't depend on who is on shift", which makes the
-  same point about automation without asserting a QC schedule.
 - **Turnaround promises beyond "most reports the same day"** — kept deliberately soft.
+
+Confirmed and therefore **kept** on the page:
+
+- **"Daily controls run alongside it"** — step 03 of the How-it-works section.
+  The owner has confirmed daily quality controls are genuinely run, so the
+  line stands as written.
 
 ## 3. Domain — done
 
@@ -97,7 +103,7 @@ whenever you pick this up:
   works as designed on the two dark `#08240f` surfaces (Equipment band, final
   CTA) if you ever want it somewhere it fights the design less.
 
-## 7. Ranking plan
+## 6. Ranking plan
 
 ### The honest shape of it
 
@@ -114,26 +120,19 @@ after them combined, and none of them are code.
 ### 1. Google Business Profile for the laboratory — do this first
 
 There is no listing for the main lab. Until there is, it cannot appear in
-the map pack at all, for any search, at any distance. Create it at
-google.com/business, then:
+the map pack at all, for any search, at any distance.
 
-- Primary category **Diagnostic center**. Secondaries: *Medical laboratory*,
-  *X-ray lab*, *Blood testing service*. The primary category is a genuine
-  ranking factor — not a label.
-- Name exactly `Swayamsiddha Diagnostics`. Not "Swayamsiddha Diagnostics —
-  Best Lab in Kendrapara". Keyword-stuffed names get listings suspended, and
-  competitors do report them.
-- Hours 6:00 AM – 9:00 PM, all seven days. The site already publishes these
-  in structured data, so the two agree.
-- Website field → `https://swayamsiddhadiagnostics.in`
-- Phone `+91 78478 89009` — the same number as the site and the signboard.
-- Verification is usually by postcard to the address, so it takes 1–2 weeks.
-  Start it now; nothing else in this list works without it.
+**[GOOGLE-BUSINESS.md](GOOGLE-BUSINESS.md) has every field written out**, for
+both the new lab listing and the corrections needed on the collection
+centre's existing one. It is a copy-paste job.
 
-Then link the collection centre to it as a second location under the same
-business rather than leaving it as an unrelated listing. The site's
-structured data already declares it a `department` of the lab, so this makes
-the two sources agree.
+Two things from it worth repeating here, because they are the ones people get
+wrong:
+
+- The name is exactly `Swayamsiddha Diagnostics`. Keyword-stuffed names get
+  listings suspended, not demoted, and competitors do report them.
+- Verification is usually a postcard, so it takes 1–2 weeks. Start it now —
+  nothing else in this list works without it.
 
 ### 2. Reviews
 
@@ -166,15 +165,22 @@ local rank.
 
 The on-page work is done: title, headings, canonical, sitemap, structured
 data, image weight, mobile layout. Grinding further on those returns almost
-nothing now. Two real gaps remain, both about **trust rather than keywords**:
+nothing now.
 
-- **A named pathologist**, with qualification and registration number.
-  Google holds health and medical pages to a higher bar than ordinary pages
-  — it wants to see who is accountable for the results. A page that names an
-  MD Pathology signatory is a different class of page to one that does not,
-  and it is also the thing a patient looks for. This is the highest-value
-  addition left to the site itself.
-- **Accreditation**, if it exists. Still unanswered, still off the page.
+One real gap remains, and it is about **trust rather than keywords**: there is
+**no named pathologist**. Google holds health and medical pages to a higher
+bar than ordinary pages — it wants to see who is accountable for a result, and
+so does the patient reading the page. A page naming an MD Pathology signatory
+with a registration number is a different class of page to one that doesn't.
+
+The owner has confirmed there is no such person on record, so nothing is
+claimed and nothing can be. It stays listed here because it is the single
+highest-value addition the *site* could ever receive — if a pathologist is
+ever engaged, even part-time, that changes the page more than any other edit
+available.
+
+Accreditation is settled: the lab is not accredited, and the claim stays off
+permanently (§2).
 
 ### 5. Pages that could exist later
 
@@ -199,9 +205,11 @@ Watch it in Search Console: Performance → Queries tells you what people
 actually typed. That is a better guide to the next page to write than any
 keyword tool.
 
-## 6. Nice to have
+## 7. Nice to have
 
-- **Google Business Profile** — the map embed searches by name and address. Once the
-  profile is verified, the pin becomes exact and the listing starts ranking.
 - **A real report sample** (with patient details removed) would let people see the
   letterhead before they commit.
+- **The three marquee lines I dropped** from the equipment band — DR flat-panel
+  detector, fluorescence immunoassay, 12-lead ECG — are plausible for this
+  equipment but were never confirmed, so they are off. Confirm any of them and
+  they go back.
