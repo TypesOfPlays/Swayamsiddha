@@ -5,23 +5,22 @@ missing, the page either omits the claim or routes the visitor to a phone call.
 
 ## 0. Open
 
-**The collection centre's printed address is a stand-in.** The map pin is
-exact — it comes from the owner's own Google Maps listing at
-`20.5024353, 86.4247906` — but the address *text* on the card is a guess:
+**The laboratory is not on Google Maps.** This is the single highest-value
+item left on this list — bigger than anything on the website itself.
 
-```
-Near Old Medical
-Kendrapara town
-Kendrapara, Odisha 754211
-```
+The collection centre has a listing (pin `20.5024353, 86.4247906`, which is
+why its map is exact). The laboratory does not, so its map is Google
+guessing from the address text. More importantly, a business with no Google
+Business Profile cannot appear in the map pack — the three results with pins
+that sit above the normal blue links for searches like "blood test near me".
+That block is where local searches actually get decided.
 
-Replace `line1`, `line2` and `postalCode` for the `collection` entry in
-`lib/site.ts` with the address as it would be written on a signboard.
-
-**The laboratory has no Google Maps listing yet.** Its map is a name-and-
-address search rather than an exact pin. Once it is listed, add `coords` and
+Create the profile at google.com/business, verify it, then add `coords` and
 `mapsUrl` to the `lab` entry in `lib/site.ts` — `mapEmbedFor` and
-`mapLinkFor` already branch on whether those exist.
+`mapLinkFor` already branch on whether those exist. See §7 for the full
+ranking plan this sits inside.
+
+**The collection centre's address is confirmed** by the owner as written.
 
 ## 1. Blocking — none left
 
@@ -55,15 +54,14 @@ The only remaining pre-launch step is the domain (§3).
   same point about automation without asserting a QC schedule.
 - **Turnaround promises beyond "most reports the same day"** — kept deliberately soft.
 
-## 3. Domain
+## 3. Domain — done
 
-Nothing to do to deploy — the GitHub Actions workflow derives the site URL from
-the repository itself, so canonical tags, the sitemap and Open Graph images are
-correct on a project site with no configuration. See [DEPLOY.md](DEPLOY.md).
+Live on `swayamsiddhadiagnostics.in`. Registrar email verified. HTTPS is
+enforced, `www` redirects to the apex, and the old
+`typesofplays.github.io/swayamsiddha/` address redirects to the domain, so
+there is no duplicate copy of the site competing with itself in search.
 
-Worth doing eventually: a real domain. `username.github.io/repo` ranks worse for
-local searches like "blood test near Ichhapur" than `swayamsiddhadiagnostics.in`
-would, and it is harder to say out loud to a patient. DEPLOY.md has the steps.
+Search Console is verified on the new domain and the sitemap is submitted.
 
 ## 4. Photography — the honest assessment
 
@@ -98,6 +96,108 @@ whenever you pick this up:
   would need `multiply` or `soft-light` with a hand-tuned colour. The effect
   works as designed on the two dark `#08240f` surfaces (Equipment band, final
   CTA) if you ever want it somewhere it fights the design less.
+
+## 7. Ranking plan
+
+### The honest shape of it
+
+For a diagnostics centre, **the website is not where local rank is decided.**
+Somebody in Kendrapara searching "blood test near me" gets a block of three
+results with map pins above the blue links. That block is the Google
+Business Profile index, not the web index. Most people tap it and never
+scroll. Everything the website does well — structured data, speed, clean
+headings — mostly helps you *confirm* a listing that already exists.
+
+So the order below is deliberate. Steps 1–3 are worth more than everything
+after them combined, and none of them are code.
+
+### 1. Google Business Profile for the laboratory — do this first
+
+There is no listing for the main lab. Until there is, it cannot appear in
+the map pack at all, for any search, at any distance. Create it at
+google.com/business, then:
+
+- Primary category **Diagnostic center**. Secondaries: *Medical laboratory*,
+  *X-ray lab*, *Blood testing service*. The primary category is a genuine
+  ranking factor — not a label.
+- Name exactly `Swayamsiddha Diagnostics`. Not "Swayamsiddha Diagnostics —
+  Best Lab in Kendrapara". Keyword-stuffed names get listings suspended, and
+  competitors do report them.
+- Hours 6:00 AM – 9:00 PM, all seven days. The site already publishes these
+  in structured data, so the two agree.
+- Website field → `https://swayamsiddhadiagnostics.in`
+- Phone `+91 78478 89009` — the same number as the site and the signboard.
+- Verification is usually by postcard to the address, so it takes 1–2 weeks.
+  Start it now; nothing else in this list works without it.
+
+Then link the collection centre to it as a second location under the same
+business rather than leaving it as an unrelated listing. The site's
+structured data already declares it a `department` of the lab, so this makes
+the two sources agree.
+
+### 2. Reviews
+
+After proximity, review volume and recency are the strongest things you can
+actually move in the map pack. A lab with 40 recent reviews outranks one
+with 4 from two years ago at the same distance.
+
+- Ask every patient collecting a report. The moment a report is handed over
+  is the only moment this ever works.
+- A printed QR code at the desk pointing at the review link removes the
+  friction of searching for you.
+- Reply to all of them, including the bad ones. Replies are visible to both
+  Google and the next patient reading.
+- Never buy reviews and never post them yourself. Removal is not the worst
+  case — suspension of the listing is.
+
+### 3. NAP consistency, then the directories
+
+NAP = name, address, phone. It must be **byte-identical** everywhere it
+appears. `78478 89009` on the site, `7847889009` on Justdial and
+`+91-78478-89009` on Practo read as three businesses to a crawler and dilute
+all three.
+
+The list worth doing for an Odisha diagnostics centre, roughly in order:
+Google Business Profile, Bing Places, Justdial, Practo, Sulekha, Apple
+Business Connect, IndiaMART. Free, tedious, and it is the ordinary price of
+local rank.
+
+### 4. What the website still needs — and it is not more keywords
+
+The on-page work is done: title, headings, canonical, sitemap, structured
+data, image weight, mobile layout. Grinding further on those returns almost
+nothing now. Two real gaps remain, both about **trust rather than keywords**:
+
+- **A named pathologist**, with qualification and registration number.
+  Google holds health and medical pages to a higher bar than ordinary pages
+  — it wants to see who is accountable for the results. A page that names an
+  MD Pathology signatory is a different class of page to one that does not,
+  and it is also the thing a patient looks for. This is the highest-value
+  addition left to the site itself.
+- **Accreditation**, if it exists. Still unanswered, still off the page.
+
+### 5. Pages that could exist later
+
+One page per major test — "CBC test in Kendrapara", "Lipid profile in
+Kendrapara", "Thyroid test in Kendrapara" — each with what the test is, the
+fasting requirement, and the turnaround. That is real, slow, useful content
+that catches searches the single landing page never will.
+
+Worth doing only **after** steps 1–3. Ten thin test pages on a business with
+no Business Profile rank for nothing.
+
+### 6. Expectations
+
+Nothing here works in a week. A new Business Profile takes 1–2 weeks to
+verify and a further 4–8 to settle in the map pack. Reviews accumulate at
+the speed of patients. And proximity is a factor nobody can buy: for a
+searcher standing in Kendrapara town the collection centre is the nearer
+pin, and for one near Ichhapur it is the lab. That is why both belong on the
+site and both belong on Google.
+
+Watch it in Search Console: Performance → Queries tells you what people
+actually typed. That is a better guide to the next page to write than any
+keyword tool.
 
 ## 6. Nice to have
 

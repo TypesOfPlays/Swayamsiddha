@@ -66,6 +66,7 @@ export const site = {
       name: "Collection Centre",
       tagline: "closer to town",
       kind: "Sample collection",
+      /* Address confirmed by the owner. */
       line1: "Near Old Medical",
       line2: "Kendrapara town",
       city: "Kendrapara",
