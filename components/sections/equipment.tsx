@@ -46,6 +46,14 @@ export function Equipment() {
               Ours are run on automated analysers, so the number on your report
               means the same thing in June as it does in December.
             </p>
+            {/* Detector type confirmed by the owner. Still not claimed: ECG
+                lead count, and the assay chemistry behind hormone panels. */}
+            <p className="mt-4 text-[1.0625rem] leading-relaxed text-white/65">
+              The X-ray works the same way. A flat-panel detector sends the
+              image straight to the screen — nothing to carry to a darkroom,
+              nothing to develop, and a retake takes seconds rather than
+              another trip.
+            </p>
           </Reveal>
         </div>
 

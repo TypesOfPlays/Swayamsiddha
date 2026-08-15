@@ -4,12 +4,13 @@ Everything below is written to match `lib/site.ts` and the live site exactly.
 Where Google and the website disagree about a business, Google trusts neither.
 So copy these as they are; if you change one, change it on the site too.
 
-Create the listing at **google.com/business**. You have to do this yourself —
-it needs your Google account and a verification step tied to the address.
+Both branches already have a listing. So this is a **checklist to audit them
+against**, not a setup guide — open each one at business.google.com and make
+the fields match what is below. Anything that already matches, leave alone.
 
 ---
 
-## Listing 1 — the laboratory (does not exist yet, create this)
+## Listing 1 — the laboratory
 
 ### Name
 
@@ -129,10 +130,10 @@ cardboard boxes around. They read as "not open yet".
 
 ---
 
-## Listing 2 — the collection centre (already exists)
+## Listing 2 — the collection centre
 
-The pin at `20.5024353, 86.4247906` is already live, which is where the site's
-map for that branch comes from. Three things to fix on it:
+The pin at `20.5024353, 86.4247906` is live, which is where the site's map for
+that branch comes from. Three things to check on it:
 
 1. **Name it** `Swayamsiddha Diagnostics — Collection Centre`. The site's
    structured data declares it under exactly that name, as a department of the
@@ -157,10 +158,7 @@ every day.
 
 ---
 
-## After verification
-
-Verification is usually a postcard to the address and takes one to two weeks.
-Nothing below works until it completes.
+## Once both listings are right
 
 **Get the review link.** In the profile dashboard there is an "Ask for
 reviews" option that gives you a short link. Turn it into a QR code, print it,
@@ -173,10 +171,10 @@ next patient and are visible to Google.
 **Never buy reviews and never post them yourself.** The failure case is not a
 low ranking, it is a suspended listing.
 
-**Add the pin back to the site.** Once the lab is listed, send me its Maps
-link and I will set `coords` and `mapsUrl` on the `lab` entry in `lib/site.ts`
-— the map helpers already branch on whether those exist, so the site's map
-switches from a name-and-address guess to your exact pin.
+**Send me the lab's Maps link** — open its listing, Share → Copy link. I set
+`coords` and `mapsUrl` on the `lab` entry in `lib/site.ts` and the site's map
+switches from a name-and-address guess to the exact pin. This is the one item
+still outstanding.
 
 **Then do the other directories**, with byte-identical name, address and
 phone: Bing Places, Justdial, Practo, Sulekha, Apple Business Connect,

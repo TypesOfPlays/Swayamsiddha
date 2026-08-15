@@ -6,15 +6,15 @@
  * Three copies rather than two so the row still fills an ultrawide monitor.
  *
  * Every line here is something the owner confirmed or something legible in
- * their own photographs. Nothing about detector type, lead count or assay
- * chemistry is asserted — see the notes in the section that uses this.
+ * their own photographs. The flat-panel detector is confirmed; ECG lead count
+ * and assay chemistry are not, so neither is asserted anywhere.
  */
 
 const ITEMS = [
   "Erba EM 200 NEO biochemistry",
   "H 560 · 5-part differential CBC",
   "Carestream DryView 5850 laser imaging",
-  "Digital X-ray",
+  "Digital X-ray · flat-panel detector",
   "ECG on the spot",
   "73 tests",
   "Same-day reports",

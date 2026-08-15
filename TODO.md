@@ -8,22 +8,22 @@ omits the claim or routes the visitor to a phone call.
 
 ## 0. Open
 
-**The laboratory is not on Google Maps.** This is the single highest-value
-item left on this list — bigger than anything on the website itself.
+**Waiting on one thing: the laboratory's Google Maps link.**
 
-The collection centre has a listing (pin `20.5024353, 86.4247906`, which is
-why its map is exact). The laboratory does not, so its map is Google
-guessing from the address text. More importantly, a business with no Google
-Business Profile cannot appear in the map pack — the three results with pins
-that sit above the normal blue links for searches like "blood test near me".
-That block is where local searches actually get decided.
+Both branches now have a Google Business Profile — the owner confirmed the
+lab's listing exists. The site does not know about it yet. The lab's map is
+still a name-and-address search, so Google places that pin by guessing,
+while the collection centre's map uses its exact listing coordinates.
 
-Create the profile at google.com/business, verify it, then add `coords` and
-`mapsUrl` to the `lab` entry in `lib/site.ts` — `mapEmbedFor` and
-`mapLinkFor` already branch on whether those exist.
+To fix it: open the lab's listing, Share → Copy link, and set `coords` and
+`mapsUrl` on the `lab` entry in `lib/site.ts`. `mapEmbedFor` and `mapLinkFor`
+already branch on whether those exist, so nothing else has to change.
 
-**Every field to paste in is written out in [GOOGLE-BUSINESS.md](GOOGLE-BUSINESS.md).**
-§6 is the wider ranking plan this sits inside.
+While the listings are open, [GOOGLE-BUSINESS.md](GOOGLE-BUSINESS.md) is worth
+a pass. It has every field written to match this site exactly, and it flags
+three fixes the collection centre's listing likely needs — its name, its
+category, and linking it to the lab so the two stop competing for the same
+searches. §6 is the wider ranking plan.
 
 **The collection centre's address is confirmed** by the owner as written.
 
@@ -36,8 +36,14 @@ Every factual question has been answered by the owner:
   structured data so Google can show "Open now".
 - **The "(O)" marker** on the printed test list — dropped entirely. All 73 tests
   are listed as plain names with no annotation.
-- **Second phone number** — deliberately not used. Only `78478 89009` appears
-  anywhere on the page.
+- **Second phone number** — `94397 79118` stays off, confirmed twice. Only
+  `78478 89009` appears on the page, and it is the number to use on Google and
+  every directory. Inconsistent phone numbers read as separate businesses and
+  weaken all of them.
+- **Flat-panel X-ray detector** — confirmed. The image goes straight to the
+  screen with no cassette to develop, which is now stated in the Equipment
+  section and the scrolling band. ECG lead count and assay chemistry were *not*
+  confirmed and remain unstated.
 - **WhatsApp** — confirmed on the same handset as `78478 89009`.
 
 The domain is live and verified (§3). Nothing blocks this page.
@@ -117,22 +123,26 @@ headings — mostly helps you *confirm* a listing that already exists.
 So the order below is deliberate. Steps 1–3 are worth more than everything
 after them combined, and none of them are code.
 
-### 1. Google Business Profile for the laboratory — do this first
+### 1. Google Business Profile — exists for both branches
 
-There is no listing for the main lab. Until there is, it cannot appear in
-the map pack at all, for any search, at any distance.
+The hard part is done. What remains is making the two listings correct and
+consistent with each other, which [GOOGLE-BUSINESS.md](GOOGLE-BUSINESS.md)
+sets out field by field. The three that matter most:
 
-**[GOOGLE-BUSINESS.md](GOOGLE-BUSINESS.md) has every field written out**, for
-both the new lab listing and the corrections needed on the collection
-centre's existing one. It is a copy-paste job.
+- **The lab's name must be exactly `Swayamsiddha Diagnostics`.** Not "Best
+  Lab in Kendrapara". Keyword-stuffed names get listings suspended rather
+  than demoted, and rival labs do report them.
+- **The two listings need different primary categories.** The lab is a
+  `Diagnostic center`; the collection centre is a `Blood testing service`. If
+  both claim the same category they compete against each other for the same
+  searches instead of reinforcing one business.
+- **Link the collection centre to the lab** as a second location. The site's
+  structured data already declares it a `department` of the lab, so this makes
+  Google and the website tell the same story.
 
-Two things from it worth repeating here, because they are the ones people get
-wrong:
-
-- The name is exactly `Swayamsiddha Diagnostics`. Keyword-stuffed names get
-  listings suspended, not demoted, and competitors do report them.
-- Verification is usually a postcard, so it takes 1–2 weeks. Start it now —
-  nothing else in this list works without it.
+Then photos. A listing with ten photos and a new one every few weeks
+outperforms one with two from the day it opened, and photo recency is
+something Google can see.
 
 ### 2. Reviews
 
@@ -205,11 +215,24 @@ Watch it in Search Console: Performance → Queries tells you what people
 actually typed. That is a better guide to the next page to write than any
 keyword tool.
 
-## 7. Nice to have
+## 7. Closed by the owner — do not re-ask
 
-- **A real report sample** (with patient details removed) would let people see the
-  letterhead before they commit.
-- **The three marquee lines I dropped** from the equipment band — DR flat-panel
-  detector, fluorescence immunoassay, 12-lead ECG — are plausible for this
-  equipment but were never confirmed, so they are off. Confirm any of them and
-  they go back.
+- **Sample report on the page** — declined. Off the list permanently.
+- **Second phone number** — declined, twice. See §1.
+- **12-lead ECG** and **fluorescence immunoassay** — not confirmed, so both
+  stay off the page. Only the flat-panel X-ray detector was confirmed of the
+  three capability claims offered.
+- **NABL / ISO accreditation** and a **named pathologist** — neither exists.
+  See §2.
+
+## 8. Still open, owner-dependent
+
+- **Photographs** — a reshoot is not possible right now, so `front.webp` keeps
+  its small "look for this signboard" role and `reception.webp` stays unused.
+  Revisit whenever the film is off the panels and the desk is in use; these
+  feed the Google listing as well as the site, where photo count and recency
+  are visible to Google.
+- **The Odia lines** through the page have never been read by a native
+  speaker. They are short and were written carefully, but a wrong particle in
+  a headline is the kind of thing only a reader catches. Worth ten minutes
+  from anyone local.
