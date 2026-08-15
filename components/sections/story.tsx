@@ -4,6 +4,7 @@ import { Reveal } from "@/components/reveal";
 import { CallButton, WhatsAppButton } from "@/components/cta";
 import { Magnetic } from "@/components/magnetic";
 import { IconArrowUpRight } from "@/components/icons";
+import { LightRays } from "@/components/ui/light-rays";
 import { LOGO_VIEWBOX, PETAL_PATHS, CROWN_PATH } from "@/lib/logo-paths";
 
 /**
@@ -325,20 +326,39 @@ export function Story() {
         </div>
 
         <Reveal delay={120}>
-          <div className="mt-14 rounded-[2rem] bg-brand-ink p-8 text-center shadow-float sm:p-12">
-            <p className="font-odia text-lg font-semibold text-gold-bright">
-              ଆପଣଙ୍କ ସ୍ୱାସ୍ଥ୍ୟ, ଆମର ଦାୟିତ୍ୱ।
-            </p>
-            <h3 className="mx-auto mt-4 max-w-xl text-[1.625rem] font-extrabold leading-[1.12] tracking-[-0.025em] text-white sm:text-[2rem]">
-              That is the whole of it. No queue, no confusion, no second trip.
-            </h3>
-            <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-              <Magnetic>
-                <CallButton />
-              </Magnetic>
-              <Magnetic>
-                <WhatsAppButton />
-              </Magnetic>
+          <div className="relative mt-14 overflow-hidden rounded-[2rem] bg-brand-ink p-8 text-center shadow-float sm:p-12">
+            {/* Shorter and tighter than the other three fields. This panel is
+                about a third the height of the Equipment band, so full-length
+                shafts would read as one flat wash instead of light falling
+                into a small room. It is also the only unlit dark panel on the
+                page, so the rays are its whole light source and can carry a
+                little more weight than the final CTA's, which only has to
+                give an existing glow a direction. */}
+            <LightRays
+              count={5}
+              color="rgba(232, 180, 74, 0.17)"
+              blur={38}
+              speed={23}
+              length="16rem"
+              blend="screen"
+              seed={59}
+            />
+
+            <div className="relative">
+              <p className="font-odia text-lg font-semibold text-gold-bright">
+                ଆପଣଙ୍କ ସ୍ୱାସ୍ଥ୍ୟ, ଆମର ଦାୟିତ୍ୱ।
+              </p>
+              <h3 className="mx-auto mt-4 max-w-xl text-[1.625rem] font-extrabold leading-[1.12] tracking-[-0.025em] text-white sm:text-[2rem]">
+                That is the whole of it. No queue, no confusion, no second trip.
+              </h3>
+              <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+                <Magnetic>
+                  <CallButton />
+                </Magnetic>
+                <Magnetic>
+                  <WhatsAppButton />
+                </Magnetic>
+              </div>
             </div>
           </div>
         </Reveal>
