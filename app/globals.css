@@ -866,6 +866,83 @@
     }
   }
 
+  /* ---- Branch picker --------------------------------------------------- */
+
+  /* A gradient rule that draws itself under the branch name */
+  .branch__name {
+    position: relative;
+    display: inline-block;
+  }
+
+  .branch__name::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -0.4rem;
+    height: 2px;
+    border-radius: 2px;
+    background: linear-gradient(
+      90deg,
+      var(--color-brand),
+      var(--color-gold)
+    );
+    transform: scaleX(0);
+    transform-origin: 0 50%;
+    transition: transform 0.65s var(--ease-fluid);
+  }
+
+  .branch[aria-pressed="true"] .branch__name::after {
+    transform: scaleX(1);
+  }
+
+  @media (hover: hover) {
+    .branch:hover .branch__name::after {
+      transform: scaleX(1);
+    }
+  }
+
+  /* Slow halo on the live marker, so "on the map" reads as current */
+  .branch__live::before {
+    content: "";
+    position: absolute;
+    inset: -0.25rem;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--color-brand) 30%, transparent);
+    animation: branch-pulse 2.6s var(--ease-soft) infinite;
+  }
+
+  .branch__live {
+    position: relative;
+  }
+
+  @keyframes branch-pulse {
+    0% {
+      transform: scale(0.55);
+      opacity: 0.75;
+    }
+    70%,
+    100% {
+      transform: scale(1.7);
+      opacity: 0;
+    }
+  }
+
+  /* The map iframe is remounted when you switch branch; fade it so the
+     swap reads as a move rather than a flicker. */
+  .map-fade {
+    animation: map-in 0.6s var(--ease-fluid) both;
+  }
+
+  @keyframes map-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
   /* ---- Story trail -----------------------------------------------------
      Narrow screens get a straight rail down the left; a zigzag inside 375px
      would read as a mistake. Wide screens get the real thread.
@@ -1190,6 +1267,15 @@
     .trail__img,
     .reveal.is-in .trail__img {
       transform: none;
+      transition: none;
+    }
+
+    .map-fade,
+    .branch__live::before {
+      animation: none;
+    }
+
+    .branch__name::after {
       transition: none;
     }
 

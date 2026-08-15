@@ -148,6 +148,26 @@ const jsonLd = {
     { "@type": "MedicalTest", name: "Digital X-ray" },
     { "@type": "MedicalTest", name: "ECG" },
   ],
+  /* The collection centre is a branch of the same business, not a second
+     laboratory — samples drawn there are run at the address above. Declared
+     as a department so search engines associate the two rather than reading
+     them as competing listings. */
+  department: site.locations
+    .filter((l) => l.id !== "lab")
+    .map((l) => ({
+      "@type": "MedicalClinic",
+      name: `${site.name} — ${l.name}`,
+      telephone: site.phone.e164,
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: `${l.line1}, ${l.line2}`,
+        addressLocality: l.city,
+        addressRegion: site.address.state,
+        postalCode: l.postalCode,
+        addressCountry: site.address.country,
+      },
+      ...openingHours,
+    })),
   ...openingHours,
 };
 

@@ -37,6 +37,51 @@ export const site = {
       "Main Chhagharia Road, Shamagudia, Ichhapur, Kendrapara, Odisha 754212",
   },
 
+  /**
+   * Both places a patient can walk into.
+   *
+   * The distinction is deliberate and stated on the page: the lab runs the
+   * analysers, the collection centre only draws samples and sends them
+   * there. Blurring that would be a claim the second site cannot back.
+   */
+  locations: [
+    {
+      id: "lab",
+      name: "The Laboratory",
+      tagline: "where the machines live",
+      kind: "Full laboratory",
+      line1: "Main Chhagharia Road",
+      line2: "Shamagudia, Ichhapur",
+      city: "Kendrapara",
+      postalCode: "754212",
+      /* No listing coordinates yet — searched by name and address instead */
+      coords: null as string | null,
+      mapsUrl: null as string | null,
+      blurb:
+        "Everything happens here — samples, digital X-ray, ECG, the analysers and the reports.",
+      services: ["Blood & urine samples", "Digital X-ray", "ECG", "Reports"],
+    },
+    {
+      id: "collection",
+      name: "Collection Centre",
+      tagline: "closer to town",
+      kind: "Sample collection",
+      line1: "Near Old Medical",
+      line2: "Kendrapara town",
+      city: "Kendrapara",
+      postalCode: "754211",
+      /* Exact pin, from the owner's own Google Maps listing. Coordinates
+         beat a landmark search — "Old Medical" alone drops the pin
+         wherever Google feels like. */
+      coords: "20.5024353,86.4247906" as string | null,
+      mapsUrl:
+        "https://maps.app.goo.gl/WTZCHa7rrEfwwabH7" as string | null,
+      blurb:
+        "Closer to town for a quick sample. What is drawn here is carried to Main Chhagharia Road and run on the same analysers.",
+      services: ["Blood & urine samples", "Reports on WhatsApp"],
+    },
+  ],
+
   /* Confirmed by the owner: open every day, 6 AM to 9 PM. */
   hours: {
     standIn: false,
@@ -103,3 +148,29 @@ export const mapsQuery = encodeURIComponent(
 );
 export const mapsLink = `https://www.google.com/maps/search/?api=1&query=${mapsQuery}`;
 export const mapsEmbed = `https://maps.google.com/maps?q=${mapsQuery}&z=14&output=embed`;
+
+export type SiteLocation = (typeof site.locations)[number];
+
+/**
+ * Map lookups per branch.
+ *
+ * The lab is searched by business name so the pin is the business itself.
+ * The collection centre is searched by landmark only — it is not on Google
+ * Business yet, and searching a name that is not listed drops the pin
+ * somewhere arbitrary. Switch it to the name once the listing exists.
+ */
+export const mapQueryFor = (l: SiteLocation) =>
+  l.coords
+    ? l.coords
+    : encodeURIComponent(
+        `${site.name}, ${l.line1}, ${l.line2}, ${l.city}, ${site.address.state} ${l.postalCode}`,
+      );
+
+/** The real listing when there is one, otherwise a search. */
+export const mapLinkFor = (l: SiteLocation) =>
+  l.mapsUrl ??
+  `https://www.google.com/maps/search/?api=1&query=${mapQueryFor(l)}`;
+
+/** Coordinates drop an exact pin; a text search only approximates one. */
+export const mapEmbedFor = (l: SiteLocation) =>
+  `https://maps.google.com/maps?q=${mapQueryFor(l)}&z=${l.coords ? 17 : 15}&output=embed`;
