@@ -8,16 +8,32 @@ omits the claim or routes the visitor to a phone call.
 
 ## 0. Open
 
-**Waiting on one thing: the laboratory's Google Maps link.**
+**Waiting on one thing: the laboratory's coordinates.**
 
-Both branches now have a Google Business Profile — the owner confirmed the
-lab's listing exists. The site does not know about it yet. The lab's map is
-still a name-and-address search, so Google places that pin by guessing,
-while the collection centre's map uses its exact listing coordinates.
+Both branches have a Google Business Profile. The lab's listing is confirmed
+live — Knowledge Graph id `/g/11nr14147m` — which already improves its map,
+because a name-and-address search now resolves to the real business instead
+of to whatever the geocoder makes of the street name.
 
-To fix it: open the lab's listing, Share → Copy link, and set `coords` and
-`mapsUrl` on the `lab` entry in `lib/site.ts`. `mapEmbedFor` and `mapLinkFor`
-already branch on whether those exist, so nothing else has to change.
+Coordinates would still be better, and the collection centre has them. A
+search is Google's interpretation of a string; coordinates are the pin the
+owner placed.
+
+The share link supplied came from Google **Search**, which carries no
+coordinates. The one needed comes from the **Maps app**: open the lab in
+Google Maps → Share → Copy link, which produces a `maps.app.goo.gl/...`
+address. That is the form the collection centre's pin came from and it
+resolves to exact coordinates.
+
+Failing that, press and hold the pin in the Maps app and the coordinates
+appear in the search box, in the form `20.5024353, 86.4247906`.
+
+Either one goes into `coords` and `mapsUrl` on the `lab` entry in
+`lib/site.ts`. `mapEmbedFor` and `mapLinkFor` already branch on whether those
+exist, so nothing else has to change.
+
+**Nothing here should ever be guessed.** A coordinate invented for a medical
+address sends a patient to the wrong building.
 
 While the listings are open, [GOOGLE-BUSINESS.md](GOOGLE-BUSINESS.md) is worth
 a pass. It has every field written to match this site exactly, and it flags

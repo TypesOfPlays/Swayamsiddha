@@ -54,7 +54,11 @@ export const site = {
       line2: "Shamagudia, Ichhapur",
       city: "Kendrapara",
       postalCode: "754212",
-      /* No listing coordinates yet — searched by name and address instead */
+      /* The listing exists — Knowledge Graph id /g/11nr14147m — so a search
+         by name and address now resolves to the business itself rather than
+         dropping a pin at whatever the geocoder makes of the street. Exact
+         coordinates would still be better; they need a share link from the
+         Maps app, not from Google Search. */
       coords: null as string | null,
       mapsUrl: null as string | null,
       blurb:
@@ -155,10 +159,11 @@ export type SiteLocation = (typeof site.locations)[number];
 /**
  * Map lookups per branch.
  *
- * The lab is searched by business name so the pin is the business itself.
- * The collection centre is searched by landmark only — it is not on Google
- * Business yet, and searching a name that is not listed drops the pin
- * somewhere arbitrary. Switch it to the name once the listing exists.
+ * Both branches are on Google Business now, so a name-and-address search
+ * resolves to the real listing for either one. Coordinates are still
+ * preferred where available: a search is Google's best interpretation of a
+ * string, whereas coordinates are the pin the owner placed. The collection
+ * centre has them; the laboratory does not yet.
  */
 export const mapQueryFor = (l: SiteLocation) =>
   l.coords
