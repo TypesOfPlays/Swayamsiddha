@@ -38,53 +38,23 @@ export const site = {
   },
 
   /**
-   * Both places a patient can walk into.
+   * The laboratory's place on the map.
    *
-   * The distinction is deliberate and stated on the page: the lab runs the
-   * analysers, the collection centre only draws samples and sends them
-   * there. Blurring that would be a claim the second site cannot back.
+   * This site is about the laboratory and nothing else. The collection
+   * centre in Kendrapara town is getting its own site, so it is deliberately
+   * absent here rather than half-present — no second address, no branch
+   * picker, and nothing in the structured data that would have a search
+   * engine treat this page as covering two places.
+   *
+   * The pin is exact, from the owner's own listing (Knowledge Graph id
+   * /g/11nr14147m). It came from the `!3d…!4d…` pair in the resolved Maps
+   * URL, which is the place itself — the `/@…` pair in the same URL is only
+   * where the camera happened to sit and is about 30 m off.
    */
-  locations: [
-    {
-      id: "lab",
-      name: "The Laboratory",
-      tagline: "where the machines live",
-      kind: "Full laboratory",
-      line1: "Main Chhagharia Road",
-      line2: "Shamagudia, Ichhapur",
-      city: "Kendrapara",
-      postalCode: "754212",
-      /* Exact pin, from the owner's own listing (Knowledge Graph id
-         /g/11nr14147m). Taken from the `!3d…!4d…` pair in the resolved Maps
-         URL, which is the place itself — the `/@…` pair in the same URL is
-         only where the camera happened to sit and is ~30 m off. */
-      coords: "20.4788066,86.4452888" as string | null,
-      mapsUrl: "https://maps.app.goo.gl/pCQozP99fm2FW1ot6" as string | null,
-      blurb:
-        "Everything happens here — samples, digital X-ray, ECG, the analysers and the reports.",
-      services: ["Blood & urine samples", "Digital X-ray", "ECG", "Reports"],
-    },
-    {
-      id: "collection",
-      name: "Collection Centre",
-      tagline: "closer to town",
-      kind: "Sample collection",
-      /* Address confirmed by the owner. */
-      line1: "Near Old Medical",
-      line2: "Kendrapara town",
-      city: "Kendrapara",
-      postalCode: "754211",
-      /* Exact pin, from the owner's own Google Maps listing. Coordinates
-         beat a landmark search — "Old Medical" alone drops the pin
-         wherever Google feels like. */
-      coords: "20.5024353,86.4247906" as string | null,
-      mapsUrl:
-        "https://maps.app.goo.gl/WTZCHa7rrEfwwabH7" as string | null,
-      blurb:
-        "Closer to town for a quick sample. What is drawn here is carried to Main Chhagharia Road and run on the same analysers.",
-      services: ["Blood & urine samples", "Reports on WhatsApp"],
-    },
-  ],
+  map: {
+    coords: "20.4788066,86.4452888",
+    url: "https://maps.app.goo.gl/pCQozP99fm2FW1ot6",
+  },
 
   /* Confirmed by the owner: open every day, 6 AM to 9 PM. */
   hours: {
@@ -155,58 +125,26 @@ export const waLink = `https://wa.me/${site.whatsapp.e164}?text=${encodeURICompo
   site.whatsapp.message,
 )}`;
 
-export const mapsQuery = encodeURIComponent(
-  `${site.name}, ${site.address.full}`,
-);
-export const mapsLink = `https://www.google.com/maps/search/?api=1&query=${mapsQuery}`;
-export const mapsEmbed = `https://maps.google.com/maps?q=${mapsQuery}&z=14&output=embed`;
+/**
+ * Maps, driven by the pin rather than by a text search.
+ *
+ * A postal address in rural Odisha geocodes loosely and "Main Chhagharia
+ * Road" is not a unique string, so a name-and-address query is Google's best
+ * guess where coordinates are the door itself.
+ */
+export const mapsLink = site.map.url;
 
-export type SiteLocation = (typeof site.locations)[number];
+export const mapsEmbed = `https://maps.google.com/maps?q=${site.map.coords}&z=17&output=embed`;
 
 /**
- * Map lookups per branch.
+ * schema.org GeoCoordinates, spread into the structured data.
  *
- * Both branches are on Google Business now, so a name-and-address search
- * resolves to the real listing for either one. Coordinates are still
- * preferred where available: a search is Google's best interpretation of a
- * string, whereas coordinates are the pin the owner placed. The collection
- * centre has them; the laboratory does not yet.
+ * Worth publishing rather than leaving to the address alone: coordinates
+ * tell a search engine exactly how far a searcher is from the door, and
+ * distance is most of what decides which businesses appear on the map above
+ * the results.
  */
-export const mapQueryFor = (l: SiteLocation) =>
-  l.coords
-    ? l.coords
-    : encodeURIComponent(
-        `${site.name}, ${l.line1}, ${l.line2}, ${l.city}, ${site.address.state} ${l.postalCode}`,
-      );
-
-/** The real listing when there is one, otherwise a search. */
-export const mapLinkFor = (l: SiteLocation) =>
-  l.mapsUrl ??
-  `https://www.google.com/maps/search/?api=1&query=${mapQueryFor(l)}`;
-
-/** Coordinates drop an exact pin; a text search only approximates one. */
-export const mapEmbedFor = (l: SiteLocation) =>
-  `https://maps.google.com/maps?q=${mapQueryFor(l)}&z=${l.coords ? 17 : 15}&output=embed`;
-
-/**
- * schema.org GeoCoordinates for a branch, spread into its structured data.
- *
- * Worth publishing rather than leaving to the address alone: a postal
- * address in rural Odisha geocodes loosely, and "Main Chhagharia Road" is
- * not a unique string. Coordinates tell a search engine exactly how far a
- * searcher is from the door, and distance is most of what decides which
- * three businesses appear on the map above the results.
- *
- * Returns an empty object when there is no pin, so it spreads to nothing
- * rather than publishing a null.
- */
-export const geoFor = (l: SiteLocation) => {
-  if (!l.coords) return {};
-  const [latitude, longitude] = l.coords.split(",").map(Number);
-  return {
-    geo: { "@type": "GeoCoordinates", latitude, longitude },
-  };
-};
-
-export const labLocation =
-  site.locations.find((l) => l.id === "lab") ?? site.locations[0];
+export const geo = (() => {
+  const [latitude, longitude] = site.map.coords.split(",").map(Number);
+  return { "@type": "GeoCoordinates", latitude, longitude };
+})();

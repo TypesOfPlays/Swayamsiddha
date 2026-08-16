@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Plus_Jakarta_Sans, Instrument_Serif } from "next/font/google";
 import localFont from "next/font/local";
 import Script from "next/script";
-import { site, SITE_URL, geoFor, labLocation, GA_MEASUREMENT_ID } from "@/lib/site";
+import { site, SITE_URL, geo, GA_MEASUREMENT_ID } from "@/lib/site";
 import { BootScreen } from "@/components/boot-screen";
 import { ScrollProgress } from "@/components/scroll-progress";
 import { TimeOfDay } from "@/components/time-of-day";
@@ -158,7 +158,7 @@ const jsonLd = {
     addressCountry: site.address.country,
   },
   /* From the owner's own Maps listing, not geocoded from the address above */
-  ...geoFor(labLocation),
+  geo,
   areaServed: [
     { "@type": "AdministrativeArea", name: "Kendrapara district" },
     { "@type": "Place", name: "Ichhapur" },
@@ -169,27 +169,9 @@ const jsonLd = {
     { "@type": "MedicalTest", name: "Digital X-ray" },
     { "@type": "MedicalTest", name: "ECG" },
   ],
-  /* The collection centre is a branch of the same business, not a second
-     laboratory — samples drawn there are run at the address above. Declared
-     as a department so search engines associate the two rather than reading
-     them as competing listings. */
-  department: site.locations
-    .filter((l) => l.id !== "lab")
-    .map((l) => ({
- "@type": "MedicalClinic",
-      name: `${site.name} — ${l.name}`,
-      telephone: site.phone.e164,
-      address: {
- "@type": "PostalAddress",
-        streetAddress: `${l.line1}, ${l.line2}`,
-        addressLocality: l.city,
-        addressRegion: site.address.state,
-        postalCode: l.postalCode,
-        addressCountry: site.address.country,
-      },
-      ...geoFor(l),
-      ...openingHours,
-    })),
+  /* No `department`. This page describes one address, and the collection
+     centre is getting its own site — declaring it here would have search
+     engines attribute a second location to this one. */
   ...openingHours,
 };
 

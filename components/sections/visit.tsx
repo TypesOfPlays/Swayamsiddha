@@ -1,78 +1,52 @@
-"use client";
-
-import { useState } from "react";
+import { site, mapsLink, mapsEmbed } from "@/lib/site";
 import { Photo } from "@/components/photo";
-import {
-  site,
-  mapLinkFor,
-  mapEmbedFor,
-  type SiteLocation,
-} from "@/lib/site";
 import { Reveal } from "@/components/reveal";
 import { GhostLink } from "@/components/cta";
 import { OpenStatus } from "@/components/open-status";
 import { MapFrame } from "@/components/map-frame";
-import { IconPin, IconClock, IconPhone, IconCheck } from "@/components/icons";
+import { IconPin, IconClock, IconPhone } from "@/components/icons";
 
 /**
- * Two branches, one map.
+ * Where the laboratory is.
  *
- * Both addresses are rendered in the markup at all times — the picker only
- * moves the map — so a crawler and a screen reader both see the full set
- * rather than whichever tab happened to be open.
+ * One place, deliberately. This carried a two-branch picker while the
+ * collection centre lived on this site; that centre is getting a site of its
+ * own, so every trace of it is gone rather than left half-wired — no second
+ * card, no switcher, and nothing in the structured data that would have a
+ * search engine read this page as covering two addresses.
  *
- * The lab and the collection centre are deliberately not presented as
- * equals. Only the lab runs analysers; the centre draws samples and sends
- * them there, and the page says exactly that. It is also the stronger
- * argument: the nearer branch is trustworthy *because* the work happens on
- * the machines at the main one.
+ * Losing the picker also lost the only reason this was a client component.
+ * It renders on the server now; MapFrame is the single interactive piece.
  */
 export function Visit() {
-  const [activeId, setActiveId] = useState<string>(site.locations[0].id);
-  const active =
-    site.locations.find((l) => l.id === activeId) ?? site.locations[0];
-
   return (
     <section id="visit" className="py-16 sm:py-20 lg:py-24">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <Reveal className="max-w-2xl">
           <h2 className="text-[2rem] font-extrabold leading-[1.08] tracking-[-0.03em] text-ink sm:text-[2.75rem]">
-            Two places you can walk into.
+            Come and find us.
           </h2>
-          <p className="font-odia mt-4 text-[1.0625rem] font-semibold text-brand-deep">
-            ଦୁଇଟି ସ୍ଥାନ — ଯେଉଁଠି ସୁବିଧା, ସେଠାକୁ ଆସନ୍ତୁ।
-          </p>
+          {/* The Odia line that sat here read "two places — come to
+              whichever suits you", which is no longer true. It is removed
+              rather than replaced: inventing a new line in a language I
+              cannot check is worse than leaving the slot empty. The owner
+              can supply one and it goes straight back — see the note in
+              TODO.md, and remember the font is subset to the exact strings
+              in scripts/gen-odia-font.sh. */}
           <p className="mt-5 text-[1.0625rem] leading-relaxed text-ink-soft">
-            The laboratory on Main Chhagharia Road, and a collection centre
-            closer to town. Same number, same timings, same analysers behind
-            both.
+            The laboratory is on Main Chhagharia Road at Shamagudia, open every
+            day from six in the morning. Walk in without an appointment, or
+            call ahead and we will keep your slot ready.
           </p>
         </Reveal>
 
-        {/* ---- branch picker ---- */}
-        <ul className="mt-10 grid gap-4 sm:gap-5 lg:grid-cols-2">
-          {site.locations.map((l, i) => (
-            <Reveal as="li" key={l.id} delay={i * 90} variant="settle">
-              <BranchCard
-                location={l}
-                selected={l.id === activeId}
-                onSelect={() => setActiveId(l.id)}
-              />
-            </Reveal>
-          ))}
-        </ul>
-
-        {/* ---- map + details ---- */}
-        <div className="mt-5 grid gap-4 sm:gap-5 lg:grid-cols-[1.45fr_1fr]">
+        <div className="mt-10 grid gap-4 sm:gap-5 lg:grid-cols-[1.45fr_1fr]">
           <Reveal>
             <div className="h-full rounded-[2rem] bg-surface/60 p-2 shadow-card ring-1 ring-line/70">
               <div className="overflow-hidden rounded-[1.625rem] bg-canvas-sunk">
-                {/* keyed so switching branches remounts — which also brings
-                    the veil back while the new map loads */}
                 <MapFrame
-                  key={active.id}
-                  src={mapEmbedFor(active)}
-                  title={`Map showing ${active.name} in ${active.city}`}
+                  src={mapsEmbed}
+                  title={`Map showing ${site.name} on ${site.address.line1}`}
                 />
               </div>
             </div>
@@ -86,26 +60,25 @@ export function Visit() {
                     <IconPin className="h-5 w-5" />
                   </span>
                   <span>
-                    {/* announces the switch without stealing focus */}
-                    <p className="eyebrow text-brand" aria-live="polite">
-                      On the map
-                    </p>
+                    <p className="eyebrow text-brand">The laboratory</p>
                     <address className="mt-2 not-italic text-[0.9375rem] leading-relaxed text-ink-soft">
                       <strong className="block font-bold text-ink">
-                        {active.name}
+                        {site.name}
                       </strong>
-                      {active.line1}
+                      {site.address.line1}
                       <br />
-                      {active.line2}
+                      {site.address.line2}
                       <br />
-                      {active.city}, {site.address.state}{" "}
-                      <span className="tabular-nums">{active.postalCode}</span>
+                      {site.address.city}, {site.address.state}{" "}
+                      <span className="tabular-nums">
+                        {site.address.postalCode}
+                      </span>
                     </address>
                   </span>
                 </span>
                 <div className="mt-5">
-                  <GhostLink href={mapLinkFor(active)} external>
-                    Directions to {active.name.toLowerCase()}
+                  <GhostLink href={mapsLink} external>
+                    Directions on Google Maps
                   </GhostLink>
                 </div>
               </div>
@@ -122,7 +95,7 @@ export function Visit() {
                     {site.hours.weekday}
                   </p>
                   <p className="mt-1 text-[0.9375rem] text-ink-soft">
-                    Both branches, all seven days.
+                    Every day, including Sunday.
                   </p>
                   {/* The published hours above stay in the markup for
                       crawlers; this only tells the reader where the clock
@@ -142,7 +115,7 @@ export function Visit() {
                 </span>
                 <div>
                   <p className="text-[0.9375rem] font-bold text-white">
-                    One number for both
+                    Call before you set out
                   </p>
                   <p className="mt-2 text-[1.375rem] font-extrabold tabular-nums tracking-[-0.02em] text-white">
                     {site.phone.display}
@@ -153,100 +126,27 @@ export function Visit() {
           </div>
         </div>
 
-        {/* Storefront keeps its old job — "look for this" — and belongs to
-            the lab, so it only appears while the lab is selected. */}
-        {active.id === "lab" && (
-          <Reveal delay={80}>
-            <figure className="mt-5 overflow-hidden rounded-[1.75rem] bg-surface shadow-card ring-1 ring-line/70 lg:flex lg:items-center">
-              <Photo
-                src="/img/front.webp"
-                alt={`The green signboard of ${site.name} on Main Chhagharia Road`}
-                width={1200}
-                height={750}
-                sizes="(max-width: 1024px) 100vw, 45vw"
-                className="w-full object-cover lg:w-1/2"
-                style={{ aspectRatio: "16 / 10", objectPosition: "50% 22%" }}
-              />
-              <figcaption className="px-7 py-6 text-[0.9375rem] leading-relaxed text-ink-soft lg:px-9">
-                <strong className="block font-bold text-ink">
-                  Look for the green signboard.
-                </strong>
-                We&rsquo;re on the ground floor, set back from the road, on
-                Main Chhagharia Road at Shamagudia.
-              </figcaption>
-            </figure>
-          </Reveal>
-        )}
+        <Reveal delay={80} variant="settle">
+          <figure className="mt-5 overflow-hidden rounded-[1.75rem] bg-surface shadow-card ring-1 ring-line/70 lg:flex lg:items-center">
+            <Photo
+              src="/img/front.webp"
+              alt={`The green signboard of ${site.name} on Main Chhagharia Road`}
+              width={1200}
+              height={750}
+              sizes="(max-width: 1024px) 100vw, 45vw"
+              className="w-full object-cover lg:w-1/2"
+              style={{ aspectRatio: "16 / 10", objectPosition: "50% 22%" }}
+            />
+            <figcaption className="px-7 py-6 text-[0.9375rem] leading-relaxed text-ink-soft lg:px-9">
+              <strong className="block font-bold text-ink">
+                Look for the green signboard.
+              </strong>
+              We&rsquo;re on the ground floor, set back from the road, on Main
+              Chhagharia Road at Shamagudia.
+            </figcaption>
+          </figure>
+        </Reveal>
       </div>
     </section>
-  );
-}
-
-function BranchCard({
-  location,
-  selected,
-  onSelect,
-}: {
-  location: SiteLocation;
-  selected: boolean;
-  onSelect: () => void;
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onSelect}
-      aria-pressed={selected}
-      className={`branch group h-full w-full rounded-[1.75rem] p-7 text-left ring-1 transition-[transform,box-shadow,background-color] duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] ${
-        selected
-          ? "-translate-y-0.5 bg-surface shadow-lift ring-brand/40"
-          : "bg-surface/70 shadow-card ring-line/70 hover:-translate-y-0.5 hover:shadow-lift"
-      }`}
-    >
-      <span className="flex items-center justify-between gap-3">
-        <span
-          className={`eyebrow rounded-full px-3 py-1.5 transition-colors duration-500 ${
-            selected ? "bg-brand text-white" : "bg-canvas-sunk text-ink-muted"
-          }`}
-        >
-          {location.kind}
-        </span>
-        {selected && (
-          <span className="inline-flex items-center gap-2 text-[0.6875rem] font-semibold text-brand">
-            <span className="branch__live grid h-3.5 w-3.5 place-items-center rounded-full bg-brand text-white">
-              <IconCheck className="h-2.5 w-2.5" />
-            </span>
-            On the map
-          </span>
-        )}
-      </span>
-
-      {/* Serif, with a gradient rule that draws itself on hover or select */}
-      <span className="mt-6 block">
-        <span className="branch__name text-display text-[1.75rem] leading-none text-ink sm:text-[2rem]">
-          {location.name}
-        </span>
-      </span>
-      <span className="text-display mt-4 block text-[1.0625rem] italic text-brand">
-        {location.tagline}
-      </span>
-      <span className="mt-2 block text-[0.9375rem] text-ink-muted">
-        {location.line1}, {location.line2}
-      </span>
-
-      <span className="mt-4 block text-[0.9375rem] leading-relaxed text-ink-soft">
-        {location.blurb}
-      </span>
-
-      <span className="mt-5 flex flex-wrap gap-2">
-        {location.services.map((s) => (
-          <span
-            key={s}
-            className="rounded-full bg-canvas-sunk px-3 py-1.5 text-[0.8125rem] font-semibold text-ink-soft"
-          >
-            {s}
-          </span>
-        ))}
-      </span>
-    </button>
   );
 }

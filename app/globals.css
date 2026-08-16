@@ -1199,68 +1199,6 @@
     }
   }
 
-  /* ---- Branch picker --------------------------------------------------- */
-
-  /* A gradient rule that draws itself under the branch name */
-  .branch__name {
-    position: relative;
-    display: inline-block;
-  }
-
-  .branch__name::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: -0.4rem;
-    height: 2px;
-    border-radius: 2px;
-    background: linear-gradient(
-      90deg,
-      var(--color-brand),
-      var(--color-gold)
-    );
-    transform: scaleX(0);
-    transform-origin: 0 50%;
-    transition: transform 0.65s var(--ease-fluid);
-  }
-
-  .branch[aria-pressed="true"] .branch__name::after {
-    transform: scaleX(1);
-  }
-
-  @media (hover: hover) {
-    .branch:hover .branch__name::after {
-      transform: scaleX(1);
-    }
-  }
-
-  /* Slow halo on the live marker, so "on the map" reads as current */
-  .branch__live::before {
-    content: "";
-    position: absolute;
-    inset: -0.25rem;
-    border-radius: 999px;
-    background: color-mix(in srgb, var(--color-brand) 30%, transparent);
-    animation: branch-pulse 2.6s var(--ease-soft) infinite;
-  }
-
-  .branch__live {
-    position: relative;
-  }
-
-  @keyframes branch-pulse {
-    0% {
-      transform: scale(0.55);
-      opacity: 0.75;
-    }
-    70%,
-    100% {
-      transform: scale(1.7);
-      opacity: 0;
-    }
-  }
-
   /* ---- Map, and the veil in front of it --------------------------------
      Both sides are driven by `data-ready`, which components/map-frame.tsx
      sets from the iframe's own load event. A timer cannot do this job: the
@@ -1630,8 +1568,7 @@
       transition: none;
     }
 
-    .map-frame__mark,
-    .branch__live::before {
+    .map-frame__mark {
       animation: none;
     }
 
@@ -1649,10 +1586,6 @@
     .petal-rule__mark {
       opacity: 1;
       scale: 1;
-    }
-
-    .branch__name::after {
-      transition: none;
     }
 
     .trail__frame,

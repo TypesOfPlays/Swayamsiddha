@@ -6,35 +6,41 @@ remains is listed below, in rough order of what it is worth.
 Nothing on the page was invented — where a fact was missing, the page either
 omits the claim or routes the visitor to a phone call.
 
-## 0. Locations — settled
+## 0. Locations — one, deliberately
 
-Both branches are pinned exactly and both are on Google Business.
+This site is about **the laboratory only**. The collection centre in
+Kendrapara town has been removed entirely — card, map switcher, address,
+coordinates and the `department` entry in the structured data — because it
+is getting a site of its own. Leaving it half-present would have had search
+engines attribute two addresses to this page.
 
 | | Coordinates | Listing |
 |---|---|---|
 | Laboratory | `20.4788066, 86.4452888` | `/g/11nr14147m` |
-| Collection centre | `20.5024353, 86.4247906` | linked |
 
-They sit 3.39 km apart, which matches the story the page tells — the lab out
-at Shamagudia, the centre closer to town. Both pairs are published as
-`GeoCoordinates` in the structured data, so a search engine knows how far a
-searcher is from each door instead of having to geocode a rural postal
-address. Distance is most of what decides which businesses appear on the map
-above the results, and "Main Chhagharia Road" is not a unique string.
+Published as `GeoCoordinates`, so a search engine knows how far a searcher
+is from the door rather than geocoding a rural postal address. Distance is
+most of what decides which businesses appear on the map above the results,
+and "Main Chhagharia Road" is not a unique string.
 
-The collection centre's address text is confirmed by the owner as written.
+**Open: the Visit section has no Odia line.** The one that sat there read
+"two places — come to whichever suits you", which is no longer true. It was
+removed rather than replaced, because inventing a line in a language nobody
+here can check is worse than leaving the slot empty. Send a replacement and
+it goes straight back — and note the Odia font is subset to the exact
+strings in `scripts/gen-odia-font.sh`, so that script needs re-running with
+the new line included.
+
+For the collection centre's own site, kept here so it is not lost:
+coordinates `20.5024353, 86.4247906`, listing
+`https://maps.app.goo.gl/WTZCHa7rrEfwwabH7`, address "Near Old Medical,
+Kendrapara town, 754211", confirmed by the owner.
 
 One trap worth recording, because whoever updates a pin next will hit it: a
 resolved Google Maps URL contains **two** coordinate pairs. The `/@…` pair is
 wherever the camera happened to sit — it was 32 m off here — and the
 `!3d…!4d…` pair is the place itself. Use the second. A share link copied from
 Google *Search* rather than the Maps app carries neither.
-
-Still worth a pass while the listings are open:
-[GOOGLE-BUSINESS.md](GOOGLE-BUSINESS.md) has every field written to match this
-site, and flags three likely fixes on the collection centre's listing — its
-name, its category, and linking it to the lab so the two stop competing for
-the same searches. §6 is the wider ranking plan.
 
 ## 1. Blocking — none left
 
@@ -136,8 +142,10 @@ after them combined, and none of them are code.
 
 ### 1. Google Business Profile — exists for both branches
 
-The hard part is done. What remains is making the two listings correct and
-consistent with each other, which [GOOGLE-BUSINESS.md](GOOGLE-BUSINESS.md)
+Both listings still exist in the real world even though this website now
+covers only the laboratory, and they still must not collide with each other.
+The hard part is done. What remains is making the two correct and consistent,
+which [GOOGLE-BUSINESS.md](GOOGLE-BUSINESS.md)
 sets out field by field. The three that matter most:
 
 - **The lab's name must be exactly `Swayamsiddha Diagnostics`.** Not "Best
@@ -219,8 +227,8 @@ Nothing here works in a week. A new Business Profile takes 1–2 weeks to
 verify and a further 4–8 to settle in the map pack. Reviews accumulate at
 the speed of patients. And proximity is a factor nobody can buy: for a
 searcher standing in Kendrapara town the collection centre is the nearer
-pin, and for one near Ichhapur it is the lab. That is why both belong on the
-site and both belong on Google.
+pin, and for one near Ichhapur it is the lab. Both belong on Google even
+though they now have separate websites.
 
 Watch it in Search Console: Performance → Queries tells you what people
 actually typed. That is a better guide to the next page to write than any

@@ -4,8 +4,10 @@ Everything below is written to match `lib/site.ts` and the live site exactly.
 Where Google and the website disagree about a business, Google trusts neither.
 So copy these as they are; if you change one, change it on the site too.
 
-Both branches already have a listing. So this is a **checklist to audit them
-against**, not a setup guide — open each one at business.google.com and make
+Both branches already have a listing, and both still need to be right even
+though the collection centre is moving to a website of its own — a Google
+Business Profile is independent of whichever site it points at. So this is a
+**checklist to audit them against**, not a setup guide — open each one at business.google.com and make
 the fields match what is below. Anything that already matches, leave alone.
 
 ---
@@ -132,19 +134,21 @@ cardboard boxes around. They read as "not open yet".
 
 ## Listing 2 — the collection centre
 
-The pin at `20.5024353, 86.4247906` is live, which is where the site's map for
-that branch comes from. Three things to check on it:
+The pin at `20.5024353, 86.4247906` is live. This branch is **no longer on
+the laboratory's website** — it is getting its own — so the listing is now the
+only thing describing it until that site exists. Three things to check:
 
-1. **Name it** `Swayamsiddha Diagnostics — Collection Centre`. The site's
-   structured data declares it under exactly that name, as a department of the
-   lab.
+1. **Name it** `Swayamsiddha Diagnostics — Collection Centre`, so it reads as
+   the same business rather than a competitor with a similar name.
 2. **Primary category** `Blood testing service`, not `Diagnostic center`. It
-   does not run analysers, and claiming the same category as the lab makes two
-   listings compete with each other for the same searches.
-3. Once the lab's listing is verified, **link this one to it** as a second
-   location of the same business rather than an unrelated listing.
+   does not run analysers, and claiming the same category as the lab makes the
+   two listings compete for the same searches.
+3. **Link it to the lab** as a second location of the same business rather
+   than leaving it as an unrelated listing.
 
-Same phone, same hours, same website as the lab.
+Same phone and same hours as the lab. Point its **website** field at the
+collection centre's own site once that exists; until then, leave it at
+`https://swayamsiddhadiagnostics.in` rather than empty.
 
 Its description should be honest about what it is:
 
@@ -170,11 +174,6 @@ next patient and are visible to Google.
 
 **Never buy reviews and never post them yourself.** The failure case is not a
 low ranking, it is a suspended listing.
-
-**Send me the lab's Maps link** — open its listing, Share → Copy link. I set
-`coords` and `mapsUrl` on the `lab` entry in `lib/site.ts` and the site's map
-switches from a name-and-address guess to the exact pin. This is the one item
-still outstanding.
 
 **Then do the other directories**, with byte-identical name, address and
 phone: Bing Places, Justdial, Practo, Sulekha, Apple Business Connect,
