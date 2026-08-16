@@ -143,6 +143,14 @@ export const absUrl = (path: string) =>
 export const asset = (path: string) =>
   `${BASE_PATH}${path.startsWith("/") ? path : `/${path}`}`;
 
+/**
+ * Google Analytics 4 measurement ID.
+ *
+ * Set to an empty string to remove analytics entirely — the tag is only
+ * rendered when this has a value, so nothing else has to change.
+ */
+export const GA_MEASUREMENT_ID = "G-XML5RBJY6M";
+
 export const waLink = `https://wa.me/${site.whatsapp.e164}?text=${encodeURIComponent(
   site.whatsapp.message,
 )}`;

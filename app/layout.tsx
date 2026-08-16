@@ -1,7 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Plus_Jakarta_Sans, Instrument_Serif } from "next/font/google";
 import localFont from "next/font/local";
-import { site, SITE_URL, geoFor, labLocation } from "@/lib/site";
+import Script from "next/script";
+import { site, SITE_URL, geoFor, labLocation, GA_MEASUREMENT_ID } from "@/lib/site";
 import { BootScreen } from "@/components/boot-screen";
 import { ScrollProgress } from "@/components/scroll-progress";
 import { TimeOfDay } from "@/components/time-of-day";
@@ -230,6 +231,29 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+
+        {/* Google Analytics.
+            `afterInteractive` rather than the plain <script> tags Google
+            hands you: gtag.js is around 90 KB from a third-party origin, and
+            dropped into <head> as written it competes with the page's own
+            first paint. Loaded after hydration it reports exactly the same
+            pageviews and costs the visitor nothing up front — which matters
+            on a page whose audience is mostly mid-range Android over rural
+            data. */}
+        {GA_MEASUREMENT_ID && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+              strategy="afterInteractive"
+            />
+            <Script id="ga-init" strategy="afterInteractive">
+              {`window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', '${GA_MEASUREMENT_ID}');`}
+            </Script>
+          </>
+        )}
       </body>
     </html>
   );
