@@ -1,3 +1,4 @@
+import { site } from "@/lib/site";
 import { Reveal } from "@/components/reveal";
 import { CallButton, WhatsAppButton } from "@/components/cta";
 import { Magnetic } from "@/components/magnetic";
@@ -66,6 +67,23 @@ export function Corporate() {
                       className="w-full"
                     />
                   </Magnetic>
+
+                  {/* The one place on the page where email genuinely beats a
+                      phone call: an HR department sending a staff list, a
+                      purchase order, or asking for a written quote. Kept
+                      quiet and third, because for everyone else the phone is
+                      still the faster route. */}
+                  <p className="mt-1 text-[0.8125rem] leading-relaxed text-ink-muted">
+                    Prefer to put it in writing?{" "}
+                    <a
+                      href={`mailto:${site.email}?subject=${encodeURIComponent(
+                        "Group health checkup enquiry",
+                      )}`}
+                      className="font-semibold break-all text-brand underline underline-offset-4 decoration-brand/30 transition-colors hover:decoration-brand"
+                    >
+                      {site.email}
+                    </a>
+                  </p>
                 </div>
               </div>
 

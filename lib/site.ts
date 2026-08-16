@@ -19,6 +19,17 @@ export const site = {
     tel: "tel:+917847889009",
   },
 
+  /**
+   * Supplied by the owner for written enquiries.
+   *
+   * Deliberately not given equal billing with the phone number. Patients
+   * booking a blood test ring or send a WhatsApp; the address exists for the
+   * enquiries a call cannot carry — a company sending a staff list, a
+   * purchase order, a request for a written quote — which is exactly where
+   * having no address was costing something.
+   */
+  email: "swayamsiddha999@yahoo.com",
+
   whatsapp: {
     /* Confirmed by the owner: same handset as the primary number above. */
     e164: "917847889009",

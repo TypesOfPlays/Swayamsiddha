@@ -70,6 +70,14 @@ export function SiteFooter() {
               </li>
               <li>
                 <a
+                  href={`mailto:${site.email}`}
+                  className="inline-block py-3 text-[0.9375rem] font-medium break-all text-ink-soft transition-colors duration-300 hover:text-brand"
+                >
+                  {site.email}
+                </a>
+              </li>
+              <li>
+                <a
                   href={mapsLink}
                   target="_blank"
                   rel="noopener noreferrer"

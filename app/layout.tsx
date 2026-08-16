@@ -147,6 +147,7 @@ const jsonLd = {
   description: `Pathology laboratory, digital X-ray and ECG centre serving Ichhapur, Shamagudia and Kendrapara district.`,
   url: SITE_URL,
   telephone: site.phone.e164,
+  email: site.email,
   image: `${SITE_URL}/img/front.webp`,
   logo: `${SITE_URL}/img/logo-mark.png`,
   address: {
