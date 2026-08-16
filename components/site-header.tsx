@@ -97,14 +97,12 @@ export function SiteHeader() {
         </a>
 
         {/* Live status, in the gap the layout already leaves between the
-            brand and the island. Wrapped rather than given `hidden` directly,
-            because the component sets its own display and the two classes
-            would collide. Shown from lg only: below that the island is the
-            tighter constraint, and the Timings card carries the same status
-            for phones. */}
-        {/* Steps out once condensed: past the fold the reader is looking at
-            content, and the row keeps better rhythm without it than it does
-            shrinking around it. The Timings card still carries the status. */}
+            brand and the island. Wrapped rather than given `hidden` directly:
+            the component sets its own display and the two classes collide.
+            Shown from lg only — below that the island is the tighter
+            constraint — and it steps out entirely once condensed, since past
+            the fold the reader is looking at content. The Timings card
+            carries the same status on every screen. */}
         <div
           className={`pointer-events-auto hidden transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] lg:block ${
             condensed
@@ -138,7 +136,7 @@ export function SiteHeader() {
 
           <a
             href={site.phone.tel}
-            className="group ml-1 inline-flex items-center gap-2 rounded-full bg-brand py-2.5 pl-3 pr-5 text-[0.875rem] font-semibold text-white shadow-brand transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-brand-hover active:scale-[0.98]"
+            className="group ml-1 inline-flex items-center gap-2 rounded-full bg-brand py-2.5 pl-3 pr-5 text-[0.9375rem] font-semibold text-white shadow-brand transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-brand-hover active:scale-[0.98]"
           >
             <span className="grid h-7 w-7 place-items-center rounded-full bg-white/15 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-105">
               <IconPhone className="h-[15px] w-[15px]" />
@@ -206,7 +204,7 @@ export function SiteHeader() {
             open ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
           }`}
         >
-          <p className="text-sm text-ink-muted">{site.address.full}</p>
+          <p className="text-[0.9375rem] text-ink-muted">{site.address.full}</p>
           <a
             href={site.phone.tel}
             tabIndex={open ? 0 : -1}

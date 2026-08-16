@@ -25,8 +25,7 @@ export function Services() {
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <Reveal>
           <h2 className="max-w-2xl text-[2rem] font-extrabold leading-[1.08] tracking-[-0.03em] text-ink sm:text-[2.75rem]">
-            Lab, X-ray and ECG under{" "}
-            <em className="text-display italic">one roof</em>.
+            Lab, X-ray and ECG under one roof.
           </h2>
           <p className="mt-5 max-w-xl text-[1.0625rem] leading-relaxed text-ink-soft">
             One visit, one reception desk, one set of reports — instead of

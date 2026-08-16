@@ -257,7 +257,16 @@
      the Latin cap-height instead of towering over it. */
   .font-odia {
     font-family: var(--font-odia);
-    font-size: 0.92em;
+    /* Deliberately no font-size. There was a `0.92em` here, and because a
+       font-size in `em` resolves against the *parent* rather than the
+       element's own declared size, it overrode every size class on these
+       lines — each one rendered at 0.92 × 16px = 14.72px regardless of the
+       `text-lg` sitting on it. The Odia read smaller than the English it
+       was meant to sit beside, which is the opposite of the intent.
+
+       The extra leading stays: Oriya carries tall ascenders and marks below
+       the baseline, and needs more room between lines than Latin does at
+       the same size. */
     line-height: 1.75;
   }
 
@@ -905,7 +914,8 @@
     overflow: hidden;
     background: transparent;
     color: var(--color-ink-soft);
-    font-size: 0.875rem;
+    /* On the scale: 15px, not the 14px this was. */
+    font-size: 0.9375rem;
     font-weight: 600;
     white-space: nowrap;
     text-decoration: none;
@@ -1079,7 +1089,11 @@
   .ag__text {
     color: #fff;
     font-weight: 600;
-    font-size: clamp(0.9375rem, 1.1vw, 1.1875rem);
+    /* A step of the scale, not a fluid clamp. This was
+       clamp(0.9375rem, 1.1vw, 1.1875rem), and a clamp interpolates — so at
+       most viewport widths it landed on a size nothing else on the page
+       used, which is exactly the crowding this scale exists to remove. */
+    font-size: 0.9375rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

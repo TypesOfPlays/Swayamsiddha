@@ -45,8 +45,7 @@ export function Gallery() {
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <Reveal className="max-w-xl">
           <h2 className="text-[2rem] font-extrabold leading-[1.08] tracking-[-0.03em] text-ink sm:text-[2.75rem]">
-            Look inside before{" "}
-            <em className="text-display italic font-normal">you come</em>.
+            Look inside before you come.
           </h2>
           <p className="mt-5 text-[1.0625rem] leading-relaxed text-ink-soft">
             Our own rooms and our own machines — not stock photography. You can

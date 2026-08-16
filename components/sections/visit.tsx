@@ -37,10 +37,9 @@ export function Visit() {
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <Reveal className="max-w-2xl">
           <h2 className="text-[2rem] font-extrabold leading-[1.08] tracking-[-0.03em] text-ink sm:text-[2.75rem]">
-            Two places you can{" "}
-            <em className="text-display italic font-normal">walk into</em>.
+            Two places you can walk into.
           </h2>
-          <p className="font-odia mt-4 text-lg font-semibold text-brand-deep">
+          <p className="font-odia mt-4 text-[1.0625rem] font-semibold text-brand-deep">
             ଦୁଇଟି ସ୍ଥାନ — ଯେଉଁଠି ସୁବିଧା, ସେଠାକୁ ଆସନ୍ତୁ।
           </p>
           <p className="mt-5 text-[1.0625rem] leading-relaxed text-ink-soft">
@@ -122,7 +121,7 @@ export function Visit() {
                   <p className="mt-2 text-[1.0625rem] font-bold tabular-nums text-ink">
                     {site.hours.weekday}
                   </p>
-                  <p className="mt-1 text-[0.875rem] text-ink-soft">
+                  <p className="mt-1 text-[0.9375rem] text-ink-soft">
                     Both branches, all seven days.
                   </p>
                   {/* The published hours above stay in the markup for
@@ -230,7 +229,7 @@ function BranchCard({
       <span className="text-display mt-4 block text-[1.0625rem] italic text-brand">
         {location.tagline}
       </span>
-      <span className="mt-2 block text-[0.875rem] text-ink-muted">
+      <span className="mt-2 block text-[0.9375rem] text-ink-muted">
         {location.line1}, {location.line2}
       </span>
 
@@ -242,7 +241,7 @@ function BranchCard({
         {location.services.map((s) => (
           <span
             key={s}
-            className="rounded-full bg-canvas-sunk px-3 py-1.5 text-[0.75rem] font-semibold text-ink-soft"
+            className="rounded-full bg-canvas-sunk px-3 py-1.5 text-[0.8125rem] font-semibold text-ink-soft"
           >
             {s}
           </span>

@@ -21,8 +21,7 @@ export function HomeCollection() {
           </span>
           <p className="eyebrow mt-7 text-brand">Home sample collection</p>
           <h2 className="mt-5 text-[2rem] font-extrabold leading-[1.08] tracking-[-0.03em] text-ink sm:text-[2.5rem]">
-            If you can&rsquo;t come to us,{" "}
-            <em className="text-display italic">we may come to you</em>.
+            If you can&rsquo;t come to us, we may come to you.
           </h2>
           <p className="mt-6 text-[1.0625rem] leading-relaxed text-ink-soft">
             For elderly patients, people recovering at home, and anyone who

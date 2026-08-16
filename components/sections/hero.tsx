@@ -72,13 +72,13 @@ export function Hero() {
           </Reveal>
 
           <Reveal delay={140}>
-            <p className="font-odia mt-4 text-lg font-semibold text-brand-deep">
+            <p className="font-odia mt-4 text-[1.0625rem] font-semibold text-brand-deep">
               {site.nameOdia} — {site.taglineOdia}
             </p>
           </Reveal>
 
           <Reveal delay={200}>
-            <p className="mt-6 max-w-xl text-[1.0625rem] leading-relaxed text-ink-soft sm:text-lg">
+            <p className="mt-6 max-w-xl text-[1.0625rem] leading-relaxed text-ink-soft">
               A fully automated pathology laboratory with digital X-ray and ECG
               on Main Chhagharia Road. {site.testCount} tests on the menu, run
               on calibrated analysers for accurate, repeatable results — and
@@ -100,7 +100,7 @@ export function Hero() {
           </Reveal>
 
           <Reveal delay={320}>
-            <p className="mt-5 text-sm text-ink-muted">
+            <p className="mt-5 text-[0.9375rem] text-ink-muted">
               Walk in without an appointment, or call ahead and we&rsquo;ll keep
               your slot ready.
             </p>

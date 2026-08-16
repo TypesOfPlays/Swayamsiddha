@@ -46,10 +46,10 @@ const faqs = [
 
 export function Faq() {
   const faqJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
     mainEntity: faqs.map((f) => ({
-      "@type": "Question",
+ "@type": "Question",
       name: f.q,
       acceptedAnswer: { "@type": "Answer", text: f.a },
     })),
@@ -61,8 +61,7 @@ export function Faq() {
         <Reveal>
           <p className="eyebrow text-brand">Common questions</p>
           <h2 className="mt-5 text-[2rem] font-extrabold leading-[1.08] tracking-[-0.03em] text-ink sm:text-[2.5rem]">
-            Before you{" "}
-            <em className="text-display italic">make the trip</em>.
+            Before you make the trip.
           </h2>
           <p className="mt-5 text-[0.9375rem] leading-relaxed text-ink-soft">
             Still unsure about something? Call{" "}
@@ -86,7 +85,7 @@ export function Faq() {
                     value={f.q}
                     className="border-line/70 not-last:border-b"
                   >
-                    <AccordionTrigger className="py-5 text-[1rem] font-bold tracking-[-0.01em] text-ink">
+                    <AccordionTrigger className="py-5 text-[1.0625rem] font-bold tracking-[-0.01em] text-ink">
                       {f.q}
                     </AccordionTrigger>
                     <AccordionContent className="pb-5 pr-10 text-[0.9375rem] leading-relaxed text-ink-soft">

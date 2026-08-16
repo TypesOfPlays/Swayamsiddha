@@ -159,13 +159,9 @@ export function Story() {
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <Reveal className="max-w-2xl">
           <h2 className="text-[2rem] font-extrabold leading-[1.08] tracking-[-0.03em] text-ink sm:text-[2.75rem]">
-            What actually happens{" "}
-            <em className="text-display italic font-normal">
-              when you come in
-            </em>
-            .
+            What actually happens when you come in.
           </h2>
-          <p className="font-odia mt-4 text-lg font-semibold text-brand-deep">
+          <p className="font-odia mt-4 text-[1.0625rem] font-semibold text-brand-deep">
             ଆସନ୍ତୁ, ଦେଖନ୍ତୁ — ଆରମ୍ଭରୁ ଶେଷ ପର୍ଯ୍ୟନ୍ତ।
           </p>
           <p className="mt-5 text-[1.0625rem] leading-relaxed text-ink-soft">
@@ -344,7 +340,7 @@ export function Story() {
             />
 
             <div className="relative">
-              <p className="font-odia text-lg font-semibold text-gold-bright">
+              <p className="font-odia text-[1.0625rem] font-semibold text-gold-bright">
                 ଆପଣଙ୍କ ସ୍ୱାସ୍ଥ୍ୟ, ଆମର ଦାୟିତ୍ୱ।
               </p>
               <h3 className="mx-auto mt-4 max-w-xl text-[1.625rem] font-extrabold leading-[1.12] tracking-[-0.025em] text-white sm:text-[2rem]">

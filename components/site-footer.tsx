@@ -21,7 +21,7 @@ export function SiteFooter() {
             <p className="font-odia mt-5 text-[0.9375rem] text-ink-soft">
               {site.nameOdia} — {site.taglineOdia}
             </p>
-            <address className="mt-4 not-italic text-[0.875rem] leading-relaxed text-ink-muted">
+            <address className="mt-4 not-italic text-[0.9375rem] leading-relaxed text-ink-muted">
               {site.address.line1}, {site.address.line2}
               <br />
               {site.address.city}, {site.address.state}{" "}
@@ -53,7 +53,7 @@ export function SiteFooter() {
               <li>
                 <a
                   href={site.phone.tel}
-                  className="inline-block py-3 text-[1.125rem] font-bold tabular-nums text-ink transition-colors duration-300 hover:text-brand"
+                  className="inline-block py-3 text-[1.0625rem] font-bold tabular-nums text-ink transition-colors duration-300 hover:text-brand"
                 >
                   {site.phone.display}
                 </a>
@@ -86,7 +86,7 @@ export function SiteFooter() {
           <p className="text-[0.8125rem] text-ink-muted">
             © {new Date().getFullYear()} {site.name}. All rights reserved.
           </p>
-          <p className="max-w-lg text-[0.75rem] leading-relaxed text-ink-muted">
+          <p className="max-w-lg text-[0.8125rem] leading-relaxed text-ink-muted">
             Diagnostic tests are carried out on a doctor&rsquo;s advice. Reports
             support a diagnosis — they do not replace consulting your physician.
           </p>

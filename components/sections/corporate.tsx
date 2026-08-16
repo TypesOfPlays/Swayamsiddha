@@ -43,11 +43,7 @@ export function Corporate() {
                     <IconBuilding className="h-6 w-6" />
                   </span>
                   <h2 className="mt-6 text-[1.875rem] font-extrabold leading-[1.1] tracking-[-0.03em] text-ink sm:text-[2.375rem]">
-                    Checkups for companies{" "}
-                    <em className="text-display italic font-normal">
-                      and groups
-                    </em>
-                    .
+                    Checkups for companies and groups.
                   </h2>
                   <p className="mt-5 text-[1.0625rem] leading-relaxed text-ink-soft">
                     We take corporate and group bookings — pre-policy medicals

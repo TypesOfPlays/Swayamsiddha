@@ -40,7 +40,7 @@ export function FinalCta() {
                   We&rsquo;ll take it from there.
                 </em>
               </h2>
-              <p className="font-odia mx-auto mt-4 max-w-xl text-white/55">
+              <p className="font-odia mx-auto mt-4 max-w-xl text-[1.0625rem] text-white/55">
                 {site.nameOdia}
               </p>
 

@@ -65,7 +65,7 @@ export function TestDirectory() {
                   <button
                     type="button"
                     onClick={() => setQuery("")}
-                    className="shrink-0 rounded-full px-2.5 py-1 text-[0.75rem] font-semibold text-ink-muted transition-colors duration-300 hover:bg-canvas-sunk hover:text-ink"
+                    className="shrink-0 rounded-full px-2.5 py-1 text-[0.8125rem] font-semibold text-ink-muted transition-colors duration-300 hover:bg-canvas-sunk hover:text-ink"
                   >
                     Clear
                   </button>
@@ -110,7 +110,7 @@ export function TestDirectory() {
                   {g.items.map((t) => (
                     <li
                       key={t}
-                      className="border-t border-line/70 py-2.5 text-[0.875rem] leading-snug text-ink-soft first:border-t-0 first:pt-0"
+                      className="border-t border-line/70 py-2.5 text-[0.9375rem] leading-snug text-ink-soft first:border-t-0 first:pt-0"
                     >
                       {t}
                     </li>
@@ -123,7 +123,7 @@ export function TestDirectory() {
           /* Empty state — never a dead end, always a route to a human */
           <div className="mt-12 rounded-[2rem] bg-surface/60 p-1.5 shadow-card ring-1 ring-line/70">
             <div className="rounded-[1.625rem] bg-surface px-6 py-14 text-center">
-              <p className="text-[1.125rem] font-bold text-ink">
+              <p className="text-[1.0625rem] font-bold text-ink">
                 No test matches &ldquo;{query.trim()}&rdquo;
               </p>
               <p className="mx-auto mt-3 max-w-md text-[0.9375rem] leading-relaxed text-ink-soft">
@@ -135,7 +135,7 @@ export function TestDirectory() {
                 <button
                   type="button"
                   onClick={() => setQuery("")}
-                  className="rounded-full bg-canvas-sunk px-5 py-3 text-[0.875rem] font-semibold text-ink transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-brand-soft active:scale-[0.98]"
+                  className="rounded-full bg-canvas-sunk px-5 py-3 text-[0.9375rem] font-semibold text-ink transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-brand-soft active:scale-[0.98]"
                 >
                   Show all {totalTestCount} tests
                 </button>
@@ -143,7 +143,7 @@ export function TestDirectory() {
                   href={waLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full bg-brand px-5 py-3 text-[0.875rem] font-semibold text-white shadow-brand transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-brand-hover active:scale-[0.98]"
+                  className="inline-flex items-center gap-2 rounded-full bg-brand px-5 py-3 text-[0.9375rem] font-semibold text-white shadow-brand transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-brand-hover active:scale-[0.98]"
                 >
                   <IconWhatsApp className="h-4 w-4" />
                   Send us the prescription

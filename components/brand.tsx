@@ -46,7 +46,7 @@ export function BrandLockup({
           Swayamsiddha
         </span>
         <span
-          className={`brand__sub mt-1 text-[0.625rem] font-semibold uppercase tracking-[0.16em] ${
+          className={`brand__sub mt-1 text-[0.6875rem] font-semibold uppercase tracking-[0.16em] ${
             isLight ? "text-white/55" : "text-ink-muted"
           }`}
         >

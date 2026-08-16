@@ -63,17 +63,17 @@ export const metadata: Metadata = {
   },
   description: `Fully automated pathology lab, digital X-ray and ECG at ${site.address.line2}, Kendrapara. ${site.testCount} tests, most reports the same day. Call ${site.phone.display}.`,
   keywords: [
-    "diagnostic centre Kendrapara",
-    "pathology lab Kendrapara",
-    "blood test Ichhapur",
-    "digital X-ray Kendrapara",
-    "ECG Kendrapara",
-    "Swayamsiddha Diagnostics",
-    "lab test Shamagudia",
-    "corporate health checkup Kendrapara",
-    "group health checkup Odisha",
-    "pre-policy medical test Kendrapara",
-    "ସ୍ୱୟଂସିଦ୍ଧା ଡାଇଗ୍ନୋଷ୍ଟିକ୍ସ",
+ "diagnostic centre Kendrapara",
+ "pathology lab Kendrapara",
+ "blood test Ichhapur",
+ "digital X-ray Kendrapara",
+ "ECG Kendrapara",
+ "Swayamsiddha Diagnostics",
+ "lab test Shamagudia",
+ "corporate health checkup Kendrapara",
+ "group health checkup Odisha",
+ "pre-policy medical test Kendrapara",
+ "ସ୍ୱୟଂସିଦ୍ଧା ଡାଇଗ୍ନୋଷ୍ଟିକ୍ସ",
   ],
   /* Absolute, not "/" — metadataBase resolution treats a root-relative path
      as root-relative to the origin, which would drop the /<repo> base path
@@ -123,15 +123,15 @@ const openingHours = site.hours.standIn
   : {
       openingHoursSpecification: [
         {
-          "@type": "OpeningHoursSpecification",
+ "@type": "OpeningHoursSpecification",
           dayOfWeek: [
-            "Monday",
-            "Tuesday",
-            "Wednesday",
-            "Thursday",
-            "Friday",
-            "Saturday",
-            "Sunday",
+ "Monday",
+ "Tuesday",
+ "Wednesday",
+ "Thursday",
+ "Friday",
+ "Saturday",
+ "Sunday",
           ],
           opens: site.hours.opens,
           closes: site.hours.closes,
@@ -140,8 +140,8 @@ const openingHours = site.hours.standIn
     };
 
 const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "DiagnosticLab",
+ "@context": "https://schema.org",
+ "@type": "DiagnosticLab",
   name: site.name,
   alternateName: site.nameOdia,
   description: `Pathology laboratory, digital X-ray and ECG centre serving Ichhapur, Shamagudia and Kendrapara district.`,
@@ -150,7 +150,7 @@ const jsonLd = {
   image: `${SITE_URL}/img/front.webp`,
   logo: `${SITE_URL}/img/logo-mark.png`,
   address: {
-    "@type": "PostalAddress",
+ "@type": "PostalAddress",
     streetAddress: `${site.address.line1}, ${site.address.line2}`,
     addressLocality: site.address.city,
     addressRegion: site.address.state,
@@ -176,11 +176,11 @@ const jsonLd = {
   department: site.locations
     .filter((l) => l.id !== "lab")
     .map((l) => ({
-      "@type": "MedicalClinic",
+ "@type": "MedicalClinic",
       name: `${site.name} — ${l.name}`,
       telephone: site.phone.e164,
       address: {
-        "@type": "PostalAddress",
+ "@type": "PostalAddress",
         streetAddress: `${l.line1}, ${l.line2}`,
         addressLocality: l.city,
         addressRegion: site.address.state,
@@ -222,7 +222,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             bespoke rule that can go missing in a stylesheet refactor. */}
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[110] focus:rounded-full focus:bg-brand focus:px-5 focus:py-2.5 focus:text-sm focus:font-semibold focus:text-white focus:shadow-brand"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[110] focus:rounded-full focus:bg-brand focus:px-5 focus:py-2.5 focus:text-[0.9375rem] focus:font-semibold focus:text-white focus:shadow-brand"
         >
           Skip to content
         </a>
