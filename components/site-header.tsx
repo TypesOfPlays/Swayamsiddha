@@ -15,8 +15,40 @@ const links = [
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const [condensed, setCondensed] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
+
+  /**
+   * Past the fold the header tightens: less padding, a smaller brand, and
+   * the live status pill steps out so the row keeps its rhythm rather than
+   * just shrinking around it.
+   *
+   * Deliberately one threshold with a wide gap between the on and off
+   * points. A single boundary makes the header flicker for anyone whose
+   * scroll rests near it, and this page has a sticky call bar at the bottom
+   * of the screen that would flicker with it.
+   */
+  useEffect(() => {
+    let frame = 0;
+
+    const measure = () => {
+      frame = 0;
+      const y = window.scrollY;
+      setCondensed((was) => (was ? y > 180 : y > 320));
+    };
+
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(measure);
+    };
+
+    measure();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      if (frame) cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, []);
 
   /* Lock the page behind the overlay, and close on Escape. */
   useEffect(() => {
@@ -46,11 +78,19 @@ export function SiteHeader() {
 
   return (
     <header className="pointer-events-none fixed inset-x-0 top-0 z-50">
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 pt-4 sm:px-6 sm:pt-6">
+      <div
+        data-condensed={condensed || undefined}
+        className={`mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 transition-[padding] duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] sm:px-6 ${
+          condensed ? "pt-2 sm:pt-2.5" : "pt-4 sm:pt-6"
+        }`}
+      >
         {/* Brand pill — detached from the top edge, never glued to it */}
         <a
           href="#top"
-          className="group pointer-events-auto rounded-full bg-canvas/85 py-2 pl-2 pr-4 shadow-card ring-1 ring-line/70 backdrop-blur-xl transition-shadow duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:shadow-lift"
+          className={`site-brand group pointer-events-auto rounded-full bg-canvas/85 shadow-card ring-1 ring-line/70 backdrop-blur-xl transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:shadow-lift ${
+            condensed ? "py-1.5 pl-1.5 pr-3" : "py-2 pl-2 pr-4"
+          }`}
+          data-condensed={condensed || undefined}
           aria-label={`${site.name} — home`}
         >
           <BrandLockup />
@@ -62,7 +102,17 @@ export function SiteHeader() {
             would collide. Shown from lg only: below that the island is the
             tighter constraint, and the Timings card carries the same status
             for phones. */}
-        <div className="pointer-events-auto hidden lg:block">
+        {/* Steps out once condensed: past the fold the reader is looking at
+            content, and the row keeps better rhythm without it than it does
+            shrinking around it. The Timings card still carries the status. */}
+        <div
+          className={`pointer-events-auto hidden transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] lg:block ${
+            condensed
+              ? "pointer-events-none -translate-y-1 scale-95 opacity-0"
+              : "translate-y-0 scale-100 opacity-100"
+          }`}
+          aria-hidden={condensed || undefined}
+        >
           <OpenStatus className="open-status--tight rounded-full bg-canvas/85 px-4 py-2.5 text-[0.8125rem] shadow-card ring-1 ring-line/70 backdrop-blur-xl" />
         </div>
 

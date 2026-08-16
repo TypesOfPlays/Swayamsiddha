@@ -1,10 +1,7 @@
 import type { Metadata, Viewport } from "next";
-import {
-  Plus_Jakarta_Sans,
-  Instrument_Serif,
-  Noto_Sans_Oriya,
-} from "next/font/google";
-import { site, SITE_URL, absUrl, geoFor, labLocation } from "@/lib/site";
+import { Plus_Jakarta_Sans, Instrument_Serif } from "next/font/google";
+import localFont from "next/font/local";
+import { site, SITE_URL, geoFor, labLocation } from "@/lib/site";
 import { BootScreen } from "@/components/boot-screen";
 import { ScrollProgress } from "@/components/scroll-progress";
 import { TimeOfDay } from "@/components/time-of-day";
@@ -24,11 +21,35 @@ const instrument = Instrument_Serif({
   display: "swap",
 });
 
-const notoOriya = Noto_Sans_Oriya({
+/**
+ * Odia, self-hosted and subset to the glyphs this site actually uses.
+ *
+ * Noto Sans Oriya's standard Oriya subset is ~96 KB per weight — 192 KB
+ * across the two used here, which made it comfortably the heaviest thing on
+ * the page, heavier than every photograph combined. The site shows ten short
+ * lines of Odia.
+ *
+ * next/font's `text` option is the documented way to narrow that, and it
+ * does nothing here: this version's loader accepts it and emits the full
+ * subset regardless (measured — the byte count did not move). So the two
+ * files in ./fonts are the same subset fetched from the Google Fonts API by
+ * hand and committed. 55 KB for both, down from 192 KB.
+ *
+ * They were requested with the real sentences rather than a list of unique
+ * letters, deliberately. Oriya forms conjuncts, and the subsetter needs to
+ * see the actual sequences to keep the ligature glyphs that render them.
+ *
+ * ►► ADDING ODIA COPY ANYWHERE ON THE SITE MEANS REGENERATING THESE. ◄◄
+ * A glyph outside the original request does not exist in these files and
+ * renders as a blank box. See scripts/gen-odia-font.sh.
+ */
+const notoOriya = localFont({
   variable: "--font-odia",
-  subsets: ["oriya"],
-  weight: ["400", "600"],
   display: "swap",
+  src: [
+    { path: "./fonts/noto-oriya-400.woff2", weight: "400", style: "normal" },
+    { path: "./fonts/noto-oriya-600.woff2", weight: "600", style: "normal" },
+  ],
 });
 
 export const metadata: Metadata = {
@@ -64,14 +85,10 @@ export const metadata: Metadata = {
     siteName: site.name,
     title: `${site.name} — Lab & X-Ray, Kendrapara`,
     description: `${site.testCount} pathology tests, digital X-ray and ECG under one roof. Most reports the same day.`,
-    images: [
-      {
-        url: absUrl("/img/og.jpg"),
-        width: 1200,
-        height: 630,
-        alt: `${site.name} — lab and digital X-ray in Ichhapur, Kendrapara`,
-      },
-    ],
+    /* No `images` key here on purpose, for either card.
+       app/opengraph-image.tsx generates the preview and Next emits the tags
+       pointing at it. An image declared here would take precedence and the
+       designed card would never be seen. */
   },
   /* The link preview most of this audience will actually see is WhatsApp's,
      which reads the Open Graph tags above. Twitter's is here for completeness. */
@@ -79,7 +96,6 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `${site.name} — Lab & X-Ray, Kendrapara`,
     description: `${site.testCount} pathology tests, digital X-ray and ECG under one roof. Most reports the same day.`,
-    images: [absUrl("/img/og.jpg")],
   },
   /* Icons come from app/icon.png and app/apple-icon.png — file-based icons
      take precedence, so declaring them here too would only duplicate tags. */

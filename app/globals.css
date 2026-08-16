@@ -152,6 +152,37 @@
     caret-color: var(--color-brand);
   }
 
+  /* ---- How lines break --------------------------------------------------
+     `balance` evens the lines of a heading rather than filling each one and
+     dumping the remainder — it is what stops a single word dangling alone
+     on the last line, which is the thing that makes a headline look typeset
+     by accident. Capped by the spec at a handful of lines, which is why it
+     is scoped to headings and not turned loose on body copy.
+
+     `pretty` is the body-copy equivalent: it only prevents the final line
+     from being a single word, and costs nothing on paragraphs.
+
+     Hanging punctuation pushes an opening quote into the margin so the
+     text edge reads as genuinely straight. Safari-only today and ignored
+     in silence everywhere else, which is the right kind of progressive
+     detail: nobody is worse off without it. ---- */
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p,
+  li,
+  figcaption,
+  blockquote {
+    text-wrap: pretty;
+  }
+
+  html {
+    hanging-punctuation: first last;
+  }
+
   /* We render our own Clear control — suppress the native duplicate */
   input[type="search"]::-webkit-search-cancel-button,
   input[type="search"]::-webkit-search-decoration {
@@ -524,6 +555,75 @@
   /* Nothing to report while the veil is still up */
   :root.ss-booting .scroll-progress {
     opacity: 0;
+  }
+
+  /* ---- Header, condensed past the fold ----------------------------------
+     The lockup tightens rather than disappearing: the disc shrinks and the
+     second line of the wordmark folds away, so the brand is still legible
+     at a glance but stops competing with the content behind it.
+
+     The second line collapses by max-height and opacity rather than
+     `display: none`, so it animates instead of snapping, and it keeps
+     `aria-hidden` from the markup either way — the link's accessible name
+     comes from the visually-hidden text, never from these two lines. ---- */
+  .site-brand .brand__disc,
+  .site-brand .brand__mark,
+  .site-brand .brand__sub {
+    transition:
+      height 0.5s var(--ease-fluid),
+      width 0.5s var(--ease-fluid),
+      max-height 0.5s var(--ease-fluid),
+      margin 0.5s var(--ease-fluid),
+      opacity 0.35s var(--ease-soft);
+  }
+
+  .site-brand[data-condensed] .brand__disc {
+    height: 1.75rem;
+    width: 1.75rem;
+  }
+
+  .site-brand[data-condensed] .brand__mark {
+    height: 1.125rem;
+    width: 1.125rem;
+  }
+
+  .site-brand .brand__sub {
+    max-height: 1rem;
+    overflow: hidden;
+  }
+
+  .site-brand[data-condensed] .brand__sub {
+    max-height: 0;
+    margin-top: 0;
+    opacity: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .site-brand .brand__disc,
+    .site-brand .brand__mark,
+    .site-brand .brand__sub {
+      transition: none;
+    }
+  }
+
+  /* ---- FAQ accordion ----------------------------------------------------
+     grid-template-rows 0fr to 1fr is what lets a panel of unknown height
+     animate without anyone measuring it in JavaScript. It is the whole
+     reason the component library behind this could be dropped. ---- */
+  .acc-panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.5s var(--ease-fluid);
+  }
+
+  .acc-panel[data-open] {
+    grid-template-rows: 1fr;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .acc-panel {
+      transition: none;
+    }
   }
 
   /* ---- Dust in the light ------------------------------------------------
