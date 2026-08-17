@@ -1,6 +1,5 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@import "shadcn/tailwind.css";
 
 /* ==========================================================================
    Swayamsiddha Diagnostics — design tokens
@@ -8,8 +7,12 @@
    signboard (amber "LAB & X-RAY" badge). Warm cream canvas rather than
    clinical white-blue: this is a family-facing local institution.
 
-   shadcn's semantic tokens are mapped onto this palette further down, so
-   Radix primitives inherit the brand instead of shipping default gray.
+   The shadcn semantic names below are kept and still mapped onto this
+   palette, so anything added later with `npx shadcn@latest add …` inherits
+   the brand rather than arriving in default gray. The `shadcn/tailwind.css`
+   import that used to sit above is gone: it only carried variants and
+   keyframes for the Radix accordion this page no longer uses, and shipped
+   2.4 KB of `.shimmer` and scroll-fade rules nothing referenced.
    ========================================================================== */
 
 @theme {
