@@ -31,10 +31,20 @@ it goes straight back — and note the Odia font is subset to the exact
 strings in `scripts/gen-odia-font.sh`, so that script needs re-running with
 the new line included.
 
-For the collection centre's own site, kept here so it is not lost:
-coordinates `20.5024353, 86.4247906`, listing
+**The collection centre now appears as a pointer**, not as a second address:
+a quiet card at the end of the Visit section with its name, location and a
+Directions link. It is deliberately kept out of the structured data — this
+page still declares one address, because declaring two would have search
+engines attribute both to this business.
+
+Its details live in `site.collectionCentre` in `lib/site.ts`: coordinates
+`20.5024353, 86.4247906`, listing
 `https://maps.app.goo.gl/WTZCHa7rrEfwwabH7`, address "Near Old Medical,
-Kendrapara town, 754211", confirmed by the owner.
+Kendrapara town, 754211", all confirmed by the owner.
+
+**Open: `website` on that entry is an empty string.** The "Visit its website"
+link renders only when it has a value, so the section is correct today and
+finished the moment the collection centre's own site exists. One line.
 
 One trap worth recording, because whoever updates a pin next will hit it: a
 resolved Google Maps URL contains **two** coordinate pairs. The `/@…` pair is

@@ -146,6 +146,55 @@ export function Visit() {
             </figcaption>
           </figure>
         </Reveal>
+
+        {/* A pointer, not a second address.
+            The collection centre is a separate business site, so it gets a
+            name, a location and a way to get there — and nothing in this
+            page's structured data. Declaring it there would have search
+            engines attribute both addresses to this business again, which
+            is the tangle removing it was meant to undo.
+
+            `rel="noopener"` without `noreferrer` on the website link: this
+            is our own other site, and passing the referrer is how its
+            analytics will know the traffic came from here. */}
+        <Reveal delay={140} variant="settle">
+          <aside className="mt-5 rounded-[1.75rem] bg-canvas-sunk p-7 ring-1 ring-line/70 sm:flex sm:items-center sm:justify-between sm:gap-8">
+            <div>
+              <p className="eyebrow text-ink-muted">Also nearby</p>
+              <p className="mt-3 text-[1.0625rem] font-bold text-ink">
+                {site.collectionCentre.name}, {site.collectionCentre.line2}
+              </p>
+              <p className="mt-2 max-w-md text-[0.9375rem] leading-relaxed text-ink-soft">
+                Closer to town for a sample only. Everything drawn there is
+                brought here and run on the same analysers, by the same
+                people.
+              </p>
+              <address className="mt-3 not-italic text-[0.9375rem] text-ink-muted">
+                {site.collectionCentre.line1}, {site.collectionCentre.line2},{" "}
+                {site.collectionCentre.city}{" "}
+                <span className="tabular-nums">
+                  {site.collectionCentre.postalCode}
+                </span>
+              </address>
+            </div>
+
+            <div className="mt-5 flex shrink-0 flex-col gap-3 sm:mt-0">
+              <GhostLink href={site.collectionCentre.mapsUrl} external>
+                Directions
+              </GhostLink>
+              {site.collectionCentre.website && (
+                <a
+                  href={site.collectionCentre.website}
+                  target="_blank"
+                  rel="noopener"
+                  className="inline-flex items-center gap-2 text-[0.9375rem] font-semibold text-brand underline underline-offset-4 decoration-brand/30 transition-colors hover:decoration-brand"
+                >
+                  Visit its website
+                </a>
+              )}
+            </div>
+          </aside>
+        </Reveal>
       </div>
     </section>
   );

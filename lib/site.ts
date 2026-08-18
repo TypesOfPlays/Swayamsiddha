@@ -67,6 +67,29 @@ export const site = {
     url: "https://maps.app.goo.gl/pCQozP99fm2FW1ot6",
   },
 
+  /**
+   * The collection centre, which is a separate site.
+   *
+   * Present here only as a pointer: a name, where it is, and a way to get
+   * directions. It is deliberately kept out of the structured data — this
+   * page describes one address, and declaring a second would have search
+   * engines attribute both to this business, which is exactly the tangle
+   * removing it in the first place was meant to undo.
+   *
+   * `website` stays empty until its own site is live; the link renders only
+   * when there is something to link to.
+   */
+  collectionCentre: {
+    name: "Collection Centre",
+    line1: "Near Old Medical",
+    line2: "Kendrapara town",
+    city: "Kendrapara",
+    postalCode: "754211",
+    coords: "20.5024353,86.4247906",
+    mapsUrl: "https://maps.app.goo.gl/WTZCHa7rrEfwwabH7",
+    website: "",
+  },
+
   /* Confirmed by the owner: open every day, 6 AM to 9 PM. */
   hours: {
     standIn: false,
