@@ -162,7 +162,7 @@ export function Visit() {
             <div>
               <p className="eyebrow text-ink-muted">Also nearby</p>
               <p className="mt-3 text-[1.0625rem] font-bold text-ink">
-                {site.collectionCentre.name}, {site.collectionCentre.line2}
+                {site.collectionCentre.name}
               </p>
               <p className="mt-2 max-w-md text-[0.9375rem] leading-relaxed text-ink-soft">
                 Closer to town for a sample only. Everything drawn there is
@@ -170,11 +170,7 @@ export function Visit() {
                 people.
               </p>
               <address className="mt-3 not-italic text-[0.9375rem] text-ink-muted">
-                {site.collectionCentre.line1}, {site.collectionCentre.line2},{" "}
-                {site.collectionCentre.city}{" "}
-                <span className="tabular-nums">
-                  {site.collectionCentre.postalCode}
-                </span>
+                {site.collectionCentre.line1}, {site.collectionCentre.line2}
               </address>
             </div>
 
@@ -187,7 +183,8 @@ export function Visit() {
                   href={site.collectionCentre.website}
                   target="_blank"
                   rel="noopener"
-                  className="inline-flex items-center gap-2 text-[0.9375rem] font-semibold text-brand underline underline-offset-4 decoration-brand/30 transition-colors hover:decoration-brand"
+                  /* py-3 so the tap target clears 44px; the text alone was 22 */
+                  className="inline-flex min-h-11 items-center gap-2 py-3 text-[0.9375rem] font-semibold text-brand underline underline-offset-4 decoration-brand/30 transition-colors hover:decoration-brand"
                 >
                   Visit its website
                 </a>

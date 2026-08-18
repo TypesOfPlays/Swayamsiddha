@@ -81,13 +81,19 @@ export const site = {
    */
   collectionCentre: {
     name: "Collection Centre",
-    line1: "Near Old Medical",
-    line2: "Kendrapara town",
-    city: "Kendrapara",
-    postalCode: "754211",
+    /* Taken verbatim from the centre's own site and its structured data,
+       which is the authority for its address now that it has one. It reads
+       "Old Hospital Road", not the "Near Old Medical / Kendrapara town"
+       wording used here before — almost certainly the same landmark, but
+       two descriptions of one place across two sites of one business is
+       precisely the inconsistency that weakens both in local search.
+       No postcode: that site publishes none, and the 754211 previously
+       carried here was never verified against anything. */
+    line1: "Old Hospital Road",
+    line2: "Kendrapara",
     coords: "20.5024353,86.4247906",
     mapsUrl: "https://maps.app.goo.gl/WTZCHa7rrEfwwabH7",
-    website: "",
+    website: "https://swayamsiddhadiagnostics.info",
   },
 
   /* Confirmed by the owner: open every day, 6 AM to 9 PM. */

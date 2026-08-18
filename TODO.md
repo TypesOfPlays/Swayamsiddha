@@ -42,9 +42,24 @@ Its details live in `site.collectionCentre` in `lib/site.ts`: coordinates
 `https://maps.app.goo.gl/WTZCHa7rrEfwwabH7`, address "Near Old Medical,
 Kendrapara town, 754211", all confirmed by the owner.
 
-**Open: `website` on that entry is an empty string.** The "Visit its website"
-link renders only when it has a value, so the section is correct today and
-finished the moment the collection centre's own site exists. One line.
+The centre's site is live at `https://swayamsiddhadiagnostics.info` and the
+card links to it.
+
+**Two inconsistencies between the two sites, both worth deciding on.** Google
+treats a business as one entity across every place it appears, and disagreeing
+details weaken all of them:
+
+1. **The address.** This card now says "Old Hospital Road, Kendrapara",
+   copied verbatim from the .info site's own structured data. It previously
+   read "Near Old Medical, Kendrapara town, 754211" — almost certainly the
+   same landmark described differently, but the Google listing at
+   `maps.app.goo.gl/WTZCHa7rrEfwwabH7` should be checked against it and one
+   wording used everywhere. The 754211 postcode is dropped: the .info site
+   publishes none and it was never verified.
+2. **The spelling of the laboratory's locality.** This site says
+   **Ichhapur** — the owner's original wording, and what is in the postal
+   address and structured data here. The .info site says **Icchapur**, 34
+   times. One of them should change.
 
 One trap worth recording, because whoever updates a pin next will hit it: a
 resolved Google Maps URL contains **two** coordinate pairs. The `/@…` pair is
